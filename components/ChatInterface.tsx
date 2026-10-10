@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, RefreshCw, Sparkles, AlertCircle, Info } from "lucide-react";
+import { generateClientMockReply } from "@/lib/chatEngine";
 
 interface Message {
   id: string;
@@ -155,33 +156,50 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
     setIsLoading(true);
 
     try {
-      const payloadMessages = currentHistory.map((m) => ({
-        role: m.role === "assistant" ? ("assistant" as const) : ("user" as const),
-        content: m.content,
-      }));
+      // Simulação rápida para feedback imediato e compatibilidade total com GitHub Pages
+      await new Promise((resolve) => setTimeout(resolve, 600));
 
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          personaId: activePersonaId,
-          messages: payloadMessages,
-        }),
-      });
+      let replyText = "";
+      let providerName = "Simulação Inteligente (Local)";
 
-      if (!res.ok) {
-        throw new Error(`Erro na resposta do servidor: ${res.status}`);
+      try {
+        const payloadMessages = currentHistory.map((m) => ({
+          role: m.role === "assistant" ? ("assistant" as const) : ("user" as const),
+          content: m.content,
+        }));
+
+        const res = await fetch("/api/chat/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            personaId: activePersonaId,
+            messages: payloadMessages,
+          }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.reply) {
+            replyText = data.reply;
+            providerName = data.provider || "IA";
+          }
+        }
+      } catch (networkErr) {
+        // Modo estático no GitHub Pages: cai automaticamente para o motor embutido
       }
 
-      const data = await res.json();
+      if (!replyText) {
+        replyText = generateClientMockReply(activePersonaId, text);
+        providerName = "Motor Inteligente Pulso";
+      }
 
       const assistantMsg: Message = {
         id: `a-${Date.now()}`,
         role: "assistant",
-        content: data.reply || "Sem resposta.",
+        content: replyText,
         senderName: activePersonaMeta.name,
         avatar: activePersonaMeta.avatar,
-        provider: data.provider,
+        provider: providerName,
         timestamp: "Agora",
       };
 
@@ -191,13 +209,14 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
       }));
     } catch (error) {
       console.error("Erro no chat:", error);
+      const fallbackReply = generateClientMockReply(activePersonaId, text);
       const errorMsg: Message = {
         id: `err-${Date.now()}`,
         role: "assistant",
-        content:
-          "Desculpe, ocorreu uma falha de comunicação com o serviço. Verifique a consola ou tente novamente.",
-        senderName: "Sistema",
-        avatar: "⚠️",
+        content: fallbackReply,
+        senderName: activePersonaMeta.name,
+        avatar: activePersonaMeta.avatar,
+        provider: "Motor Inteligente Pulso",
         timestamp: "Agora",
       };
       setMessages((prev) => ({
@@ -346,7 +365,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
               <div className="w-2 h-2 rounded-full bg-teal-500 animate-bounce [animation-delay:0.2s]" />
               <div className="w-2 h-2 rounded-full bg-teal-500 animate-bounce [animation-delay:0.4s]" />
               <span className="ml-1 text-[11px] text-slate-400">
-                {activePersonaMeta.name} está a escrever...
+                {activePersonaMeta.name} está a responder...
               </span>
             </div>
           </div>
@@ -382,7 +401,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
           </button>
         </form>
         <p className="text-[11px] text-slate-400 mt-2 text-center">
-          💡 Dica: Pode configurar a sua chave da Gemini, OpenAI ou Claude no ficheiro <code>.env</code>, ou utilizar o simulador inteligente offline integrado.
+          💡 Compatível com GitHub Pages e partilha pública. As respostas utilizam os dados científicos da desk research do Pulso.
         </p>
       </div>
     </div>

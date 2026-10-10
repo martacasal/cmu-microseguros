@@ -1,2 +1,0 @@
-Esta pasta guarda dados brutos de participantes APENAS no computador local ou na drive do grupo.
-Está no .gitignore e nunca vai para o GitHub. Apagar no fim do projeto (plano da Fase 1, secção 3.5).

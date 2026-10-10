@@ -12,8 +12,8 @@
 | Touchpoints | Comunidade online | Google Maps, Street View, meteorologia | Carro adaptado, estacionamento | Ciclovia, passeios | Pessoas que passam, 112 | Urgência (acessibilidade variável), médico de família, loja especializada, empregador | Comunidade, amigos |
 | Proteção atual | Nenhuma em mente | Planeamento de acessibilidade | Telefone, amigo de prevenção | Experiência | Desconhecidos | SNS; poupança pessoal para a reparação | Evitar sair sozinha |
 | Momento de compra | Descoberta | **Consideração / compra** (com antecedência, com calma) | Ativação | Uso | **Sinistro** | Sinistro e avaliação | Recompra |
-| Pain points | | P1 | P2 | | P3 | P4, P5 | P6 |
-| Oportunidades | | O1 | O2 | | O3 | O4, O5 | O6 |
+| Pain points | | P1, P2 | | | P3 | P4, P5 | P6 |
+| Oportunidades | | O1, O2 | | | O3 | O4, O5 | O6 |
 
 ## Curva emocional
 ```

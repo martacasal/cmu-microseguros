@@ -7,7 +7,7 @@
 | Última revisão | 10/10/2026 · Nelson Delicado (com Claude) |
 | Nível de atividade (catálogo) | 4 Muito intensa (surf); 2 Moderada (corrida ocasional) |
 | Hipóteses que testa | H1 (perceção de risco suficiente para pagar), H2 (decisão espontânea no telemóvel), H5 (explicação por IA aumenta confiança) |
-| Evidência | E0: 42 · E1: 10 · E2: 0 · E3: 0 · E4: 0 etiquetas (0% com dados de participantes) |
+| Evidência | E0: 45 · E1: 11 · E2: 0 · E3: 0 · E4: 0 (0% das etiquetas com dados de participantes) |
 
 > "Seguro anual para ir à água três vezes por mês? Se me magoar vou às urgências como toda a gente." [H]
 
@@ -18,7 +18,7 @@
 
 ## 2. Contexto de uso
 - Surfa há cerca de 6 anos, nível intermédio. Vai 2 a 4 vezes por mês, mais no outono e na primavera, quase nada em agosto (muita gente). [H]
-- Spots: Ericeira (Reserva Mundial de Surf desde 2011) quando o mar está bom, Costa da Caparica quando tem pouco tempo. [F09] [H]
+- Picos de surf: Ericeira (Reserva Mundial de Surf desde 2011) quando o mar está bom, Costa da Caparica quando tem pouco tempo. [F09] [H]
 - Vai de carro com 1 ou 2 amigos, às vezes sozinho. [H]
 - A Ericeira está cada vez mais cheia, com escolas e turistas na água. [F10]
 - Corre 1 a 2 vezes por semana na zona ribeirinha, sem plano. [H]
@@ -51,9 +51,9 @@
 ## 6. Risco e proteção
 | | Julga que... | Na realidade... | Fonte |
 |---|---|---|---|
-| Probabilidade de se magoar | Baixa, "sei o meu limite" | Acidentes em meio aquático concentram-se em praias, ao domingo e à tarde, exatamente quando surfa | [H] [F15] |
+| Probabilidade de se magoar | Baixa, "sei o meu limite" | Os acidentes em meio aquático atendidos no SNS concentram-se em praias, ao domingo e à tarde (inclui banhistas), um horário em que também surfa | [H] [F15] |
 | Quem paga se se magoar | O SNS, "é para isso que serve" | O SNS trata, mas não paga dias de trabalho perdidos, fisioterapia rápida ou prancha partida; as famílias pagam 29% da despesa em saúde do próprio bolso | [H] [F27] [F28] |
-| Coberturas que tem | "Acho que o seguro da empresa cobre" | Não sabe se o seguro de grupo exclui desportos de ondas; nunca leu as condições | [H] [F18] |
+| Coberturas que tem | "Acho que o seguro da empresa cobre" | Não sabe se o seguro de grupo exclui desportos de ondas; nunca leu as condições [H]. Na população, 44,1% não compararam alternativas no último produto financeiro [F18] | [H] [F18] |
 
 ## 7. Frustrações e medos
 - Ficar parado semanas e perder rendimento por causa dos turnos (não tem margem para baixas longas). [H]
@@ -68,17 +68,20 @@
 - Viagem de surf (Peniche, Marrocos). [H]
 
 ## 9. Tecnologia, IA e confiança
-- Confia numa recomendação quando vê o raciocínio e quando pode mudar a escolha; desconfia de "promoções" e de urgência artificial. [H]
-- Aceita a IA para tarefas rápidas, mas quer ver o preço final antes de dar dados. [H]
-- Desconfia se a proposta usar o estado do mar para subir o preço sem explicar. [H]
+- Da última vez que trocou de tarifário do telemóvel, desistiu a meio porque a app pedia dados antes de mostrar o preço final. [H]
+- Ignora sistematicamente "promoções" com contagem decrescente; diz que "é sempre esquema". [H]
+- Usa ferramentas de IA para escrever mensagens e pesquisar, mas confirma no Google quando o assunto envolve dinheiro. [H]
+- Irritou-se quando uma app de boleias lhe subiu o preço por "procura elevada" sem explicar. [H]
 
 ## 10. Necessidades funcionais e acessibilidade
-- Sem necessidades específicas declaradas. Usa o telemóvel ao sol, no parque de estacionamento, às vezes com as mãos molhadas ou com o fato vestido: precisa de contraste alto e alvos de toque grandes. [H]
+- Sem necessidades específicas declaradas. Usa o telemóvel ao sol, no parque de estacionamento, às vezes com as mãos molhadas ou com o fato vestido. [H]
 
 ## 11. Implicações para o design do Pulso
 - **Observação:** decide horas antes, no carro ou no parque. **Impacto:** se a ativação demorar mais do que o tempo de vestir o fato, desiste. **Sugestão:** ativação em menos de 60 s, com a proposta pré-preenchida a partir do último uso. [H]
 - **Observação:** acha que já está coberto pelo seguro da empresa. **Impacto:** não sente necessidade. **Sugestão:** a proposta explica, sem alarmismo, o que um seguro de saúde típico não cobre (dias parados, equipamento). [H]
-- **Observação:** desconfia de preço dinâmico ligado ao mar. **Impacto:** risco de perda de confiança (H5). **Sugestão:** mostrar os fatores de preço em linguagem simples e a opção base sempre visível. [H]
+- **Observação:** já reagiu mal a preço dinâmico sem explicação. **Impacto:** risco de perda de confiança (H5). **Sugestão:** mostrar os fatores de preço em linguagem simples e a opção base sempre visível. [H]
+
+- **Observação:** usa o telemóvel ao sol, com mãos molhadas ou com o fato vestido. **Impacto:** erros de toque e texto ilegível no momento da ativação. **Sugestão:** contraste alto, alvos de toque grandes (WCAG 2.2, tamanho de alvo) e nenhum gesto de precisão. [H]
 
 ## 12. Perguntas em aberto para a Fase 1
 1. Os surfistas recreativos sentem risco suficiente para pagar (H1), ou o SNS é aceite como "suficiente"?
@@ -88,7 +91,7 @@
 
 ## 13. Verificação anti-estereótipo
 - [x] Não é retratado como "radical" nem procura de adrenalina.
-- [x] Profissão e rendimento não-clichê para surfistas (não é nómada digital nem instrutor).
+- [x] Profissão e rendimento não cliché para surfistas (não é nómada digital nem instrutor).
 - [x] Comportamento atual, não desejado.
 - [ ] Por validar: o padrão de ir sozinho pode ser raro (pode ser projeção do grupo).
 

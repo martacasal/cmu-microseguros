@@ -12,7 +12,7 @@
 | Touchpoints | WhatsApp | WhatsApp, meteorologia | Casa, telefone | Trilho, amigas | Amigas, 112 ou SNS 24, urgência | Urgência, médico de família, fisioterapia, filha, escola (baixa) | Amigas, WhatsApp |
 | Proteção atual | Nenhuma em mente | O grupo | Bastões, calçado | O grupo | Amigas | Subsistema de saúde, SNS, família | Evitar a atividade |
 | Momento de compra | Descoberta (partilhada no grupo) | **Consideração / compra** (com 1 a 2 dias de antecedência) | Compra / ativação | Uso | **Sinistro** | Sinistro e avaliação | Recompra |
-| Pain points | | P2 | P1 | | P3 | P4, P5 | P6 |
+| Pain points | | P1, P2 | | | P3 | P4, P5 | P6 |
 | Oportunidades | O2 | O1, O2 | O1 | | O3 | O4, O5 | O6 |
 
 ## Curva emocional

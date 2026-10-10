@@ -13,7 +13,7 @@
 | Proteção atual | Nenhuma em mente | Nenhuma | Experiência própria | Experiência, leash | Outros surfistas | SNS; seguro de grupo (desconhece se cobre) | Nenhuma nova |
 | Momento de compra | Descoberta | Consideração | **Compra / ativação** (janela de 1 a 2 min no parque) | Uso | **Sinistro** | Sinistro e avaliação | Recompra |
 | Pain points | | P2 | P1 | | P3 | P4, P5 | P6 |
-| Oportunidades | O6 | O2 | O1 | | O3 | O4, O5 | O6 |
+| Oportunidades | O6 | O2 | O1, O7 | | O3 | O4, O5, O8 | O6 |
 
 ## Curva emocional
 ```

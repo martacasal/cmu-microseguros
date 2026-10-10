@@ -1,4 +1,4 @@
-# Joana, 36 · Quer pagar pelo risco da atividade, não pela cadeira
+# Joana, 36 · Planeia cada saída ao pormenor para poder ir sozinha
 
 | Metadado | Valor |
 |---|---|
@@ -7,7 +7,7 @@
 | Última revisão | 10/10/2026 · Nelson Delicado (com Claude) |
 | Nível de atividade (catálogo) | 2 Moderada (handbike em ciclovia, canoagem adaptada em água calma) |
 | Hipóteses que testa | H4 (um produto serve todo o espectro), H5 (a explicação por IA aumenta a confiança), salvaguarda de zero discriminação no preço |
-| Evidência | E0: 45 · E1: 10 · E2: 0 · E3: 0 · E4: 0 etiquetas (0% com dados de participantes) |
+| Evidência | E0: 45 · E1: 9 · E2: 0 · E3: 0 · E4: 0 (0% das etiquetas com dados de participantes) |
 
 > "Da última vez que pedi um seguro, perguntaram-me mais pela minha cadeira do que pelo que eu ia fazer." [H]
 
@@ -17,14 +17,14 @@
 - 36 anos, vive no Porto (Paranhos), sozinha, com um gato. [H]
 - Contabilista certificada numa empresa de serviços, em regime híbrido. [H]
 - Usa cadeira de rodas manual no dia a dia; faz transferências de forma autónoma; tem carro adaptado. A força e a integridade dos braços e ombros são a base da sua mobilidade. [H]
-- Cerca de 10,9% da população tem pelo menos uma incapacidade. [F23]
 
 ## 2. Contexto de uso
 - Handbike ao fim de semana na ciclovia entre a Foz e Matosinhos, 2 a 4 vezes por mês, sozinha ou com um amigo. [H]
 - Canoagem adaptada em água calma, num clube em Vila Nova de Gaia, em sessões de grupo com monitor, 2 vezes por mês de abril a outubro. [H]
-- Não é federada; pratica de forma recreativa. Se se federasse em paracanoagem, ficaria excluída do Pulso nessa modalidade (decisão D2). [H]
+- Não é federada; pratica de forma recreativa. [H]
 - O desporto adaptado federado está a crescer (6.731 federados com deficiência em 2025), mas tem poucos clubes e treinadores. [F07] [F24]
 - Usa smartphone e portátil todos os dias; ditado por voz para mensagens longas. [H]
+- Contexto: cerca de 10,9% da população tem pelo menos uma incapacidade. [F23]
 
 ## 3. Objetivos
 - **Life goal:** viver de forma independente e escolher as suas atividades como qualquer pessoa. [H]
@@ -54,8 +54,8 @@
 |---|---|---|---|
 | Probabilidade de se magoar | Baixa na canoagem com monitor; maior na handbike (trânsito, rampas, lancis) | Lesões nos membros dominam os acidentes de lazer; para quem depende dos braços, a mesma lesão tem um impacto muito maior | [H] [F13] |
 | Quem paga se se magoar | O SNS | O SNS trata, mas não cobre apoio em casa enquanto não consegue fazer transferências, nem o equipamento | [H] [F27] |
-| Coberturas que tem | Talvez o clube tenha algum seguro | Sem filiação federada, não há seguro desportivo obrigatório; depende do que o clube contratou | [H] [F19] [F25] |
-| Pode ser recusada ou pagar mais? | Acha que sim, por experiência | A lei proíbe a recusa ou penalização em contratos de seguro com base na deficiência (alínea a confirmar) | [H] [F26] |
+| Coberturas que tem | Talvez o clube tenha algum seguro | Não sendo federada, só há seguro obrigatório se o clube for operador de uma instalação desportiva aberta ao público; por confirmar no clube. O seguro federado da FPDD (F25) não se aplica a ela | [H] [F19] |
+| Pode ser recusada ou pagar mais? | Acha que sim, por experiência | A Lei 46/2006 considera discriminatória a recusa ou penalização em contratos de seguro com base na deficiência (alínea por confirmar) | [H] [F26] |
 
 ## 7. Frustrações e medos
 - Ser recusada ou pagar mais por ser utilizadora de cadeira de rodas. [H]
@@ -71,9 +71,9 @@
 - Mau tempo ou vento forte na canoagem. [H]
 
 ## 9. Tecnologia, IA e confiança
-- Desconfia de "algoritmos" de preço, porque já foi penalizada por formulários automáticos. [H]
-- Confia se a proposta mostrar os fatores de preço e se esses fatores forem a atividade, a duração e o local, nunca a sua condição. [H]
-- Quer poder falar com uma pessoa quando algo não encaixa nos campos do formulário. [H]
+- Num simulador online de seguro de saúde, abandonou o processo quando o formulário automático lhe agravou o preço depois de responder ao questionário médico. [H]
+- Numa reserva de alojamento, só avançou depois de falar ao telefone com uma pessoa que confirmou a acessibilidade, porque o formulário não tinha campo para isso. [H]
+- Diz às amigas que "os algoritmos tratam-me como um risco, não como uma pessoa". [H]
 
 ## 10. Necessidades funcionais e acessibilidade
 - Mobilidade: cadeira de rodas manual; precisa de que o processo de sinistro não exija deslocações presenciais desnecessárias. [H]
@@ -91,11 +91,13 @@
 2. Os clubes de desporto adaptado têm seguro para praticantes não federados?
 3. Que coberturas seriam iguais para todos e ainda assim relevantes (H4)?
 4. A explicação dos fatores de preço aumenta a confiança ou levanta mais suspeitas (H5)?
+5. Se a Joana se federar em paracanoagem, fica excluída do Pulso nessa modalidade (D2). Quantos praticantes de desporto adaptado estão nesta fronteira?
 
 ## 13. Verificação anti-estereótipo
 - [x] Deficiência descrita por necessidades funcionais e tecnologias de apoio, sem diagnóstico (M01).
 - [x] Sem narrativa de superação ou "inspiração".
 - [x] Profissão, vida social e objetivos independentes da deficiência.
+- [ ] Desporto adaptado só aparece no nível 2 nesta persona. Os níveis 1, 3 e 4 (ex.: surf adaptado, BTT adaptado) ficam cobertos pelo catálogo (doc 01), não por personas; avaliar na Fase 1 se é preciso outra.
 - [ ] **Obrigatório antes de uso alargado:** revisão por pessoas com deficiência motora.
 
 ## 14. Fontes

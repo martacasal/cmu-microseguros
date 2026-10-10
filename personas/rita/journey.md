@@ -6,7 +6,7 @@
 
 | | 1 Gatilho | 2 Planear | 3 Preparar | 4 Praticar | 5 Incidente | 6 Recuperar e pagar | 7 Voltar |
 |---|---|---|---|---|---|---|---|
-| Ações | Vê um trilho novo no Trailforks; propõe aos filhos | Estuda o percurso, o desnível e os acessos; marca alojamento | Revê bicicletas e capacetes; kit de primeiros socorros | Faz o trilho; para nas descidas para orientar os filhos | O filho cai; ela torce o pulso a ajudar; liga ao 112 da zona sem rede | Urgência em Braga; raio-X; reembolsos a pedir ao seguro da empresa; documentos para o seguro escolar (recusado: não é atividade escolar) | Volta aos trilhos conhecidos; pondera "um seguro a sério" e adia |
+| Ações | Vê um trilho novo no Trailforks; propõe aos filhos | Estuda o percurso, o desnível e os acessos; marca alojamento | Revê bicicletas e capacetes; kit de primeiros socorros | Faz o trilho; para nas descidas para orientar os filhos | O filho cai; ela torce o pulso a ajudar; tenta ligar ao 112 com pouca rede | Urgência em Braga; raio-X; reembolsos a pedir ao seguro da empresa; documentos para o seguro escolar (recusado: não é atividade escolar) | Volta aos trilhos conhecidos; pondera "um seguro a sério" e adia |
 | Pensamentos | "Vai ser um dia diferente" | "Tenho tudo pensado" | "Se alguma coisa correr mal, temos o seguro" | "Eles estão a adorar" | "Fui eu que os trouxe aqui" | "Qual destes seguros paga o quê?" | "Tenho de tratar disto... um dia" |
 | Emoção (-2 a +2) | +1 | +1 | +1 | +2 | -2 | -2 | -1 |
 | Touchpoints | Trailforks, Strava | Google Maps, Booking, meteorologia | Loja de bicicletas, casa | Trilho | 112, SNS 24, outros ciclistas | Urgência, app do seguro de saúde, escola, email, chamadas | Strava, colegas |

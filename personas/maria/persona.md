@@ -7,7 +7,7 @@
 | Última revisão | 10/10/2026 · Nelson Delicado (com Claude) |
 | Nível de atividade (catálogo) | 1 Leve (caminhada de grupo, trilhos da serra) |
 | Hipóteses que testa | H3 (pessoas mais velhas confiam numa app para contratar seguros), H1, H4 (um produto serve todo o espectro) |
-| Evidência | E0: 44 · E1: 9 · E2: 0 · E3: 0 · E4: 0 etiquetas (0% com dados de participantes) |
+| Evidência | E0: 44 · E1: 9 · E2: 0 · E3: 0 · E4: 0 (0% das etiquetas com dados de participantes) |
 
 > "Não tenho medo da caminhada. Tenho medo de cair e depois ficar a depender dos outros." [H]
 
@@ -69,18 +69,18 @@
 - Uma caminhada mais longa, longe de casa (Gerês, Açores). [H]
 
 ## 9. Tecnologia, IA e confiança
-- Confia em marcas e pessoas que conhece (o banco, a farmácia, o mediador); confia menos em apps novas. [H]
-- Contrataria no telemóvel se alguém de confiança lhe mostrasse primeiro (a filha) e se houvesse um número de telefone visível. [H]
-- Só 9,7% das pessoas compraram um seguro totalmente online. [F18]
-- Não sabe bem o que é "a IA"; aceita sugestões se puder confirmar com calma e voltar atrás. [H]
+- Os seguros que tem foram todos contratados ao balcão do banco, com a mesma funcionária há anos. [H]
+- Instalou o MB WAY depois de a filha lho configurar; usa-o com amigas e família, mas cancelou uma compra online quando o site pediu o cartão a uma loja que não conhecia. [H]
+- Na população, só 9,7% compraram um seguro totalmente online. [F18]
+- Já usou o assistente do telemóvel para ditar mensagens; quando uma app lhe sugeriu algo que não pediu, fechou-a. [H]
 
 ## 10. Necessidades funcionais e acessibilidade
-- Presbiopia: usa letra grande no telemóvel; texto pequeno ou de baixo contraste não é lido. [H]
-- Prefere ler com calma; tempos limite e contadores aumentam a desconfiança. [H]
-- Dor no joelho em descidas: pode precisar de declarar uma limitação sem medo de ser penalizada. [H]
+- Lê com dificuldade texto pequeno ou de baixo contraste; usa letra aumentada no telemóvel. [H]
+- Lê com calma; tempos limite e contadores aumentam a desconfiança. [H]
+- Sente o joelho nas descidas; não deve ter de declarar limitações físicas para ser coberta, tal como a Joana. [H]
 
 ## 11. Implicações para o design do Pulso
-- **Observação:** confia em pessoas, não em apps. **Impacto:** não ativa sozinha na primeira vez (H3). **Sugestão:** contacto humano visível em todos os ecrãs e possibilidade de alguém do grupo ativar ou partilhar a cobertura. [H]
+- **Observação:** confia em pessoas, não em apps. **Impacto:** não ativa sozinha na primeira vez (H3). **Sugestão:** contacto humano visível em todos os ecrãs; alguém do grupo pode partilhar a proposta, mas cada pessoa confirma a sua própria cobertura. [H]
 - **Observação:** decide no WhatsApp do grupo. **Impacto:** o canal de descoberta é social, não uma loja de apps. **Sugestão:** testar um link partilhável "proteção para a caminhada de sábado". [H]
 - **Observação:** usa letra aumentada e lê devagar. **Impacto:** o objetivo "menos de 60 s" pode chocar com "claro antes de rápido". **Sugestão:** medir compreensão antes de velocidade neste segmento; suportar zoom de 200% sem perder conteúdo (WCAG 2.2 AA). [H]
 - **Observação:** teme ser tratada como frágil. **Impacto:** linguagem de "sénior" ou imagens de pessoas idosas afastam. **Sugestão:** a caminhada aparece ao lado do surf, com o mesmo peso visual. [H]
@@ -96,6 +96,7 @@
 - [x] Não é retratada como frágil; tem objetivos de autonomia.
 - [x] A caminhada é tratada como atividade com risco real (quedas), não como "menor".
 - [ ] Por validar: a desconfiança de pagamentos móveis pode ser projeção do grupo (não há dados por idade).
+- [ ] Risco de estereótipo de idade: o papel da filha como "mediadora digital" e a distância em relação à IA podem ser clichés. Confirmar no diary study com pessoas de 55 a 60 anos.
 
 ## 14. Fontes
 F05, F13, F18, F19, F20, F22, F27, F28. Ver `fontes/desk_research.md`.

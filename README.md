@@ -55,7 +55,7 @@ Quando chega evidência nova, troca-se a etiqueta e, se for o caso, o conteúdo.
 
 ## Como usar o chat
 
-1. Correr `python3 scripts/gerar_chat_prompts.py` (atualiza os `chat_prompt.md` a partir das fichas).
+1. Correr `python3 scripts/gerar_chat_prompts.py --evidencia` (atualiza a contagem de evidência das fichas e os `chat_prompt.md`).
 2. Abrir uma conversa nova no Claude (ou noutro LLM) e colar o conteúdo de `personas/<nome>/chat_prompt.md` como primeira mensagem ou como instruções do Project.
 3. Conversar. Escrever `/fonte` para a persona sair de personagem e dizer em que evidência se baseou a última resposta. `/voltar` regressa ao personagem.
 

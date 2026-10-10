@@ -13,7 +13,7 @@ O sistema foi desenhado para crescer em duas direções: **profundidade** (as 4 
    - **Contradiz:** reescrever o atributo, trocar a etiqueta, registar no `CHANGELOG.md` o que mudou e porquê.
    - **É novo:** acrescentar na secção certa com a etiqueta.
 4. Atualizar a linha "Evidência" nos metadados da ficha.
-5. Correr `python3 scripts/gerar_chat_prompts.py`.
+5. Correr `python3 scripts/gerar_chat_prompts.py --evidencia`.
 6. Branch + pull request com um revisor do grupo.
 
 ### Mapeamento método → secções da ficha

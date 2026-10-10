@@ -7,7 +7,7 @@
 | Última revisão | 10/10/2026 · Nelson Delicado (com Claude) |
 | Nível de atividade (catálogo) | 3 Intensa (BTT, trail) |
 | Hipóteses que testa | H1, H4, SQ2 (proteção que julga ter vs. real) |
-| Evidência | E0: 40 · E1: 7 · E2: 0 · E3: 0 · E4: 0 etiquetas (0% com dados de participantes) |
+| Evidência | E0: 41 · E1: 8 · E2: 0 · E3: 0 · E4: 0 (0% das etiquetas com dados de participantes) |
 
 > "Trato dos seguros de 300 pessoas no trabalho e não sei dizer se o meu filho está coberto se cair da bicicleta." [H]
 
@@ -39,7 +39,7 @@
 |---|---|---|
 | Gasto com a atividade | 100 a 200 € por mês para a família (inscrições em provas, manutenção das bicicletas, combustível, equipamento dos filhos que cresce) | [H] |
 | Equipamento | Lojas especializadas em Braga para bicicletas; Decathlon e online para roupa e capacetes | [H] |
-| Como decide compras | Pesquisa, compara 2 a 3 opções, lê reviews, decide com o companheiro nas compras grandes | [H] |
+| Como decide compras | Pesquisa, compara 2 a 3 opções, lê opiniões de outros compradores, decide com o companheiro nas compras grandes | [H] |
 | Antecedência da decisão | Dias a semanas (passeios), meses (provas) | [H] |
 | Meios de pagamento | Cartão de crédito com seguros associados, MB WAY | [F22] [H] |
 | Canais de informação | Strava, grupos de BTT no Facebook, colegas de trabalho, lojas | [H] |
@@ -51,7 +51,7 @@
 |---|---|---|---|
 | Probabilidade de se magoar | Moderada para ela; baixa para os filhos "porque vão devagar" | Lesões nos membros são 59,8% das lesões em acidentes de lazer | [H] [F13] |
 | Quem paga se se magoar | O seguro de saúde da empresa | O seguro de saúde reembolsa despesas, mas pode não cobrir invalidez nem ter capitais de acidentes pessoais; o seguro escolar só cobre atividades escolares | [H] |
-| Coberturas que tem | "Temos seguros a mais, de certeza que algum cobre" | 43,8% das pessoas têm seguros, mas 44,1% nem compararam alternativas no último produto; a sobreposição e as lacunas são comuns | [H] [F18] |
+| Coberturas que tem | "Temos seguros a mais, de certeza que algum cobre" | Na população, 43,8% têm seguros e 44,1% não compararam alternativas no último produto [F18]; sobreposições e lacunas entre seguros são provavelmente comuns [H] | [H] [F18] |
 
 ## 7. Frustrações e medos
 - Descobrir no pior momento que nenhum dos seguros cobria. [H]
@@ -66,9 +66,9 @@
 - Notícias ou histórias de acidentes de crianças. [H]
 
 ## 9. Tecnologia, IA e confiança
-- Confia numa recomendação se puder comparar com o que já tem e ver as diferenças lado a lado. [H]
-- Quer controlo: rejeita ativações automáticas ou renovações silenciosas. [H]
-- Desconfia de produtos "a mais" que se sobrepõem aos seguros da empresa. [H]
+- Antes de mudar o tarifário de eletricidade, fez uma folha de cálculo a comparar 3 propostas com o contrato que tinha. [H]
+- Cancelou uma subscrição de streaming depois de descobrir uma renovação automática que não tinha visto. [H]
+- No trabalho, já recusou a extensão de um seguro proposto por um mediador por se sobrepor ao que a empresa já tinha. [H]
 
 ## 10. Necessidades funcionais e acessibilidade
 - Sem necessidades específicas declaradas. Usa o telemóvel em contexto de pressa (manhã de domingo, filhos à espera). [H]

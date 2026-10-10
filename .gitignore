@@ -1,0 +1,11 @@
+# Dados brutos de participantes: nunca no repositório (RGPD)
+dados_research/
+*.m4a
+*.mp3
+*.mp4
+*.wav
+transcricoes/
+
+# Sistema
+.DS_Store
+__pycache__/

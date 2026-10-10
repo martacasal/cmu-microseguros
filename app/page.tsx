@@ -8,7 +8,19 @@ import { PainPointsMatrixComponent } from "@/components/PainPointsMatrix";
 import { AntiPersonaStudio } from "@/components/AntiPersonaStudio";
 import { ChatInterface } from "@/components/ChatInterface";
 import { personas, journeys, painPointsMatrix, getPersonaById } from "@/lib/data";
-import { Shield, Sparkles, BookOpen, Compass, AlertTriangle, Users } from "lucide-react";
+import {
+  Shield,
+  Sparkles,
+  BookOpen,
+  Compass,
+  AlertTriangle,
+  Users,
+  Zap,
+  Clock,
+  Smartphone,
+  CheckCircle2,
+  ArrowRight,
+} from "lucide-react";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<ActiveTab>("personas");
@@ -30,8 +42,8 @@ export default function Home() {
         {/* Project Context Hero Banner */}
         <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-800 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-          
-          <div className="relative z-10 max-w-3xl space-y-3">
+
+          <div className="relative z-10 max-w-4xl space-y-4">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-teal-500 text-slate-950">
                 Pulso Micro-Seguros
@@ -49,9 +61,55 @@ export default function Home() {
             </h1>
 
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              <strong>Pulso:</strong> Microsseguro de acidentes pessoais sob demanda para atividades desportivas ao ar livre (surf, corrida, BTT, desporto adaptado). Ativado no telemóvel em <strong>menos de 1 minuto</strong>, com preço fixo por sessão, linguagem clara e sem fidelizações anuais.
+              <strong>Pulso:</strong> Microsseguro de acidentes pessoais sob demanda para atividades desportivas ao ar livre (surf, corrida, BTT, desporto adaptado). Ativado no telemóvel em <strong>menos de 1 minuto</strong>, com preço fixo por sessão, linguagem clara e sem burocracias ou anuidades.
             </p>
 
+            {/* NOVO: Como Funciona o Pulso em 3 Passos */}
+            <div className="pt-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-teal-400 mb-2 flex items-center gap-1.5">
+                <Zap className="w-3.5 h-3.5" />
+                Como Funciona a Experiência Pulso em 3 Passos:
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-2.5">
+                  <div className="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center font-bold text-xs shrink-0">
+                    1
+                  </div>
+                  <div>
+                    <strong className="text-xs text-white block">Atividade & Local</strong>
+                    <span className="text-[11px] text-slate-300">
+                      Indica o que vai fazer (ex: Surf na Ericeira ou BTT no Gerês).
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-2.5">
+                  <div className="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center font-bold text-xs shrink-0">
+                    2
+                  </div>
+                  <div>
+                    <strong className="text-xs text-white block">Duração & Preço Fixo</strong>
+                    <span className="text-[11px] text-slate-300">
+                      Escolhe 3h, tarde ou fim de semana (ex: 2,90€ fixos, sem anuidade).
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-2.5">
+                  <div className="w-6 h-6 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center font-bold text-xs shrink-0">
+                    3
+                  </div>
+                  <div>
+                    <strong className="text-xs text-white block">Ativação em &lt; 60s</strong>
+                    <span className="text-[11px] text-slate-300">
+                      1 toque com MB Way / Apple Pay. Apólice ativa e expira no fim da sessão.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Metrics Pills */}
             <div className="pt-2 flex flex-wrap gap-2 text-xs">
               <div className="px-3 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5 text-teal-400" />
@@ -78,10 +136,10 @@ export default function Home() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-lg font-bold text-slate-900">
-                  Perfis de Personas (Cartões NN/g)
+                  Perfis de Personas (Padrões NN/g)
                 </h2>
                 <p className="text-xs text-slate-500">
-                  Exploração aprofundada dos hábitos de consumo, demografia, desportos, atitudes face a seguros e fundamentos científicos.
+                  Explore os cartões detalhados ou utilize o comparador lado a lado para analisar a segmentação das 4 personas.
                 </p>
               </div>
             </div>
@@ -96,10 +154,10 @@ export default function Home() {
           <section className="space-y-4">
             <div>
               <h2 className="text-lg font-bold text-slate-900">
-                Jornadas do Consumidor (5 Fases do Ciclo de Vida)
+                Jornadas do Consumidor com Curva Emocional (NN/g)
               </h2>
               <p className="text-xs text-slate-500">
-                Mapeamento passo a passo: Gatilho Espontâneo, Descoberta, Ativação em &lt;60s, Durante a Sessão e Pós-Sessão/Expiração.
+                Mapeamento passo a passo com gráfico de sentimento: Gatilho, Descoberta, Ativação em &lt;60s, Durante a Sessão e Pós-Sessão.
               </p>
             </div>
             <JourneyVisualizer journeys={journeys} initialPersonaId={chatPersonaTarget} />
@@ -113,7 +171,7 @@ export default function Home() {
                 Matriz de Dores e Oportunidades de Produto
               </h2>
               <p className="text-xs text-slate-500">
-                Análise comparativa entre os problemas das apólices tradicionais em Portugal e os requisitos de design do Pulso.
+                Análise comparativa entre os problemas crónicos dos seguros tradicionais em Portugal e os requisitos de design do Pulso.
               </p>
             </div>
             <PainPointsMatrixComponent matrix={painPointsMatrix} />
@@ -127,7 +185,7 @@ export default function Home() {
                 Anti-Persona Studio: Definição de Fronteira do Produto
               </h2>
               <p className="text-xs text-slate-500">
-                Estudo de caso da Maria (64 anos, Sintra): por que não é público-alvo e como desenhar uma saída graciosa (Graceful Off-Ramp).
+                Estudo de caso da Maria (64 anos, Sintra), simulador interativo de screener e design de saída graciosa (*Graceful Off-Ramp*).
               </p>
             </div>
             <AntiPersonaStudio

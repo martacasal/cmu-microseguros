@@ -2,7 +2,22 @@
 
 import React, { useState } from "react";
 import { CustomerJourney } from "@/types";
-import { Compass, Lightbulb, AlertCircle, MessageCircle, MapPin, CheckCircle, ChevronRight } from "lucide-react";
+import {
+  Compass,
+  Lightbulb,
+  AlertCircle,
+  MessageCircle,
+  MapPin,
+  CheckCircle,
+  ChevronRight,
+  TrendingUp,
+  Download,
+  Copy,
+  Check,
+  Smile,
+  Meh,
+  Frown,
+} from "lucide-react";
 
 interface JourneyVisualizerProps {
   journeys: Record<string, CustomerJourney>;
@@ -15,45 +30,132 @@ export const JourneyVisualizer: React.FC<JourneyVisualizerProps> = ({
 }) => {
   const [selectedPersonaId, setSelectedPersonaId] = useState<string>(initialPersonaId);
   const [activeStageNumber, setActiveStageNumber] = useState<number>(1);
+  const [copied, setCopied] = useState(false);
 
   const journey = journeys[selectedPersonaId] || journeys["tiago"];
-  const currentStage = journey.stages.find((s) => s.stageNumber === activeStageNumber) || journey.stages[0];
+  const currentStage =
+    journey.stages.find((s) => s.stageNumber === activeStageNumber) ||
+    journey.stages[0];
 
-  const personaMeta = {
+  const personaMeta: Record<
+    string,
+    { name: string; role: string; avatar: string; color: string }
+  > = {
     tiago: { name: "Tiago Ferreira", role: "Surfista Urbano", avatar: "🏄‍♂️", color: "teal" },
     rita: { name: "Rita Magalhães", role: "Mãe BTTista", avatar: "🚵‍♀️", color: "indigo" },
     joana: { name: "Joana Vasconcelos", role: "Atleta Adaptada", avatar: "🧑‍🦽", color: "cyan" },
     maria: { name: "Maria do Carmo Santos", role: "Anti-Persona (Fricção)", avatar: "👵", color: "rose" },
   };
 
+  // Mapeamento da curva emocional por persona e estágio (-2 a +2)
+  const sentimentScores: Record<string, number[]> = {
+    tiago: [0.5, -0.6, 1.8, 2.0, 1.9],
+    rita: [-0.8, 0.4, 1.6, 1.8, 1.9],
+    joana: [-1.2, 1.2, 2.0, 2.0, 1.8],
+    maria: [-0.6, -1.8, -2.0, 0.8, 1.5],
+  };
+
+  const scores = sentimentScores[selectedPersonaId] || [0, 0, 0, 0, 0];
+
+  const handleCopyMarkdown = () => {
+    let md = `# Jornada do Consumidor: ${journey.personaName}\n\n`;
+    md += `**Cenário:** ${journey.scenario}\n\n`;
+    journey.stages.forEach((s) => {
+      md += `## Fase ${s.stageNumber}: ${s.stageName}\n`;
+      md += `- **Objetivo:** ${s.userGoal}\n`;
+      md += `- **Pensamento:** "${s.thoughts}"\n`;
+      md += `- **Emoção:** ${s.emotions}\n`;
+      md += `- **Ações:** ${s.userActions.join("; ")}\n`;
+      md += `- **Touchpoints:** ${s.touchpoints.join(", ")}\n`;
+      md += `- **Dores:** ${s.painPoints.join("; ")}\n`;
+      md += `- **Oportunidades:** ${s.opportunities.join("; ")}\n\n`;
+    });
+
+    navigator.clipboard.writeText(md);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownloadMarkdown = () => {
+    let md = `# Jornada do Consumidor: ${journey.personaName}\n\n`;
+    md += `**Cenário:** ${journey.scenario}\n\n`;
+    journey.stages.forEach((s) => {
+      md += `## Fase ${s.stageNumber}: ${s.stageName}\n`;
+      md += `- **Objetivo:** ${s.userGoal}\n`;
+      md += `- **Pensamento:** "${s.thoughts}"\n`;
+      md += `- **Emoção:** ${s.emotions}\n`;
+      md += `- **Ações:** ${s.userActions.join("; ")}\n`;
+      md += `- **Touchpoints:** ${s.touchpoints.join(", ")}\n`;
+      md += `- **Dores:** ${s.painPoints.join("; ")}\n`;
+      md += `- **Oportunidades:** ${s.opportunities.join("; ")}\n\n`;
+    });
+
+    const blob = new Blob([md], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `jornada_${selectedPersonaId}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="space-y-6">
-      {/* Persona Journey Switcher */}
-      <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-slate-200">
-        <span className="text-xs font-bold uppercase tracking-wider text-slate-400 mr-2">
-          Jornada de:
-        </span>
-        {Object.entries(personaMeta).map(([id, meta]) => {
-          const isSelected = id === selectedPersonaId;
-          return (
-            <button
-              key={id}
-              onClick={() => {
-                setSelectedPersonaId(id);
-                setActiveStageNumber(1);
-              }}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all ${
-                isSelected
-                  ? "bg-slate-900 text-white shadow-md ring-2 ring-teal-500/50"
-                  : "bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"
-              }`}
-            >
-              <span>{meta.avatar}</span>
-              <span>{meta.name.split(" ")[0]}</span>
-              <span className="text-xs font-normal text-slate-400">({meta.role})</span>
-            </button>
-          );
-        })}
+      {/* Persona Journey Switcher & Export Actions */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-400 mr-2">
+            Jornada de:
+          </span>
+          {Object.entries(personaMeta).map(([id, meta]) => {
+            const isSelected = id === selectedPersonaId;
+            return (
+              <button
+                key={id}
+                onClick={() => {
+                  setSelectedPersonaId(id);
+                  setActiveStageNumber(1);
+                }}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all ${
+                  isSelected
+                    ? "bg-slate-900 text-white shadow-md ring-2 ring-teal-500/50"
+                    : "bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"
+                }`}
+              >
+                <span>{meta.avatar}</span>
+                <span>{meta.name.split(" ")[0]}</span>
+                <span className="text-xs font-normal text-slate-400">({meta.role})</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleCopyMarkdown}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 shadow-2xs transition-all"
+          >
+            {copied ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="text-emerald-700">Copiado!</span>
+              </>
+            ) : (
+              <>
+                <Copy className="w-3.5 h-3.5 text-slate-500" />
+                <span>Copiar .md</span>
+              </>
+            )}
+          </button>
+          <button
+            onClick={handleDownloadMarkdown}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 shadow-2xs transition-all"
+          >
+            <Download className="w-3.5 h-3.5 text-slate-500" />
+            <span>Descarregar .md</span>
+          </button>
+        </div>
       </div>
 
       {/* Scenario Overview */}
@@ -69,7 +171,88 @@ export const JourneyVisualizer: React.FC<JourneyVisualizerProps> = ({
         </div>
       </div>
 
-      {/* 5 Stages Interactive Timeline Bar */}
+      {/* NOVO: Curva Emocional Interativa (Padrão de Ouro NN/g) */}
+      <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 text-teal-600" />
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
+              Curva Emocional ao Longo da Experiência (NN/g Sentiment Curve)
+            </h4>
+          </div>
+          <span className="text-[11px] text-slate-400">
+            Altos e baixos emocionais em cada fase da jornada
+          </span>
+        </div>
+
+        {/* Visual Emotional Curve Timeline */}
+        <div className="pt-2 pb-1 relative">
+          {/* Baseline reference */}
+          <div className="absolute top-1/2 left-0 right-0 h-px border-t border-dashed border-slate-200 pointer-events-none" />
+
+          <div className="grid grid-cols-5 gap-2 relative z-10">
+            {journey.stages.map((st, i) => {
+              const score = scores[i] || 0;
+              const isSelected = st.stageNumber === activeStageNumber;
+
+              let sentimentColor = "bg-teal-500 text-white";
+              let sentimentBg = "bg-teal-50 border-teal-200";
+              let SentimentIcon = Smile;
+
+              if (score < -0.5) {
+                sentimentColor = "bg-rose-500 text-white";
+                sentimentBg = "bg-rose-50 border-rose-200";
+                SentimentIcon = Frown;
+              } else if (score >= -0.5 && score <= 0.8) {
+                sentimentColor = "bg-amber-500 text-white";
+                sentimentBg = "bg-amber-50 border-amber-200";
+                SentimentIcon = Meh;
+              }
+
+              return (
+                <button
+                  key={st.stageNumber}
+                  onClick={() => setActiveStageNumber(st.stageNumber)}
+                  className={`p-3 rounded-xl border text-center transition-all flex flex-col items-center justify-between min-h-[110px] ${
+                    isSelected
+                      ? "ring-2 ring-teal-500 shadow-md " + sentimentBg
+                      : "bg-slate-50 hover:bg-white border-slate-200"
+                  }`}
+                >
+                  <span className="text-[10px] font-extrabold uppercase text-slate-400">
+                    Fase {st.stageNumber}
+                  </span>
+
+                  <div className="my-1 flex flex-col items-center">
+                    <div
+                      className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shadow-xs ${sentimentColor}`}
+                    >
+                      <SentimentIcon className="w-4 h-4" />
+                    </div>
+                    <span className="text-[10px] font-bold text-slate-700 mt-1 line-clamp-1">
+                      {st.emotions.split(",")[0]}
+                    </span>
+                  </div>
+
+                  <span
+                    className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-md ${
+                      score > 0
+                        ? "text-emerald-700 bg-emerald-100"
+                        : score < 0
+                        ? "text-rose-700 bg-rose-100"
+                        : "text-slate-600 bg-slate-200"
+                    }`}
+                  >
+                    {score > 0 ? `+${score}` : score} pts
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* 5 Stages Interactive Buttons */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
         {journey.stages.map((stage) => {
           const isActive = stage.stageNumber === activeStageNumber;
@@ -93,7 +276,9 @@ export const JourneyVisualizer: React.FC<JourneyVisualizerProps> = ({
                 </span>
                 {isActive && <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />}
               </div>
-              <p className="text-xs font-bold truncate">{stage.stageName.split(". ")[1] || stage.stageName}</p>
+              <p className="text-xs font-bold truncate">
+                {stage.stageName.split(". ")[1] || stage.stageName}
+              </p>
             </button>
           );
         })}
@@ -142,7 +327,10 @@ export const JourneyVisualizer: React.FC<JourneyVisualizerProps> = ({
             </h4>
             <ul className="space-y-2">
               {currentStage.userActions.map((action, i) => (
-                <li key={i} className="text-xs text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-start gap-2">
+                <li
+                  key={i}
+                  className="text-xs text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-start gap-2"
+                >
                   <ChevronRight className="w-3.5 h-3.5 text-teal-600 shrink-0 mt-0.5" />
                   <span>{action}</span>
                 </li>

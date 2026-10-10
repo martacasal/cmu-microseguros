@@ -2,7 +2,19 @@
 
 import React, { useState } from "react";
 import { Persona } from "@/types";
-import { ShieldAlert, AlertOctagon, ArrowRight, UserX, HelpCircle, HeartHandshake, CheckCircle } from "lucide-react";
+import {
+  ShieldAlert,
+  AlertOctagon,
+  ArrowRight,
+  UserX,
+  HelpCircle,
+  HeartHandshake,
+  CheckCircle,
+  Sparkles,
+  RotateCcw,
+  Check,
+  X,
+} from "lucide-react";
 
 interface AntiPersonaStudioProps {
   antiPersona: Persona;
@@ -16,6 +28,38 @@ export const AntiPersonaStudio: React.FC<AntiPersonaStudioProps> = ({
   onOpenChatWithAnalyst,
 }) => {
   const [showOffRampDemo, setShowOffRampDemo] = useState(false);
+
+  // Estados do Simulador de Screener
+  const [screenerAge, setScreenerAge] = useState<string>("64");
+  const [screenerSport, setScreenerSport] = useState<string>("caminhada");
+  const [screenerPayment, setScreenerPayment] = useState<string>("balcao");
+  const [screenerResult, setScreenerResult] = useState<"fail" | "pass" | null>(null);
+
+  const handleRunScreener = () => {
+    const isAgeValid = parseInt(screenerAge) >= 18 && parseInt(screenerAge) <= 40;
+    const isPaymentValid = screenerPayment === "mobile";
+    const isSportValid = screenerSport !== "federado";
+
+    if (isAgeValid && isPaymentValid && isSportValid) {
+      setScreenerResult("pass");
+    } else {
+      setScreenerResult("fail");
+    }
+  };
+
+  const handleFillMariaPreset = () => {
+    setScreenerAge("64");
+    setScreenerSport("caminhada");
+    setScreenerPayment("balcao");
+    setScreenerResult("fail");
+  };
+
+  const handleFillTiagoPreset = () => {
+    setScreenerAge("31");
+    setScreenerSport("surf");
+    setScreenerPayment("mobile");
+    setScreenerResult("pass");
+  };
 
   return (
     <div className="space-y-6">
@@ -54,6 +98,156 @@ export const AntiPersonaStudio: React.FC<AntiPersonaStudioProps> = ({
             </button>
           </div>
         </div>
+      </div>
+
+      {/* NOVO: Simulador Interativo de Screener de Qualificação */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="px-2 py-0.5 rounded-md bg-teal-100 text-teal-800 text-[10px] font-extrabold uppercase">
+                Simulador Interativo
+              </span>
+              <h3 className="text-lg font-bold text-slate-900">
+                Teste de Screener: Algoritmo de Triagem do Pulso
+              </h3>
+            </div>
+            <p className="text-xs text-slate-500">
+              Experimente preencher os critérios de triagem para ver como o sistema classifica o utilizador em tempo real.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleFillMariaPreset}
+              className="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 border border-rose-200 text-xs font-semibold text-rose-800 transition-all"
+            >
+              Simular Maria (64a)
+            </button>
+            <button
+              onClick={handleFillTiagoPreset}
+              className="px-3 py-1.5 rounded-lg bg-teal-50 hover:bg-teal-100 border border-teal-200 text-xs font-semibold text-teal-800 transition-all"
+            >
+              Simular Tiago (31a)
+            </button>
+          </div>
+        </div>
+
+        {/* 3 Interactive Questions */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Question 1: Idade */}
+          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
+            <label className="text-xs font-bold text-slate-800 uppercase block">
+              1. Qual é a sua idade?
+            </label>
+            <select
+              value={screenerAge}
+              onChange={(e) => {
+                setScreenerAge(e.target.value);
+                setScreenerResult(null);
+              }}
+              className="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs bg-white text-slate-900 focus:ring-2 focus:ring-teal-500"
+            >
+              <option value="16">Menos de 18 anos</option>
+              <option value="31">18 a 40 anos (ex: 31 anos)</option>
+              <option value="42">41 a 55 anos (ex: 42 anos)</option>
+              <option value="64">Mais de 55 anos (ex: 64 anos)</option>
+            </select>
+            <span className="text-[10px] text-slate-400 block">
+              Critério: 18 a 40 anos (foco desportivo v1)
+            </span>
+          </div>
+
+          {/* Question 2: Prática Desportiva */}
+          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
+            <label className="text-xs font-bold text-slate-800 uppercase block">
+              2. Modalidade & Contexto
+            </label>
+            <select
+              value={screenerSport}
+              onChange={(e) => {
+                setScreenerSport(e.target.value);
+                setScreenerResult(null);
+              }}
+              className="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs bg-white text-slate-900 focus:ring-2 focus:ring-teal-500"
+            >
+              <option value="surf">Desporto individual ao ar livre (Surf, Corrida, BTT)</option>
+              <option value="caminhada">Caminhada recreativa lenta informal</option>
+              <option value="ginasio">Apenas ginásio / espaço fechado</option>
+              <option value="federado">Atleta federado em competição</option>
+            </select>
+            <span className="text-[10px] text-slate-400 block">
+              Critério: Não federado e outdoor
+            </span>
+          </div>
+
+          {/* Question 3: Pagamento & Gestão */}
+          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">
+            <label className="text-xs font-bold text-slate-800 uppercase block">
+              3. Preferência de Contratação
+            </label>
+            <select
+              value={screenerPayment}
+              onChange={(e) => {
+                setScreenerPayment(e.target.value);
+                setScreenerResult(null);
+              }}
+              className="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs bg-white text-slate-900 focus:ring-2 focus:ring-teal-500"
+            >
+              <option value="mobile">100% digital na app (MB Way / Apple Pay em &lt; 60s)</option>
+              <option value="balcao">Balcão físico com dinheiro ou talão de Multibanco</option>
+            </select>
+            <span className="text-[10px] text-slate-400 block">
+              Critério: Checkout instantâneo móvel
+            </span>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <div className="flex justify-center">
+          <button
+            onClick={handleRunScreener}
+            className="px-6 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition-all shadow-sm flex items-center gap-2"
+          >
+            <Sparkles className="w-4 h-4 text-teal-400" />
+            <span>Processar Triagem no Algoritmo</span>
+          </button>
+        </div>
+
+        {/* Dynamic Screener Result Output */}
+        {screenerResult && (
+          <div
+            className={`p-5 rounded-xl border transition-all ${
+              screenerResult === "pass"
+                ? "bg-emerald-50 border-emerald-300 text-emerald-950"
+                : "bg-rose-50 border-rose-300 text-rose-950"
+            }`}
+          >
+            <div className="flex items-start gap-3">
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
+                  screenerResult === "pass"
+                    ? "bg-emerald-600 text-white"
+                    : "bg-rose-600 text-white"
+                }`}
+              >
+                {screenerResult === "pass" ? <Check className="w-5 h-5" /> : <X className="w-5 h-5" />}
+              </div>
+              <div className="space-y-1">
+                <h4 className="font-bold text-sm">
+                  {screenerResult === "pass"
+                    ? "✅ Perfil Aprovado: Target Core do Pulso"
+                    : "❌ Perfil Desqualificado: Encaminhado para Saída Graciosa (Off-Ramp)"}
+                </h4>
+                <p className="text-xs">
+                  {screenerResult === "pass"
+                    ? "Este perfil cumpre a janela etária (18–40), pratica atividade desportiva em espaço não institucional e aceita pagamentos instantâneos móveis. Segue para a simulação de 3 toques."
+                    : "Este perfil aciona as barreiras de exclusão da Anti-Persona (idade superior a 40 anos ou exigência de pagamento analógico). A aplicação ativa imediatamente a mensagem empática de saída."}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* The 4 Disqualifiers Cards */}

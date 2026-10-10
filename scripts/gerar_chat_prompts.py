@@ -20,7 +20,7 @@ FICHEIROS = {"PERSONA": "persona.md", "JOURNEY": "journey.md", "PAINS": "pains_o
 
 def bloco_prompt() -> str:
     texto = TEMPLATE.read_text(encoding="utf-8")
-    m = re.search(r"<!-- INICIO_PROMPT -->(.*?)<!-- FIM_PROMPT -->", texto, re.S)
+    m = re.search(r"^<!-- INICIO_PROMPT -->$(.*?)^<!-- FIM_PROMPT -->$", texto, re.S | re.M)
     if not m:
         sys.exit("Erro: marcadores INICIO_PROMPT/FIM_PROMPT não encontrados no template.")
     return m.group(1).strip()
@@ -36,7 +36,33 @@ def baixar_titulos(texto: str) -> str:
     return re.sub(r"^(#{1,4}) ", lambda m: "#" * min(len(m.group(1)) + 2, 6) + " ", texto, flags=re.M)
 
 
+NIVEIS = [
+    ("E0", r"\[H\]"),
+    ("E1", r"\[F\d+\]"),
+    ("E2", r"\[D-P\d+\]"),
+    ("E3", r"\[I-P\d+\]"),
+    ("E4", r"\[S\]"),
+]
+
+
+def atualizar_evidencia(ficha_path: Path) -> str:
+    """Conta as etiquetas de evidência e reescreve a linha 'Evidência' dos metadados."""
+    texto = ficha_path.read_text(encoding="utf-8")
+    corpo = texto.split("## 1.", 1)[-1]
+    contagem = {n: len(re.findall(rx, corpo)) for n, rx in NIVEIS}
+    total = sum(contagem.values()) or 1
+    acima_e1 = contagem["E2"] + contagem["E3"] + contagem["E4"]
+    resumo = " · ".join(f"{n}: {c}" for n, c in contagem.items())
+    linha = f"| Evidência | {resumo} etiquetas ({round(100 * acima_e1 / total)}% com dados de participantes) |"
+    novo = re.sub(r"^\| Evidência \|.*\|$", linha, texto, count=1, flags=re.M)
+    if novo != texto:
+        ficha_path.write_text(novo, encoding="utf-8")
+    return resumo
+
+
 def gerar(pasta: Path, prompt: str) -> None:
+    if (pasta / "persona.md").exists():
+        print(f"  evidência {pasta.name}: {atualizar_evidencia(pasta / 'persona.md')}")
     partes = {}
     for chave, nome in FICHEIROS.items():
         f = pasta / nome

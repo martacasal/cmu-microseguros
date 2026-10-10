@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CustomerJourneySchema",
+  "description": "Schema para Jornada do Consumidor Pulso (5 Fases)",
+  "type": "object",
+  "required": ["personaId", "personaName", "scenario", "stages"],
+  "properties": {
+    "personaId": { "type": "string" },
+    "personaName": { "type": "string" },
+    "scenario": { "type": "string" },
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["stageNumber", "stageName", "userGoal", "userActions", "thoughts", "emotions", "touchpoints", "painPoints", "opportunities"],
+        "properties": {
+          "stageNumber": { "type": "integer" },
+          "stageName": { "type": "string" },
+          "userGoal": { "type": "string" },
+          "userActions": { "type": "array", "items": { "type": "string" } },
+          "thoughts": { "type": "string" },
+          "emotions": { "type": "string" },
+          "touchpoints": { "type": "array", "items": { "type": "string" } },
+          "painPoints": { "type": "array", "items": { "type": "string" } },
+          "opportunities": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "id": "tiago",
+  "name": "Tiago Ferreira",
+  "archetype": "O Praticante Urbano & Surfista Espontâneo",
+  "type": "target",
+  "age": 31,
+  "location": "Lisboa (Areeiro / Parque das Nações)",
+  "occupation": "Product Manager em Tecnologia",
+  "avatar": "🏄‍♂️",
+  "quote": "«Decido ir apanhar ondas duas horas antes quando vejo o relatório de swell. Não faz sentido pagar 25€ por mês o ano inteiro se só surfo duas tardes por mês.»",
+  "bio": "Tiago tem 31 anos, vive em Lisboa e tem um estilo de vida ativo mas irregular. Durante a semana corre no paredão ou em Monsanto quando a agenda profissional permite. Aos fins de semana, se o mar estiver bom e os amigos alinharem, mete a prancha no carro e segue para a Ericeira ou Carcavelos. Nunca pensou muito em seguros de acidentes até há três meses, quando um amigo com quem costuma surfar luxou a clavícula nos Coxos e teve de pagar mais de 900€ em consultas e fisioterapia privada porque a fila no hospital público estava caótica. Tiago quer paz de espírito, mas recusa contratos anuais, burocracias e papelada em PDF de 40 páginas.",
+  "demographics": {
+    "education": "Licenciatura e Mestrado em Engenharia e Gestão",
+    "incomeLevel": "Médio-Alto (2.400€ - 3.200€ líquidos/mês)",
+    "familyStatus": "Solteiro, vive sozinho",
+    "techComfort": "Muito Alta",
+    "primaryDevices": ["iPhone 15 Pro", "Apple Watch Ultra", "MacBook Pro"]
+  },
+  "consumptionHabits": {
+    "decisionTrigger": "Notificação meteorológica / convite espontâneo no WhatsApp",
+    "decisionLeadTime": "1 a 3 horas antes da atividade",
+    "preferredPaymentMethods": ["Apple Pay", "MB Way"],
+    "spendingAttitude": "Valoriza conveniência imediata. Disposto a pagar 2,50€ a 4€ por sessão se poupar 10 minutos de chatice, mas avesso a mensalidades recorrentes 'fantasma'",
+    "digitalServicesUsed": ["Magicseaweed / Surfline", "Strava", "Revolut", "Spotify", "Uber"]
+  },
+  "activities": [
+    {
+      "name": "Surf recreativo",
+      "frequency": "2 a 3 tardes por mês (dependente das ondas)",
+      "environment": "Mar / Praia (Ericeira, Guincho, Costa da Caparica)",
+      "riskLevel": 4,
+      "commonInjuries": "Luxações no ombro, cortes na quilha, pancadas na prancha, entorses no joelho"
+    },
+    {
+      "name": "Corrida urbana e trail leve",
+      "frequency": "2 vezes por semana",
+      "environment": "Parque / Rua (Monsanto, Marginal)",
+      "riskLevel": 2,
+      "commonInjuries": "Entorse de tornozelo, roturas musculares, quedas no asfalto"
+    }
+  ],
+  "insuranceAttitude": {
+    "currentProtection": "Seguro de saúde do trabalho (multicare com copagamento de consultas, mas com exclusão explícita de 'desportos de mar ou atividades radicais'); SNS como último recurso",
+    "misconceptions": "Achava que o seguro da empresa ou o cartão Visa cobria desporto em lazer outdoor",
+    "perceivedRisk": "Médio-alto no mar quando o mar sobe; muito baixo na corrida urbana",
+    "barrierToTraditionalInsurance": "Fidelização de 12 meses, termos e condições ilegíveis, processo de subscrição lento com perguntas sobre historial médico familiar"
+  },
+  "painPoints": [
+    "Descobrir que apólices normais excluem surf por ser considerado 'desporto de risco'",
+    "Perder tempo a preencher formulários antes de ir surfar — se demorar mais de 60 segundos, desiste",
+    "Letras pequeninas e incerteza sobre se o resgate na praia ou fisioterapia privada estão realmente cobertos",
+    "Pagar anuidade de seguro para uma atividade que no inverno passa semanas sem praticar"
+  ],
+  "goalsAndMotivations": [
+    "Entrar na água ou no trilho com a cabeça limpa e sem ansiedade financeira",
+    "Cobrir o período exato da sessão (ex: 3 horas ou 1 tarde)",
+    "Processo de ativação instantâneo com 2 toques no telemóvel no parque de estacionamento",
+    "Saber exatamente em 3 linhas simples o que tem direito e o que não tem"
+  ],
+  "pulsoFit": {
+    "fitScore": "Alto",
+    "whyTheyBuyOrReject": "Encaixe perfeito na proposta de valor. Tiago é o cliente ideal do Pulso: pratica desporto individual outdoor não federado, decide por impulso e tem alta afinidade com pagamentos rápidos (Apple Pay / MB Way). Comprará sempre que as condições do mar forem mais exigentes.",
+    "keyFeaturesNeeded": [
+      "Ativação em < 60 segundos por geolocalização e atividade pré-selecionada",
+      "Resumo transparente das coberturas: despesas de tratamento até 5.000€, resgate até 2.500€",
+      "Comprovativo imediato no Apple Wallet com número de apólice de emergência"
+    ],
+    "rejectionRisk": "Se o fluxo de onboarding exigir registo com NIF e morada completa logo no primeiro ecrã ou se o preço parecer superior a um café e um pastel de nata (3€ - 5€)"
+  },
+  "researchFoundation": {
+    "groundedFacts": [
+      "Estudos mostram que surfistas recreativos têm 1,79 lesões agudas por 1.000 horas (Furness et al.)",
+      "O DL 10/2009 não cobre desportistas não federados em espaço público outdoor",
+      "Faixa dos 25-39 anos tem a maior taxa de adesão a serviços sob demanda e microtransações digitais (Eurobarómetro & Towers Watson)"
+    ],
+    "hypothesesToValidate": [
+      "H1: Tiago ativa o seguro no próprio local da prática (no carro antes de vestir o fato) e não em casa",
+      "H2: A menção a 'sem fidelização nem letras pequenas' é o argumento número 1 de conversão",
+      "H3: Um preço de 2,90€ por sessão de 4h é percebido como custo insignificante comparado com o custo do combustível e estacionamento"
+    ],
+    "screenerQuestions": [
+      "Com que antecedência costuma decidir as suas sessões de desporto ao ar livre?",
+      "Que tipo de seguro de acidentes pessoais possui atualmente que cubra a sua prática desportiva individual?",
+      "Alguma vez deixou de contratar um seguro por achar o processo de subscrição demasiado burocrático?"
+    ]
+  }
+}

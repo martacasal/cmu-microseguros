@@ -1,0 +1,106 @@
+{
+  "personaId": "maria",
+  "personaName": "Maria do Carmo Santos (Anti-Persona — Mapa de Fricção e Fronteira)",
+  "scenario": "Caminhada de sábado de manhã na serra de Sintra com vizinhas e tentativa de perceber se uma 'aplicação de telemóvel' serve para a proteger.",
+  "stages": [
+    {
+      "stageNumber": 1,
+      "stageName": "1. Gatilho & Conversa Informal",
+      "userGoal": "Evitar ser um encargo para os filhos caso sofra uma queda nos trilhos de Sintra.",
+      "userActions": [
+        "Junta-se às amigas no Largo do Palácio da Vila para a caminhada matinal",
+        "Uma vizinha de 28 anos comenta que agora usa uma aplicação que ativa um seguro no telemóvel em 1 minuto",
+        "Maria fica curiosa mas desconfiada: 'Um seguro no telemóvel sem assinar nada?'"
+      ],
+      "thoughts": "«Será que isso é de confiança? As coisas hoje em dia são todas por computador, mas depois quando acontece alguma coisa ninguém atende o telefone.»",
+      "emotions": "Curiosa, cética, com receio de ser enganada",
+      "touchpoints": ["Conversa cara a cara com vizinhas", "Smartphone Samsung"],
+      "painPoints": [
+        "Incompreensão profunda do modelo de seguro 'sob demanda' ou 'por utilização'",
+        "Preconceito justificado face a fraudes por SMS e burlas no WhatsApp"
+      ],
+      "opportunities": [
+        "Reconhecer que este perfil NÃO deve ser empurrado para o funil de conversão rápida",
+        "Definir barreiras de triagem antecipadas"
+      ]
+    },
+    {
+      "stageNumber": 2,
+      "stageName": "2. Tentativa de Descoberta & Sobrecarga Cognitiva",
+      "userGoal": "Tentar perceber o que é o Pulso e onde fica o balcão ou número de atendimento.",
+      "userActions": [
+        "Pede à vizinha para lhe mostrar a app no telemóvel",
+        "Tenta ler os textos no ecrã mas acha a letra pequena e não compreende termos como 'micro-apólice', 'pay-per-use' ou 'onboarding'",
+        "Procura um botão de 'Falar com um mediador' ou 'Pedir contacto telefónico'"
+      ],
+      "thoughts": "«Isto é tudo muito moderno mas não diz aqui para onde ligo se cair num buraco. Quem me atende? Um robô?»",
+      "emotions": "Confusa, sobrecarregada, ansiosa",
+      "touchpoints": ["Ecrã do smartphone", "Tipografia e botões digitais"],
+      "painPoints": [
+        "Falta de literacia digital financeira para avaliar apólices algorítmicas",
+        "Medo paralisante de que a app fique com os dados do cartão e retire dinheiro todos os meses"
+      ],
+      "opportunities": [
+        "Filtro de triagem claro no primeiro ecrã: 'Qual a sua faixa etária?' e 'Procura um seguro individual para sessões desportivas pontuais ou apólice anual de saúde?'"
+      ]
+    },
+    {
+      "stageNumber": 3,
+      "stageName": "3. Ponto de Rutura & Barreira de Pagamento",
+      "userGoal": "Pagar no Multibanco tradicional ou através da sua caderneta/balcão bancário.",
+      "userActions": [
+        "Ao ver que o sistema pede pagamento imediato por Apple Pay, Google Pay ou MB Way, recusa terminantemente avançar",
+        "Sente que não tem tempo de ler as condições em 60 segundos antes de começar a andar",
+        "Devolve o telemóvel à vizinha e prefere fazer a caminhada sem o seguro da app"
+      ],
+      "thoughts": "«Eu não meto os meus dados bancários em coisas que não conheço. Prefiro ir com cuidado e se cair vou ao hospital de Cascais pelo SNS.»",
+      "emotions": "Frustrada, defensiva, decidida a rejeitar",
+      "touchpoints": ["Fluxo de pagamento digital"],
+      "painPoints": [
+        "Incompatibilidade estrutural com o modelo de checkout instantâneo do Pulso",
+        "Aversão total a transações puramente digitais sem recibo em papel carimbado"
+      ],
+      "opportunities": [
+        "Ponto de corte de produto: Não tentar forçar pagamentos manuais ou por referência Multibanco lenta no Pulso, pois violariam a proposta de valor de 'cobertura em menos de 1 minuto'"
+      ]
+    },
+    {
+      "stageNumber": 4,
+      "stageName": "4. Screener Gracioso & Fronteira de Produto (Off-Ramp)",
+      "userGoal": "Ser respeitada nas suas necessidades sem ser menosprezada nem perder tempo.",
+      "userActions": [
+        "O sistema de screener do Pulso apresenta uma mensagem de orientação preventiva: 'O Pulso foi desenhado para jovens adultos em sessões desportivas pontuais'",
+        "Sugere alternativas convencionais: 'Para caminhadas regulares e proteção anual completa sénior, recomendamos consultar a sua agência bancária habitual ou um mediador de seguros certificado'",
+        "Apresenta um botão de partilha para enviar a recomendação a um familiar jovem"
+      ],
+      "thoughts": "«Pronto, ao menos foram honestos. Disseram logo que isto é para os jovens e que para o meu caso o melhor é ir ao balcão do banco.»",
+      "emotions": "Respeitada, elucidada, em paz",
+      "touchpoints": ["Mensagem de saída empática (Graceful Off-Ramp) na interface do Pulso"],
+      "painPoints": [
+        "Sentimento de exclusão se a mensagem for fria ou usar mensagens de erro técnicas ('Idade inválida')"
+      ],
+      "opportunities": [
+        "Design de 'Anti-Persona Care': Uma saída elegante e educativa que reforça a reputação ética da marca Pulso sem onerar os custos operacionais com suporte inútil"
+      ]
+    },
+    {
+      "stageNumber": 5,
+      "stageName": "5. Desfecho & Encaminhamento Adequado",
+      "userGoal": "Resolver a sua necessidade de proteção no canal que lhe dá segurança real.",
+      "userActions": [
+        "Na segunda-feira seguinte, desloca-se à agência da Caixa Geral de Depósitos da Portela de Sintra",
+        "Conversa durante 20 minutos com o seu gestor de conta de confiança",
+        "Subscreve uma apólice anual de acidentes pessoais sénior com débito direto autorizado e apólice impressa em papel"
+      ],
+      "thoughts": "«Isto sim. Aqui conheço quem me atende, tenho o papel assinado na pasta e sei exatamente onde ir se partir um pé.»",
+      "emotions": "Satisfeita, segura, no seu canal natural",
+      "touchpoints": ["Balcão bancário físico", "Documento impresso em papel timbrado"],
+      "painPoints": [
+        "Custos mais elevados e processos mais lentos, mas que para o seu perfil psicológico constituem um benefício de tranquilidade"
+      ],
+      "opportunities": [
+        "A equipa do Pulso poupou centenas de euros em chamadas de suporte, estornos e reclamações na ASF (Autoridade de Supervisão de Seguros e Fundos de Pensões)"
+      ]
+    }
+  ]
+}

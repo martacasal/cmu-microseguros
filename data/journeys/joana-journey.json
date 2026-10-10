@@ -1,0 +1,107 @@
+{
+  "personaId": "joana",
+  "personaName": "Joana Vasconcelos (Atleta Adaptada & Designer)",
+  "scenario": "Treino de 2h de handbike ao longo da marginal marítima de Matosinhos até ao Farol de Leça.",
+  "stages": [
+    {
+      "stageNumber": 1,
+      "stageName": "1. Gatilho & Preparação do Treino",
+      "userGoal": "Fazer o seu treino de velocidade na marginal com a handbike em segurança face ao tráfego urbano e peões.",
+      "userActions": [
+        "Verifica a pressão dos pneus da handbike e ajusta a bandeira de visibilidade",
+        "Combina ponto de encontro na ciclovia de Matosinhos com um colega de treino",
+        "Recorda o quase-embate da semana passada quando um peão distraído atravessou a ciclovia a olhar para o telemóvel"
+      ],
+      "thoughts": "«A handbike anda a 30 km/h e vai rente ao chão. Se um peão se atravessa e nos magoamos, quem paga os estragos e os cuidados médicos?»",
+      "emotions": "Determinada, alerta, consciente do ambiente urbano partilhado",
+      "touchpoints": ["WhatsApp do grupo de treino", "Strava", "iPhone com leitor de ecrã"],
+      "painPoints": [
+        "Trauma com seguradoras convencionais que exigiram laudos médicos de 10 páginas e depois recusaram o pedido",
+        "Falta de informação sobre seguro de responsabilidade civil para equipamentos de desporto adaptado"
+      ],
+      "opportunities": [
+        "Comunicação afirmativa do Pulso: 'Desporto para todos os corpos — sem questionários clínicos discriminatórios'",
+        "Inclusão expressa de modalidades adaptadas no menu principal"
+      ]
+    },
+    {
+      "stageNumber": 2,
+      "stageName": "2. Descoberta & Teste de Acessibilidade",
+      "userGoal": "Validar se a app é utilizável com leitor de ecrã e se não há exclusões camufladas para pessoas com deficiência.",
+      "userActions": [
+        "Abre o Pulso no iPhone utilizando a navegação por gestos do VoiceOver",
+        "Navega pelos botões com rótulos de acessibilidade claros e contraste cromático adequado",
+        "Lê a secção de transparência sobre 'Condições de Cobertura'"
+      ],
+      "thoughts": "«Os botões estão bem identificados para o VoiceOver! E o texto diz explicitamente que o seguro cobre o acidente súbito da sessão desportiva, sem exclusão por deficiência física pré-existente.»",
+      "emotions": "Surpreendida positivamente, aliviada, respeitada como cidadã e desportista",
+      "touchpoints": ["Interface da app Pulso (VoiceOver / Alto Contraste)", "Termos em linguagem clara"],
+      "painPoints": [
+        "Medo de que o sistema bloqueie ao selecionar certas opções ou tente encaminhar para uma linha telefónica",
+        "Termos contratuais tradicionais que usam linguagem capacitista ou conceitos vagos de 'invalidez prévia'"
+      ],
+      "opportunities": [
+        "Certificação de acessibilidade digital visível (selo WCAG)",
+        "Garantia explícita: 'O seguro cobre acidentes ocorridos durante as 2 horas da sessão contratada, incluindo tratamento hospitalar de urgência e danos causados a terceiros'"
+      ]
+    },
+    {
+      "stageNumber": 3,
+      "stageName": "3. Micro-Ativação em < 60s",
+      "userGoal": "Ativar a cobertura de 2 horas para Handbike de forma autónoma e sem atrito.",
+      "userActions": [
+        "Seleciona 'Ciclismo / Handbike', '2 horas', 'Matosinhos'",
+        "Ativa a opção 'Responsabilidade Civil incluída' (para proteção contra danos a peões)",
+        "Valida o pagamento por MB Way / Apple Pay com FaceID em 15 segundos"
+      ],
+      "thoughts": "«Consegui fazer tudo sozinha, sem pedir ajuda a ninguém e sem qualquer entrave. Demorei 40 segundos.»",
+      "emotions": "Empoderada, autónoma, tranquila",
+      "touchpoints": ["Apple Pay com FaceID", "Confirmação sonoro-tátil de apólice ativa"],
+      "painPoints": [
+        "Se houvesse um CAPTCHA visual inacessível, teria sido forçada a desistir"
+      ],
+      "opportunities": [
+        "Feedback multissensorial de confirmação (vibração tátil distinta e anúncio de voz de cobertura ativa)"
+      ]
+    },
+    {
+      "stageNumber": 4,
+      "stageName": "4. Durante o Treino",
+      "userGoal": "Fazer a sua sessão de treino na marginal com máxima intensidade e segurança mental.",
+      "userActions": [
+        "Pedala ao longo da orla marítima até ao porto de Leixões e regresso",
+        "Desvia-se de um cão solto que salta para a ciclovia, fazendo uma travagem brusca",
+        "Mantém o ritmo e conclui os 28 km previstos"
+      ],
+      "thoughts": "«A liberdade de poder puxar pelos limites sabendo que qualquer imprevisto está coberto é impagável.»",
+      "emotions": "Energética, focada, em plenitude física",
+      "touchpoints": ["Apple Watch", "Handbike com suporte de telemóvel"],
+      "painPoints": [
+        "Vibrações da estrada no suporte que poderiam disparar toques acidentais no ecrã (a app deve ter bloqueio de ecrã durante a sessão)"
+      ],
+      "opportunities": [
+        "Modo 'Sessão em Curso' minimalista que desativa toques acidentais e mantém o ecrã limpo"
+      ]
+    },
+    {
+      "stageNumber": 5,
+      "stageName": "5. Pós-Treino & Recomendação Comunitária",
+      "userGoal": "Concluir o treino, hidratar-se e partilhar a boa experiência com outros atletas adaptados.",
+      "userActions": [
+        "Termina a sessão e desce da handbike para a cadeira de rodas diária",
+        "A app assinala o fecho da apólice sem encargos futuros",
+        "Partilha um print do resumo da app no grupo de Telegram de atletas adaptados do Grande Porto"
+      ],
+      "thoughts": "«Vou já contar ao pessoal da associação de desporto adaptado. Finalmente uma app que não nos trata como doentes ou problemas de risco.»",
+      "emotions": "Grata, entusiasmada, defensora ativa da marca Pulso",
+      "touchpoints": ["Notificação de encerramento da app", "Grupo de Telegram / Redes Sociais"],
+      "painPoints": [
+        "Falta de um programa de partilha que beneficie clubes e associações de desporto inclusivo"
+      ],
+      "opportunities": [
+        "Programa de parcerias com associações de desporto adaptado e inclusivo",
+        "Recolha de feedback direto sobre usabilidade acessível da aplicação"
+      ]
+    }
+  ]
+}

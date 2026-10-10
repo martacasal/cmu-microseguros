@@ -1,0 +1,111 @@
+{
+  "personaId": "rita",
+  "personaName": "Rita Magalhães (Mãe BTTista de Fim de Semana)",
+  "scenario": "Passeio de BTT de 4 horas no Sameiro/Gerês na manhã de sábado acompanhada pelo filho de 12 anos.",
+  "stages": [
+    {
+      "stageNumber": 1,
+      "stageName": "1. Gatilho & Planeamento de Fim de Semana",
+      "userGoal": "Organizar uma manhã ao ar livre com o filho combinando desporto e segurança familiar.",
+      "userActions": [
+        "Descarrega o track de GPS no Komoot na sexta-feira à noite",
+        "Prepara as bicicletas e os capacetes na garagem",
+        "Recorda o amigo que partiu o braço numa pedra solta há duas semanas e pondera o risco para o filho"
+      ],
+      "thoughts": "«A descida da serra tem muita pedra solta. Se o Martim cair e precisar de ambulância ou resgate, o nosso seguro de saúde não vai cobrir tudo sem chatices.»",
+      "emotions": "Prudente, responsável, protetora",
+      "touchpoints": ["Komoot / Wikiloc", "Telemóvel", "Conversa em família"],
+      "painPoints": [
+        "Incerteza se o seguro do ginásio ou do cartão cobre passeios fora de recintos desportivos",
+        "Falta de apólices pontuais para menores de idade"
+      ],
+      "opportunities": [
+        "Funcionalidade 'Agendar para amanhã' ou ativação matinal com lembrete às 08h30",
+        "Destaque claro de cobertura para dependentes menores"
+      ]
+    },
+    {
+      "stageNumber": 2,
+      "stageName": "2. Descoberta & Configuração Familiar",
+      "userGoal": "Adicionar o filho à mesma apólice sem ter de criar duas contas de utilizador nem preencher formulários duplos.",
+      "userActions": [
+        "Abre o Pulso no sábado de manhã enquanto toma o pequeno-almoço",
+        "Escolhe 'BTT / Ciclismo de Montanha' e duração de 4 horas",
+        "Clica na opção 'Adicionar Praticante (+1 Menor)' e insere apenas o nome e data de nascimento do filho"
+      ],
+      "thoughts": "«Que alívio não ter de criar uma conta separada para o meu filho nem responder a 50 perguntas sobre vacinas e alergias.»",
+      "emotions": "Satisfeita com a conveniência, focada em validar as garantias de resgate",
+      "touchpoints": ["Ecrã de seleção de participantes", "Calculador de prémio familiar"],
+      "painPoints": [
+        "Receio de que a apólice exclua menores de 18 anos",
+        "Dúvida sobre a responsabilidade civil se o filho colidir com um caminhante no trilho"
+      ],
+      "opportunities": [
+        "Inclusão clara da opção: 'Responsabilidade Civil a Terceiros incluída'",
+        "Preço de pacote familiar visível: 4,00€ (Rita) + 2,00€ (Filho) = 6,00€ total"
+      ]
+    },
+    {
+      "stageNumber": 3,
+      "stageName": "3. Micro-Ativação em < 60s",
+      "userGoal": "Pagar rapidamente por MB Way e ter o comprovativo pronto antes de prender as bicicletas no suporte do carro.",
+      "userActions": [
+        "Confirma o resumo: '2 praticantes cobertos das 09h00 às 13h00'",
+        "Autoriza o pagamento via notificação do MB Way",
+        "Guarda a apólice e partilha o link de localização/cobertura com o marido que ficou em casa"
+      ],
+      "thoughts": "«Muito prático. Em 45 segundos ficou tudo resolvido. E o meu marido fica descansado sabendo onde estamos e que temos número de urgência.»",
+      "emotions": "Segura, confiante, em controlo da situação",
+      "touchpoints": ["MB Way", "Notificação de ativação", "Funcionalidade 'Partilhar com contacto de segurança'"],
+      "painPoints": [
+        "Atrasos na notificação do MB Way se a ligação de dados falhar",
+        "Medo de não conseguir aceder ao contacto de emergência se estiver numa ravina sem sinal"
+      ],
+      "opportunities": [
+        "Número de apoio e coordenadas de emergência gravados na memória local do smartphone",
+        "Guia rápido de acionamento em modo offline"
+      ]
+    },
+    {
+      "stageNumber": 4,
+      "stageName": "4. Durante a Atividade",
+      "userGoal": "Pedalar com o filho na serra, desfrutar da paisagem e do desafio físico sem preocupações.",
+      "userActions": [
+        "Faz a subida técnica e as descidas de trilho na serra do Sameiro",
+        "O filho tem uma pequena queda em terra batida; Rita ajuda-o a levantar, verifica que são só escoriações leves e continuam",
+        "O Pulso permanece silencioso em segundo plano"
+      ],
+      "thoughts": "«Se a queda tivesse sido mais grave e envolvesse uma fratura, sabia exatamente que o hospital privado de Braga estava coberto.»",
+      "emotions": "Tranquila, focada no bem-estar do filho e no prazer do desporto",
+      "touchpoints": ["Garmin Forerunner", "Mochila de hidratação com smartphone"],
+      "painPoints": [
+        "Perda de cobertura de rede móvel em vales profundos da serra",
+        "Dúvida se um incidente ligeiro precisa de ser comunicado no próprio momento"
+      ],
+      "opportunities": [
+        "Esclarecimento prévio: 'Tem até 48 horas após a atividade para formalizar qualquer participação de sinistro'"
+      ]
+    },
+    {
+      "stageNumber": 5,
+      "stageName": "5. Pós-Atividade & Balanço",
+      "userGoal": "Chegar a casa, lavar as bicicletas e verificar que o seguro encerrou sem encargos adicionais.",
+      "userActions": [
+        "Às 13h15 chega a casa e arruma o equipamento",
+        "Recebe SMS/notificação: 'Passeio concluído! A apólice de BTT para a Rita e o Martim terminou. Esperamos que tenha sido uma ótima manhã.'",
+        "Arquiva o recibo digital no email"
+      ],
+      "thoughts": "«Foi impecável. Valeu cada cêntimo dos 6 euros. Para o próximo sábado voltamos a ativar.»",
+      "emotions": "Satisfeita, descansada, fã do modelo de pagamento por utilização",
+      "touchpoints": ["SMS de conclusão", "Fatura simplificada por email"],
+      "painPoints": [
+        "Receber mensagens comerciais excessivas a tentar vender seguros anuais",
+        "Falta de histórico fácil das atividades realizadas para comparar gastos no mês"
+      ],
+      "opportunities": [
+        "Histórico simples na app com selos: '3 sessões seguras este mês'",
+        "Opção de 'Repetir atividade habitual' com apenas 1 clique no próximo fim de semana"
+      ]
+    }
+  ]
+}

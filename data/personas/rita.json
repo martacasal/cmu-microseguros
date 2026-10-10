@@ -1,0 +1,87 @@
+{
+  "id": "rita",
+  "name": "Rita Magalhães",
+  "archetype": "A Praticante de Fim de Semana & Protetora Familiar",
+  "type": "secondary",
+  "age": 42,
+  "location": "Braga (Bom Jesus / Tenões)",
+  "occupation": "Arquiteta e Coordenadora de Projetos",
+  "avatar": "🚵‍♀️",
+  "quote": "«Ao sábado de manhã pego na bicicleta de montanha com o meu filho de 12 anos. Se nos acontecer uma queda feia no meio da serra, não quero ficar na dúvida se o seguro do ginásio ou do cartão de crédito cobre o resgate.»",
+  "bio": "Rita tem 42 anos, mora em Braga e divide o tempo entre a exigente profissão de arquiteta e a paixão pela serra e natureza. Pratica BTT (mountain bike) e trail running aos sábados e domingos de manhã, frequentemente acompanhada pelo filho mais velho ou pelo marido. Já presenciou uma queda aparatosa de um colega de pedalada que partiu a clavícula numa descida de pedra solta no Gerês. Rita é extremamente organizada: não decide no calor do momento como os mais jovens, planeia a rota na sexta-feira à noite no Komoot ou Wikiloc. Ela quer saber com clareza cristalina se a apólice cobre menores e se o acionamento em caso de acidente na serra é imediato.",
+  "demographics": {
+    "education": "Mestrado Integrado em Arquitetura",
+    "incomeLevel": "Médio (1.800€ - 2.400€ líquidos/mês)",
+    "familyStatus": "Casada, 2 filhos (10 e 12 anos)",
+    "techComfort": "Alta",
+    "primaryDevices": ["iPhone 13", "Garmin Forerunner", "iPad"]
+  },
+  "consumptionHabits": {
+    "decisionTrigger": "Planeamento de fim de semana na sexta-feira ou sábado de manhã antes de carregar as bicicletas",
+    "decisionLeadTime": "12 a 24 horas de antecedência",
+    "preferredPaymentMethods": ["MB Way", "Cartão de Crédito"],
+    "spendingAttitude": "Sensível ao valor acumulado familiar. Procura opções com excelente relação custo-benefício; pagaria de bom grado 5€ a 7€ para cobrir a manhã desportiva de ambos (ela e o filho)",
+    "digitalServicesUsed": ["Komoot", "Wikiloc", "Garmin Connect", "MB Way", "Continente Siga"]
+  },
+  "activities": [
+    {
+      "name": "BTT (Mountain Bike) recreativo em serra",
+      "frequency": "2 a 3 fins de semana por mês",
+      "environment": "Serra / Trilhos de terra e rocha (Sameiro, Gerês)",
+      "riskLevel": 3,
+      "commonInjuries": "Fraturas de clavícula e punho, escoriações graves, traumatismos cranianos em quedas técnicas"
+    },
+    {
+      "name": "Trail running amador",
+      "frequency": "1 a 2 vezes por semana",
+      "environment": "Montanha / Parque Florestal",
+      "riskLevel": 2,
+      "commonInjuries": "Entorse grave de tornozelo, roturas de menisco, hipotermia/desidratação se perdida"
+    }
+  ],
+  "insuranceAttitude": {
+    "currentProtection": "Seguro de saúde familiar da seguradora habitual (Medis/Médis), mas com exclusão de provas desportivas e restrições a acidentes em locais de difícil acesso; seguro obrigatório do ginásio urbano onde faz spinning",
+    "misconceptions": "Acreditava que o seguro da academia cobria qualquer atividade física praticada fora das quatro paredes das instalações",
+    "perceivedRisk": "Alto para o filho e médio para si mesma nas descidas técnicas de BTT",
+    "barrierToTraditionalInsurance": "Apólices familiares anuais são caras (mais de 300€/ano) e preveem franquias elevadas de 100€ a 250€ por sinistro"
+  },
+  "painPoints": [
+    "Dúvida angustiante sobre quem é responsável se tiverem de chamar salvamento ou helicóptero na serra",
+    "Falta de seguros temporários que permitam incluir dependentes (crianças/jovens) na mesma sessão simples",
+    "Linguagem técnica impenetrável de franquias, capitais seguros e limites de exclusão territorial",
+    "Não querer pagar apólice o ano inteiro para um ritmo desportivo que no inverno é frequentemente cancelado devido à chuva"
+  ],
+  "goalsAndMotivations": [
+    "Garantir proteção médica privada rápida para si e para os filhos sem filas de hospital público",
+    "Ativar a cobertura para 4 ou 6 horas de forma simples e descarregar o comprovativo direto no telemóvel",
+    "Possibilidade de adicionar '+1 Acompanhante / Filho' com 1 clique adicional no Pulso",
+    "Ter clareza se a responsabilidade civil contra terceiros (ex: abalroar um caminhante na descida) está incluída"
+  ],
+  "pulsoFit": {
+    "fitScore": "Alto",
+    "whyTheyBuyOrReject": "Representa o segmento de expansão de alto valor do Pulso: o praticante sénior/familiar. Valoriza a descomplicação e a proteção de dependentes em desportos de serra (BTT/Trail).",
+    "keyFeaturesNeeded": [
+      "Opção multi-praticante / 'Adicionar Dependente Menor' na mesma apólice de sessão",
+      "Cobertura de busca, salvamento e transporte de urgência explícita no resumo",
+      "Opção de agendar ativação na véspera com gatilho automático à hora marcada"
+    ],
+    "rejectionRisk": "Se o produto for estritamente individual ou se o limite de idade excluir os menores que a acompanham"
+  },
+  "researchFoundation": {
+    "groundedFacts": [
+      "Em BTT recreativo, o maior pico de lesões graves concentra-se na faixa dos 30 aos 49 anos (Gaulrapp et al.; Schneider et al.)",
+      "O seguro de ginásio e instalações (DL 10/2009) é territorialmente circunscrito ao recinto do clube",
+      "Mulheres e mães demonstram maior aversão ao risco e preocupação protetora perante dependentes (Eling et al.)"
+    ],
+    "hypothesesToValidate": [
+      "H1: Rita prefere agendar o seguro na véspera (sexta-feira à noite) em vez de ativar no local",
+      "H2: A existência de cobertura opcional de Responsabilidade Civil (atropelamento em trilho) aumenta a taxa de aceitação em 40%",
+      "H3: Estará disposta a pagar um suplemento familiar (ex: 4,50€ mãe + 2,50€ filho) pela mesma sessão"
+    ],
+    "screenerQuestions": [
+      "Costuma praticar desportos outdoor acompanhada por familiares ou menores?",
+      "Sabia que o seguro de acidentes do ginásio ou do cartão de crédito habitualmente não cobre resgates na serra?",
+      "Com que antecedência prefere tratar da segurança e logística dos seus passeios de fim de semana?"
+    ]
+  }
+}

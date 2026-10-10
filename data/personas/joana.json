@@ -1,0 +1,87 @@
+{
+  "id": "joana",
+  "name": "Joana Vasconcelos",
+  "archetype": "A Atleta Adaptada & Ativista da Acessibilidade",
+  "type": "secondary",
+  "age": 36,
+  "location": "Porto (Foz / Matosinhos)",
+  "occupation": "Designer de Comunicação e Acessibilidade Digital",
+  "avatar": "🧑‍🦽",
+  "quote": "«Faço handbike na marginal e canoagem adaptada no Douro. Quando tento pedir um seguro, o sistema ou me bloqueia logo por ter cadeira de rodas ou quer que preencha questionários médicos humilhantes sobre a minha lesão.»",
+  "bio": "Joana tem 36 anos, reside no Porto e tem uma lesão medular traumática desde os 28 anos, decorrente de um acidente de viação. É utilizadora de cadeira de rodas e tem uma relação apaixonada e empoderadora com o desporto adaptado ao ar livre: pedala na sua handbike ao longo da marginal de Matosinhos e pratica canoagem recreativa no estuário do Douro. Joana lida quotidianamente com a exclusão estrutural do mercado segurador: na maioria das seguradoras tradicionais, o termo 'deficiência motora' aciona de imediato a recusa automática de cobertura de acidentes pessoais ou o envio de peritagens médicas morosas e custos triplicados. Joana procura um serviço digital que a veja como uma cidadã ativa que quer segurar a sua sessão desportiva exatamente como qualquer outra pessoa.",
+  "demographics": {
+    "education": "Licenciatura em Belas Artes e Pós-Graduação em Design Inclusivo",
+    "incomeLevel": "Médio (1.600€ - 2.100€ líquidos/mês)",
+    "familyStatus": "Vive em união de facto",
+    "techComfort": "Muito Alta (especialista em tecnologias de apoio)",
+    "primaryDevices": ["iPhone 14 (VoiceOver e contraste ativo)", "iPad Pro", "Apple Watch"]
+  },
+  "consumptionHabits": {
+    "decisionTrigger": "Dias de bom tempo e treinos combinados com o clube informal de desporto adaptado",
+    "decisionLeadTime": "2 a 4 horas antes da sessão",
+    "preferredPaymentMethods": ["MB Way", "Apple Pay"],
+    "spendingAttitude": "Disposta a pagar o mesmo preço justo que qualquer outro praticante (2€ a 4€ por sessão). Rejeita com veemência 'sobretaxas de deficiência'",
+    "digitalServicesUsed": ["Strava", "MB Way", "VoiceOver", "Google Maps Acessível", "Spotify"]
+  },
+  "activities": [
+    {
+      "name": "Handbike (ciclismo adaptado em estrada/ciclovia)",
+      "frequency": "2 vezes por semana",
+      "environment": "Ciclovias e estradas urbanas planas (Marginal de Matosinhos a Leça)",
+      "riskLevel": 3,
+      "commonInjuries": "Capotamento da handbike em desníveis de lancil, colisões com peões, lesões nos ombros e punhos"
+    },
+    {
+      "name": "Canoagem adaptada recreativa",
+      "frequency": "1 vez por semana (primavera/verão)",
+      "environment": "Rio / Água abrigada (Douro)",
+      "riskLevel": 3,
+      "commonInjuries": "Hipotermia em caso de viragem do kayak, distensões no tronco superior, escoriações no embarque"
+    }
+  ],
+  "insuranceAttitude": {
+    "currentProtection": "Apenas o SNS e uma apólice de saúde com exclusão absoluta de acidentes decorrentes da sua condição pré-existente ou prática de modalidades desportivas",
+    "misconceptions": "Já interiorizou a ideia de que o mercado segurador 'não foi desenhado para pessoas com deficiência'",
+    "perceivedRisk": "Médio-alto no trânsito partilhado na marginal e em água",
+    "barrierToTraditionalInsurance": "Discriminação atuarial: exigência de declarações clínicas invasivas, agravamentos de prémio desproporcionais e processos analógicos que demoram 3 semanas"
+  },
+  "painPoints": [
+    "Formulários de seguros que assumem corpos padrão e colocam perguntas desadequadas e excludentes",
+    "Apps móveis com contrastes ilegíveis, botões minúsculos ou que quebram a navegação por leitor de ecrã (VoiceOver)",
+    "Receio de que, em caso de queda de handbike, a seguradora alegue que a lesão se deveu à deficiência prévia para recusar o pagamento",
+    "Falta de cobertura de danos causados ao equipamento especializado (uma handbike pode custar mais de 4.000€)"
+  ],
+  "goalsAndMotivations": [
+    "Contratar um microsseguro desportivo com a mesma rapidez, dignidade e simplicidade que qualquer atleta",
+    "Encontrar uma aplicação que cumpra normas de acessibilidade digital WCAG 2.1 nível AA/AAA",
+    "Garantir cobertura de despesas médicas imediatas de urgência e responsabilidade civil em caso de embate com peões",
+    "Sentir que o Pulso é uma marca progressista e autenticamente inclusiva"
+  ],
+  "pulsoFit": {
+    "fitScore": "Médio-Alto",
+    "whyTheyBuyOrReject": "Joana é o teste definitivo da ética, simplicidade e acessibilidade do produto Pulso. Se o Pulso for verdadeiramente agnóstico à condição física e focado na atividade do momento, Joana será a maior embaixadora da marca na comunidade de desporto outdoor adaptado.",
+    "keyFeaturesNeeded": [
+      "Processo de subscrição sem questionários clínicos discriminatórios: o seguro cobre o acidente fortuito da sessão, não a história clínica pregressa",
+      "Interface 100% acessível (compatível com leitores de ecrã, navegação por teclado e botões táteis amplos)",
+      "Opção de inclusão de modalidades adaptadas no catálogo de atividades (Handbike, Paracanoagem)"
+    ],
+    "rejectionRisk": "Se a aplicação tiver falhas grosseiras de acessibilidade ou termos contratuais com exclusões opacas de 'invalidez preexistente' mal formuladas"
+  },
+  "researchFoundation": {
+    "groundedFacts": [
+      "Pessoas com deficiência enfrentam barreiras severas na contratação de seguros privados em Portugal, frequentemente encaminhadas para regimes de exclusão",
+      "As diretrizes da União Europeia e a Convenção dos Direitos das Pessoas com Deficiência proíbem discriminação desproporcional em serviços financeiros",
+      "O DL 10/2009 só cobre desporto adaptado se for federado no âmbito do Comité Paralímpico de Portugal"
+    ],
+    "hypothesesToValidate": [
+      "H1: A ausência de perguntas sobre histórico médico aumenta a confiança de atletas recreativos em 85%",
+      "H2: Uma interface certificada como acessível gera forte adesão orgânica e 'boca-a-boca' na comunidade",
+      "H3: A cobertura de responsabilidade civil é tão ou mais importante para a Joana do que o capital de morte/invalidez"
+    ],
+    "screenerQuestions": [
+      "Já teve alguma experiência negativa ou de recusa ao tentar subscrever um seguro pessoal ou de viagem?",
+      "Que tecnologias de apoio ou definições de acessibilidade utiliza habitualmente no seu smartphone?",
+      "Que garantias de transparência procura antes de confiar numa aplicação financeira ou de seguros?"
+    ]
+  }
+}

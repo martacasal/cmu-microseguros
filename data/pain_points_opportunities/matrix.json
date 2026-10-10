@@ -1,0 +1,77 @@
+{
+  "project": "Pulso — Microsseguro Desportivo Sob Demanda",
+  "generatedAt": "2026-10-10",
+  "methodology": "Normas Nielsen Norman Group (NN/g) & Desk Research Portugal",
+  "categories": [
+    {
+      "categoryName": "1. Confiança, Clareza e Linguagem Simples",
+      "painPoints": [
+        "Desconfiança generalizada de apólices com dezenas de páginas de exclusões opacas e termos ambíguos.",
+        "Ilusão de cobertura: muitos atletas acham falsamente que o SNS, o cartão Visa ou o seguro do ginásio cobrem acidentes outdoor na montanha ou no mar.",
+        "Medo de que no momento do sinistro a seguradora encontre uma cláusula escondida para não pagar."
+      ],
+      "opportunities": [
+        "Resumo Contratual em 3 Linhas: 'O que está incluído' e 'O que NÃO está incluído' em linguagem direta do quotidiano.",
+        "Comprovativo Digital no Apple Wallet / Google Wallet com contacto direto 24h de assistência de urgência e geolocalização hospitalar.",
+        "Explicação assistida por IA em linguagem natural para responder a dúvidas instantâneas: 'Se partir a prancha cobre? Não. Se partir o braço cobre? Sim, até 5.000€'."
+      ],
+      "affectedPersonas": ["tiago", "rita", "joana", "maria"]
+    },
+    {
+      "categoryName": "2. Velocidade e Fricção de Subscrição (< 60 Segundos)",
+      "painPoints": [
+        "Processos de subscrição tradicionais que demoram dias ou exigem preenchimento de formulários fiscais e médicos exaustivos.",
+        "Decisão desportiva espontânea no local (estacionamento da praia ou trilho) não tolera atrasos que retirem tempo de prática.",
+        "Abandono imediato se forem solicitados mais de 3 passos ou se o método de pagamento exigir digitação manual de 16 dígitos de cartão."
+      ],
+      "opportunities": [
+        "Fluxo de ativação em 3 toques: Atividade (ex: Surf) -> Tempo (ex: 3h) -> Pagamento MB Way / Apple Pay.",
+        "Geolocalização contextual automática que preenche o local da prática sem esforço do utilizador.",
+        "Cronómetro decrescente em tempo real e expiração automática no fim da sessão com ZERO renovações automáticas."
+      ],
+      "affectedPersonas": ["tiago", "rita", "joana"]
+    },
+    {
+      "categoryName": "3. Modelo de Preço e Compromisso Financeiro",
+      "painPoints": [
+        "Injustiça sentida ao pagar anuidades caras (200€ a 350€/ano) para desportos praticados apenas 2 ou 3 vezes por mês.",
+        "Interrupção sazonal da prática (chuva no inverno, mar calmo no verão) torna o seguro tradicional um desperdício financeiro.",
+        "Franquias abusivas em apólices tradicionais (100€ a 250€) que anulam a utilidade em lesões desportivas moderadas."
+      ],
+      "opportunities": [
+        "Preço por sessão desportiva acessível (2€ a 4€), proporcional ao risco da atividade (Nível 1 a 4).",
+        "Opção 'Multi-participante / Pacote Família' para Rita e dependentes com desconto combinado por sessão.",
+        "Franquia zero ou reduzida para despesas médicas urgentes de primeiro socorro."
+      ],
+      "affectedPersonas": ["tiago", "rita"]
+    },
+    {
+      "categoryName": "4. Acessibilidade Digital e Não Discriminação",
+      "painPoints": [
+        "Atletas com deficiência motora são sumariamente excluídos ou taxados com 'risco agravado' abusivo pelas seguradoras tradicionais.",
+        "Aplicações móveis sem conformidade com leitores de ecrã (VoiceOver / TalkBack), botões minúsculos ou contrastes deficientes.",
+        "Exigência de exames médicos prévios que violam a dignidade e autonomia desportiva."
+      ],
+      "opportunities": [
+        "Agnosticismo à condição corporal prévia: o microsseguro cobre o acidente fortuito e imprevisto da sessão desportiva contratada.",
+        "Design de interface em conformidade estrita com WCAG 2.1 nível AA/AAA.",
+        "Inclusão de modalidades adaptadas no catálogo de atividades (Handbike, Paracanoagem, Basquetebol em Cadeira de Rodas)."
+      ],
+      "affectedPersonas": ["joana"]
+    },
+    {
+      "categoryName": "5. Gestão de Fronteira e Anti-Persona (Defesa do Modelo Operacional)",
+      "painPoints": [
+        "Utilizadores seniores que desconfiam de pagamentos no smartphone e exigem suporte telefónico demorado para micro-transações de 2€.",
+        "Risco atuarial desproporcional em idades avançadas (>60 anos) com complicações de fraturas crónicas que inviabilizam o preço unitário do produto.",
+        "Frustração do utilizador tradicional caso se sinta enganado ou abandonado sem apoio presencial."
+      ],
+      "opportunities": [
+        "Screener de Qualificação Antecipado: filtro de idade e objetivo na primeira interação.",
+        "Saída Graciosa (Graceful Off-Ramp): Mensagem empática que esclarece o foco do Pulso e recomenda canais bancários e seguradoras convencionais seniores.",
+        "Blindagem operacional do negócio: evitar o custo de suporte de 15€ por chamada num produto que fatura 2,50€ por apólice."
+      ],
+      "affectedPersonas": ["maria"]
+    }
+  ]
+}

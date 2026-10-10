@@ -1,0 +1,113 @@
+{
+  "personaId": "tiago",
+  "personaName": "Tiago Ferreira (Surfista Espontâneo)",
+  "scenario": "Sessão de surf de fim de tarde na Ericeira (Ribeira d'Ilhas) após verificar previsão de ondas com amigos.",
+  "stages": [
+    {
+      "stageNumber": 1,
+      "stageName": "1. Gatilho & Decisão Espontânea",
+      "userGoal": "Aproveitar boas ondas na Ericeira sem complicações e com paz de espírito.",
+      "userActions": [
+        "Consulta o Surfline/Windguru e vê swell de 1,5m com vento offshore",
+        "Manda mensagem no WhatsApp a convidar dois amigos",
+        "Lembra-se da luxação do amigo há 3 meses e da fatura de 900€ de fisioterapia"
+      ],
+      "thoughts": "«O mar hoje vai estar com força. Vou com prancha curta. Podia arranjar um seguro rápido só para a tarde de hoje sem ter de ficar a pagar o ano todo.»",
+      "emotions": "Entusiasmado, com leve apreensão de risco físico",
+      "touchpoints": ["App Surfline", "WhatsApp", "Notificação / recomendação Pulso"],
+      "painPoints": [
+        "Inexistência de seguro por horas nas seguradoras tradicionais",
+        "Medo de gastar tempo que lhe tire minutos de luz solar na água"
+      ],
+      "opportunities": [
+        "Integração do Pulso com apps de meteorologia/surf ou campanhas georreferenciadas na costa",
+        "Mensagem clara: 'Seguro desportivo ativado em menos de 1 minuto por 2,90€'"
+      ]
+    },
+    {
+      "stageNumber": 2,
+      "stageName": "2. Descoberta & Simulação Rápida",
+      "userGoal": "Compreender o preço, o que está coberto e o que NÃO está coberto sem ler 40 páginas de jargão jurídico.",
+      "userActions": [
+        "Abre o Pulso no parque de estacionamento da praia enquanto os amigos tiram as pranchas do carro",
+        "Seleciona a atividade: 'Surf / Desportos de Ondas'",
+        "Define a duração: '3 horas (Tarde)'",
+        "Verifica a geolocalização automática: 'Ericeira'"
+      ],
+      "thoughts": "«Deixa ver se isto é mesmo direto ou se vão começar a pedir o meu NIF, morada e historial de doenças...»",
+      "emotions": "Curioso, céptico quanto à rapidez anunciada",
+      "touchpoints": ["Ecrã inicial da app Pulso", "Seletor de atividade e duração"],
+      "painPoints": [
+        "Frustração clássica com apólices que excluem surf por considerarem desporto radical",
+        "Dúvida sobre o que acontece se o resgate tiver de ser feito na praia"
+      ],
+      "opportunities": [
+        "Exibição de 3 pontos em linguagem direta e transparente: '✅ Despesas médicas até 5.000€ | ✅ Resgate até 2.500€ | ❌ Danos na prancha não incluídos'",
+        "Preço fixo visível imediatamente: 2,90€"
+      ]
+    },
+    {
+      "stageNumber": 3,
+      "stageName": "3. Micro-Ativação em < 60s",
+      "userGoal": "Concluir o pagamento e ativar a apólice instantaneamente antes de vestir o fato de neoprene.",
+      "userActions": [
+        "Confirma os dados essenciais (Nome e telemóvel)",
+        "Paga com 1 clique usando Apple Pay / MB Way",
+        "Recebe confirmação de 'Apólice Ativa' com cronómetro regressivo de 3h e número de emergência 24h"
+      ],
+      "thoughts": "«Foi isto? Dois toques e já está ativo? Excelente, sem burocracias nem contratos em PDF.»",
+      "emotions": "Aliviado, impressionado com a fluidez, focado na sessão",
+      "touchpoints": ["Apple Pay / MB Way", "Ecrã de Apólice Ativa", "Adicionar ao Apple Wallet"],
+      "painPoints": [
+        "Se o pagamento falhar ou demorar mais de 10 segundos a validar, gera abandono",
+        "Necessidade de ter o contacto de urgência acessível mesmo sem rede no mar"
+      ],
+      "opportunities": [
+        "Cartão de emergência offline guardado no Apple Wallet / Google Wallet com código QR",
+        "Partilha opcional de link com contacto de confiança: 'Tiago está a surfar até às 19h com cobertura ativa'"
+      ]
+    },
+    {
+      "stageNumber": 4,
+      "stageName": "4. Durante a Atividade",
+      "userGoal": "Focar-se 100% no desporto e desfrutar das ondas sabendo que está protegido.",
+      "userActions": [
+        "Entra no mar com prancha e fato de neoprene",
+        "A app gere a contagem decrescente em segundo plano sem exigir interação",
+        "Surf durante 2h30 com algumas quedas na rebentação sem incidentes graves"
+      ],
+      "thoughts": "«Dá outra tranquilidade arriscar aquela manobra sabendo que se bater na quilha tenho atendimento particular coberto.»",
+      "emotions": "Focado, confiante, em estado de 'flow'",
+      "touchpoints": ["Apple Watch (opcional: notificação silenciosa de cobertura ativa)"],
+      "painPoints": [
+        "Bateria do telemóvel deixada no carro",
+        "Receio de a sessão se prolongar para além das 3h contratadas"
+      ],
+      "opportunities": [
+        "Tolerância inteligente de carência de 30 minutos pós-horário",
+        "Extensão simples por notificação com 1 toque no smartwatch caso o mar continue perfeito"
+      ]
+    },
+    {
+      "stageNumber": 5,
+      "stageName": "5. Pós-Atividade & Expiração / Sinistro",
+      "userGoal": "Saber que a sessão terminou sem cobranças recorrentes surpresa, ou reportar sinistro sem complicações.",
+      "userActions": [
+        "Sai da água, troca de roupa e abre o telemóvel no café da praia",
+        "Vê notificação: 'Sessão concluída com sucesso. A tua apólice expirou automaticamente. Zero renovações.'",
+        "Opção com 1 toque: 'Reportar incidente' se tivesse tido uma pancada"
+      ],
+      "thoughts": "«Muito bom. Custou menos que uma cerveja e um snack, não fico fidelizado a nada e para a próxima uso de novo.»",
+      "emotions": "Satisfeito, leal à marca, propenso a recomendar aos amigos do surf",
+      "touchpoints": ["Notificação de fecho da app", "Recibo por email / SMS"],
+      "painPoints": [
+        "Medo de que tenham sido ativadas subscrições mensais ocultas",
+        "Dificuldade de saber onde ir se tiver uma lesão leve que só comece a doer à noite"
+      ],
+      "opportunities": [
+        "Confirmação transparente de custo único: 'Total faturado: 2,90€ — sem mensalidades'",
+        "Guia rápido de clínicas e hospitais privados parceiros com atendimento direto pelo número da apólice"
+      ]
+    }
+  ]
+}

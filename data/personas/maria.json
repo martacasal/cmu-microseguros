@@ -1,0 +1,79 @@
+{
+  "id": "maria",
+  "name": "Maria do Carmo Santos",
+  "archetype": "A Caminhante Tradicional & Cepticista Digital (Anti-Persona)",
+  "type": "anti-persona",
+  "age": 64,
+  "location": "Sintra (São Pedro de Penaferrim)",
+  "occupation": "Aposentada (Ex-Técnica Administrativa Bancária)",
+  "avatar": "👵",
+  "quote": "«Faço caminhadas com as minhas amigas na serra ao sábado, mas não me meto a pagar seguros no telemóvel. Quem me garante o que está naquelas letras pequeninas? Se tiver uma queda, falo com o meu médico de família ou com o senhor do balcão do banco.»",
+  "bio": "Maria tem 64 anos e vive em Sintra. Todos os sábados de manhã junta-se a um grupo informal de vizinhas para caminhadas de baixa intensidade na serra (Capuchos, Castelo dos Mouros). Tem uma preocupação genuína com a saúde: teme uma queda numa pedra escorregadia ou uma fratura que a deixe dependente dos filhos. No entanto, o seu modelo mental de serviços financeiros assenta no contacto humano, no papel timbrado e na relação de confiança construída ao longo de anos com o gestor do balcão da Caixa Geral de Depósitos. O conceito de um 'microsseguro ativado em 30 segundos numa aplicação de telemóvel' gera-lhe profunda ansiedade e desconfiança de fraude.",
+  "demographics": {
+    "education": "Ensino Secundário Completo",
+    "incomeLevel": "Médio-Baixo (Pensão de reforma de 920€/mês)",
+    "familyStatus": "Viúva, 2 filhos adultos, 3 netos",
+    "techComfort": "Baixa (utilização básica restrita)",
+    "primaryDevices": ["Samsung Galaxy A14 (utiliza para WhatsApp e chamadas)", "Televisão por cabo"]
+  },
+  "consumptionHabits": {
+    "decisionTrigger": "Conversa com amigos ou recomendação formal por carta/balcão bancário",
+    "decisionLeadTime": "Semanas ou meses de reflexão prévia",
+    "preferredPaymentMethods": ["Multibanco com talão impresso", "Dinheiro físico", "Débito direto autorizado presencialmente"],
+    "spendingAttitude": "Ultra-conservadora. Recusa categoricamente colocar dados de cartão em aplicações desconhecidas ou aceitar termos digitais rápidos",
+    "digitalServicesUsed": ["WhatsApp para ver fotografias da família", "Facebook para notícias locais"]
+  },
+  "activities": [
+    {
+      "name": "Caminhadas de grupo em passo lento",
+      "frequency": "1 vez por semana (sábado de manhã)",
+      "environment": "Trilhos pedestres e caminhos florestais de Sintra",
+      "riskLevel": 1,
+      "commonInjuries": "Entorse, desequilíbrio com escoriações, fratura de punho ou fémur em caso de queda em declive"
+    }
+  ],
+  "insuranceAttitude": {
+    "currentProtection": "Serviço Nacional de Saúde (SNS) a 100%; apólice antiga de acidentes pessoais associada à conta bancária contratada há 20 anos",
+    "misconceptions": "Acha que 'tudo o que é no telemóvel é burla' ou que lhe vão retirar montantes desconhecidos da reforma todos os meses",
+    "perceivedRisk": "Alto em relação ao impacto de uma lesão grave na autonomia pessoal; baixo em relação à intensidade do exercício",
+    "barrierToTraditionalInsurance": "Falta de paciência para agentes agressivos, mas rejeição total de canais puramente self-service sem voz humana"
+  },
+  "painPoints": [
+    "Medo paralisante de subscrever algo por engano e ficar fidelizada a cobranças ocultas",
+    "Incompreensão total de termos em inglês como 'on-demand', 'pay-per-use', 'micro-insurance' ou 'wallet'",
+    "Ecrãs de smartphone com botões pequenos, fontes reduzidas e passos rápidos que não permitem ler com calma",
+    "Necessidade absoluta de comprovativo em papel com carimbo ou número de telefone direto de um mediador conhecido"
+  ],
+  "goalsAndMotivations": [
+    "Sentir-se segura e não ser um encargo para a família",
+    "Fazer a sua caminhada semanal com tranquilidade e convívio social",
+    "Resolver qualquer imprevisto médico através do centro de saúde ou de médicos de confiança"
+  ],
+  "pulsoFit": {
+    "fitScore": "Incompatível (Anti-Persona)",
+    "whyTheyBuyOrReject": "Maria é a personificação exata do utilizador para quem o Pulso NÃO foi desenhado. Tentar convertê-la ou adaptar o produto à sua medida destruiria a proposta de valor do Pulso (rapidez < 60s, preço ultrabaixo de 2€, modelo 100% digital e sem intermediação telefónica dispendiosa). O custo de aquisição e suporte para este perfil seria 10x superior à receita de uma microapólice.",
+    "keyFeaturesNeeded": [
+      "Atendimento por balcão presencial com contrato assinado em papel (oposto à arquitetura Pulso)",
+      "Linha telefónica com operador humano disponível para esclarecer dúvidas prévias",
+      "Métodos de pagamento por talão de Multibanco físico"
+    ],
+    "rejectionRisk": "Certeza absoluta de abandono no fluxo digital e risco de avaliações negativas por incompreensão do modelo desportivo sob demanda"
+  },
+  "researchFoundation": {
+    "groundedFacts": [
+      "Eurobarómetro: apenas 21% dos portugueses com mais de 55 anos praticam exercício físico",
+      "EuroSafe: Na faixa etária dos 60+ anos, o risco de fatalidade e complicações ortopédicas severas (fratura de fémur) é desproporcional face a jovens praticantes",
+      "Towers Watson e Eling et al.: A literacia financeira digital e a confiança em recomendações automáticas decaem acentuadamente após os 55 anos"
+    ],
+    "hypothesesToValidate": [
+      "H1 (Fronteira): O screener do Pulso deve identificar a idade (> 40 ou > 55) logo no início para evitar frustração",
+      "H2 (Encaminhamento): A mensagem de recusa elegante deve direcionar o utilizador sénior para a sua seguradora bancária tradicional (ex: Fidelidade, Tranquilidade) com respeito e clareza",
+      "H3: Tentar criar uma interface adaptada a este perfil aumentaria a fricção para o Tiago e para a Joana em mais de 70%"
+    ],
+    "screenerQuestions": [
+      "Qual é a sua faixa etária? (Se 40+, direcionar para produtos convencionais de cobertura anual)",
+      "Sente-se confortável a efetuar pagamentos e gerir seguros exclusivamente através de uma app móvel sem apoio telefónico?",
+      "Prefere apólices anuais contínuas com mediação bancária ou seguros pontuais ativados por sessão?"
+    ]
+  }
+}

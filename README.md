@@ -29,7 +29,7 @@ O projeto implementa **3 Personas Alvo** e **1 Anti-Persona**, fundamentadas nas
 ## 🛠️ Arquitetura e Estrutura do Repositório
 
 ```
-cmu-personas/
+cmu-microseguros/
 ├── data/
 │   ├── schemas/                          # JSON Schemas formais (NN/g)
 │   │   ├── persona.schema.json
@@ -136,6 +136,5 @@ Na aba **Chat com Personas**, pode:
 
 ## 🤝 Colaboração e Controlo de Versões
 
-- Repositório Principal de Grupo: `https://github.com/martacasal/cmu-microseguros` (ramo `main`)
-- Repositório Pessoal / Backup: `https://github.com/ddmazio/cmu-personas` (ramo `main`)
-- Sincronização e trabalho colaborativo geridos pela equipa de trabalho.
+- Repositório Oficial do Grupo: `https://github.com/martacasal/cmu-microseguros` (ramo `main`)
+- Trabalho colaborativo e controlo de versões geridos pela equipa.

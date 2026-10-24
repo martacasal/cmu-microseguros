@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const isProd = process.env.NODE_ENV === "production";
-const repoName = process.env.NEXT_PUBLIC_BASE_PATH || (isProd ? "/cmu-microseguros" : "");
 
 const nextConfig = {
   output: "export",
-  basePath: repoName,
-  assetPrefix: repoName ? `${repoName}/` : "",
+  basePath: isProd ? "/cmu-microseguros" : "",
+  assetPrefix: isProd ? "/cmu-microseguros/" : "",
   trailingSlash: true,
   images: {
     unoptimized: true,

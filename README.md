@@ -136,5 +136,6 @@ Na aba **Chat com Personas**, pode:
 
 ## 🤝 Colaboração e Controlo de Versões
 
-- Repositório GitHub: `git@github.com:ddmazio/cmu-personas.git` (ramo `main`)
-- Backup e sincronização geridos pela equipa de trabalho.
+- Repositório Principal de Grupo: `https://github.com/martacasal/cmu-microseguros` (ramo `main`)
+- Repositório Pessoal / Backup: `https://github.com/ddmazio/cmu-personas` (ramo `main`)
+- Sincronização e trabalho colaborativo geridos pela equipa de trabalho.

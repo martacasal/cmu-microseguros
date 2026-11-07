@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POC final · Micro-seguro</title>
+<style>
+  :root{
+    --bg:#e9ebee; --surface:#fff; --soft:#f3f4f6; --line:#d8dce0;
+    --ink:#1c1f23; --ink2:#555c64; --ink3:#8a9097;
+    --accent:#1f6f5c; --accent-soft:#e2efeb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .wrap{display:flex;gap:40px;justify-content:center;align-items:flex-start;flex-wrap:wrap;padding:32px 16px}
+  .notes{max-width:360px;color:var(--ink2);font-size:14px}
+  .notes h1{font-size:20px;color:var(--ink);margin:0 0 4px}
+  .notes .tag{display:inline-block;font-size:12px;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:10px;margin-bottom:12px}
+  .notes h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin:20px 0 6px}
+  .notes ul{padding-left:18px;margin:0}
+  .notes li{margin-bottom:4px}
+  .notes .src{font-size:11px;color:var(--accent);font-weight:600;background:var(--accent-soft);border-radius:6px;padding:0 5px;margin-right:4px}
+  .demo{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:8px}
+  .demo label{display:flex;gap:8px;align-items:center;margin:4px 0;cursor:pointer}
+
+  .phone{width:375px;max-width:100%;height:780px;background:var(--surface);border-radius:36px;border:10px solid #2a2d31;overflow:hidden;display:flex;flex-direction:column;position:relative;user-select:none}
+  .top{padding:18px 22px 0;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--ink3)}
+  .dots{display:flex;gap:6px;align-items:center}
+  .dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+  .dots i.on{background:var(--accent);width:20px;border-radius:4px}
+  .dots i.past{background:#9fc6ba}
+  main{flex:1;padding:8px 22px 22px;display:flex;flex-direction:column;overflow:auto}
+  .title{font-size:20px;font-weight:700;margin:6px 0 10px}
+  .sub{color:var(--ink2);margin:0 0 10px;font-size:14px}
+
+  .acts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .act{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:8px 2px;font:inherit;font-size:12px;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+  .act span:last-child{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
+  .act .ic{width:26px;height:26px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-weight:700;color:var(--ink2);font-size:11px}
+  .act.sel{border-color:var(--accent);background:var(--accent-soft)}
+  .act.sel .ic{background:var(--accent);color:#fff}
+  .act.other .ic{font-size:16px}
+
+  .riskline{display:flex;gap:10px;align-items:center;background:var(--soft);border-radius:12px;padding:9px 12px;margin-top:10px;font-size:13px;color:var(--ink2);min-height:42px}
+  .riskline b{color:var(--ink)}
+  .meter{display:flex;gap:3px;flex:none}
+  .meter i{width:16px;height:6px;border-radius:3px;background:var(--line)}
+  .meter i.on{background:var(--ink2)}
+
+  .dialbox{position:relative;width:224px;height:224px;margin:8px auto 0;touch-action:none}
+  .dialbox svg{width:100%;height:100%;display:block}
+  .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;text-align:center}
+  .center .big{font-size:40px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.05}
+  .center .small{font-size:13px;color:var(--ink2)}
+  .center .tiny{font-size:11px;color:var(--ink3);margin-top:4px}
+  .knob{cursor:grab}
+  .hint{font-size:13px;color:var(--ink2);text-align:center;margin-top:4px}
+  .hint b{color:var(--ink)}
+  .hint button{border:0;background:none;color:var(--accent);font:inherit;font-weight:600;cursor:pointer;padding:0;text-decoration:underline}
+
+  .switch{display:flex;align-items:center;justify-content:space-between;border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;margin-top:10px;cursor:pointer}
+  .switch small{display:block;color:var(--ink3);font-size:12px}
+  .tog{width:48px;height:28px;border-radius:14px;background:var(--line);position:relative;flex:none;transition:.2s}
+  .tog::after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+  .switch.on{border-color:var(--accent)}
+  .switch.on .tog{background:var(--accent)}
+  .switch.on .tog::after{left:23px}
+
+  .spacer{flex:1;min-height:10px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:14px;padding:16px;font:600 16px/1 inherit;font-family:inherit;cursor:pointer;margin-top:10px;text-decoration:none}
+  .btn.pri{background:var(--accent);color:#fff}
+  .btn.pri[disabled]{background:var(--line);color:var(--ink3);cursor:default}
+  .btn.sec{background:var(--soft);color:var(--ink)}
+  .btn.ghost{background:none;color:var(--ink2);font-weight:500}
+  .btn.sos{background:var(--ink);color:#fff}
+  .row2{display:flex;gap:10px}.row2 .btn{flex:1}
+
+  .loader{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .check{display:flex;gap:12px;align-items:center;padding:12px 0;color:var(--ink3);border-bottom:1px solid var(--soft)}
+  .check .c{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;flex:none}
+  .check.done{color:var(--ink)}
+  .check.done .c{background:var(--accent);border-color:var(--accent);color:#fff}
+  .check.run .c{border-color:var(--accent);border-top-color:transparent;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .price{font-size:52px;font-weight:700;letter-spacing:-.02em;margin:6px 0 0;line-height:1.1}
+  .price-sub{color:var(--ink2);margin-bottom:6px;font-size:14px}
+  .stack{display:flex;height:12px;border-radius:6px;overflow:hidden;margin:14px 0 10px;background:var(--soft)}
+  .stack i{display:block;height:100%}
+  .why{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .why h3{margin:0;padding:10px 16px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);background:var(--soft)}
+  details{border-top:1px solid var(--line)}
+  details:first-of-type{border-top:0}
+  summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer}
+  summary::-webkit-details-marker{display:none}
+  summary .sw{width:10px;height:10px;border-radius:3px;flex:none}
+  summary .amt{margin-left:auto;font-weight:600;white-space:nowrap}
+  summary::after{content:"＋";color:var(--ink3)}
+  details[open] summary::after{content:"－"}
+  details p{margin:0;padding:0 16px 12px 36px;color:var(--ink2);font-size:13px}
+  .note{font-size:13px;color:var(--ink2);margin-top:12px;display:flex;gap:8px}
+
+  .status{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:600;background:var(--accent-soft);border-radius:20px;padding:6px 12px;font-size:14px}
+  .status i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .act-head{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+  .act-head span.n{font-size:14px;color:var(--ink2)}
+  .pending{background:var(--accent-soft);border-radius:14px;padding:12px 14px;margin-top:8px;font-size:14px}
+  .pending b{display:block;font-size:16px;margin-bottom:2px}
+  .pending .btn{padding:10px;font-size:14px;margin-top:8px}
+  .nudge{font-size:13px;color:var(--ink);background:var(--soft);border-left:3px solid var(--accent);border-radius:8px;padding:10px 12px;margin-top:8px}
+  .cover{margin-top:8px;font-size:13px;color:var(--ink2)}
+  .cover summary{padding:8px 0;gap:6px}
+  .cover ul{margin:0;padding:0 0 6px 18px}
+
+  .sheet-bg{position:absolute;inset:0;background:rgba(20,22,25,.4);display:flex;align-items:flex-end;z-index:5}
+  .sheet{background:var(--surface);width:100%;border-radius:22px 22px 0 0;padding:20px 22px 26px;max-height:88%;overflow:auto}
+  .sheet h3{margin:0 0 4px;font-size:19px}
+  .sheet p{margin:0 0 14px;color:var(--ink2);font-size:14px}
+  .opt{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;margin-bottom:8px;font:inherit;color:inherit;cursor:pointer;text-decoration:none}
+  .opt small{display:block;color:var(--ink3);font-size:12px}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+  .opt .r{font-weight:600;white-space:nowrap}
+  .search{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;margin-bottom:10px;outline:none}
+  .search:focus{border-color:var(--accent)}
+  .receipt{border:1px solid var(--line);border-radius:14px;padding:4px 16px;margin:16px 0}
+  .receipt div{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--soft)}
+  .receipt div:last-child{border:0;font-weight:700}
+  .big-ok{width:64px;height:64px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:30px;margin:24px 0 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside class="notes">
+    <span class="tag">POC final</span>
+    <h1>Micro-seguro</h1>
+    <p>Built from the group's feedback on POC A and POC B. POC C was dropped.</p>
+    <h2>Passo 1 · Configurar</h2>
+    <ul>
+      <li><span class="src">B</span>One screen: activity tiles, dial, equipment, step navigator at the top.</li>
+      <li><span class="src">A</span>The activity's risk shows as soon as you pick it, before you start.</li>
+      <li><span class="src">A</span>Duration is preset per activity, and uses your own average when you have history.</li>
+      <li><span class="src">new</span>"Outro" opens a searchable list, and you can type any sport.</li>
+      <li><span class="src">new</span>Dial goes up to 4 h.</li>
+      <li><span class="src">A→toggle</span>Equipment is a switch, not its own screen.</li>
+    </ul>
+    <h2>Passo 2–3 · Cálculo e preço</h2>
+    <ul>
+      <li><span class="src">A</span>Checklist loader that shows what is being calculated.</li>
+      <li><span class="src">new</span>No dial on the quote: a dial with a handle you can't move was a false affordance. The price stands alone, with a split bar and expandable reasons.</li>
+    </ul>
+    <h2>Passo 4 · Atividade</h2>
+    <ul>
+      <li><span class="src">B</span>The dial drains as the countdown; drag it forward to extend.</li>
+      <li><span class="src">new</span>SOS button that calls 112 or the 24 h assistance line.</li>
+      <li><span class="src">A</span>Parar and Prolongar are plain buttons with a confirm step.</li>
+    </ul>
+    <h2>Demo controls</h2>
+    <div class="demo">
+      <label><input type="checkbox" id="fast"> Speed up the countdown (×60)</label>
+      <label><input type="checkbox" id="fail"> Make the price calculation fail</label>
+    </div>
+  </aside>
+
+  <div class="phone" id="phone">
+    <div class="top"><span id="stepLbl"></span><span class="dots" id="dots"></span></div>
+    <main id="view"></main>
+  </div>
+</div>
+
+<script>
+/* risk: 1 baixo, 2 médio, 3 alto. Price = base 0,015 €/min + risk surcharge per minute. */
+const BASE=0.015, MAX=240, EQ_FIX=0.20, EQ_RATE=0.010, MIN_PRICE=0.50;
+const ACTS=[
+  {id:'run',ab:'Co',name:'Corrida',risk:1,rate:0.020,typical:45,why:'Lesões costumam ser ligeiras (entorses, quedas).'},
+  {id:'foot',ab:'Fu',name:'Futebol',risk:2,rate:0.035,typical:60,why:'Contacto físico; lesões de joelho e tornozelo.'},
+  {id:'bike',ab:'Ci',name:'Ciclismo',risk:2,rate:0.030,typical:90,why:'Quedas a velocidade aumentam o custo de tratamento.'},
+  {id:'padel',ab:'Pa',name:'Padel',risk:2,rate:0.028,typical:60,why:'Lesões de pulso, ombro e tornozelo.'},
+  {id:'skate',ab:'Sk',name:'Skate',risk:3,rate:0.045,typical:45,why:'Quedas frequentes, com mais fraturas.'},
+  {id:'hike',ab:'Ca',name:'Caminhada',risk:1,rate:0.018,typical:120,why:'Ritmo baixo, mas terreno irregular.'},
+  {id:'swim',ab:'Na',name:'Natação',risk:2,rate:0.026,typical:45,why:'Baixo impacto, mas em água aberta há mais assistência.'}
+];
+const EXTRA=[
+  {id:'basket',name:'Basquetebol',risk:2,rate:0.032,typical:60,why:'Saltos e contacto; tornozelos e dedos.'},
+  {id:'volley',name:'Voleibol de praia',risk:1,rate:0.022,typical:60,why:'Areia amortece; lesões sobretudo de dedos.'},
+  {id:'surf',name:'Surf',risk:3,rate:0.042,typical:90,why:'Mar e prancha: cortes, quedas e assistência no mar.'},
+  {id:'climb',name:'Escalada',risk:3,rate:0.048,typical:120,why:'Quedas de altura têm lesões mais graves.'},
+  {id:'fit',name:'Treino ao ar livre',risk:1,rate:0.019,typical:45,why:'Exercícios controlados, poucas lesões graves.'},
+  {id:'roller',name:'Patinagem',risk:2,rate:0.034,typical:60,why:'Quedas frequentes; pulsos e cotovelos.'},
+  {id:'frisbee',name:'Frisbee',risk:1,rate:0.021,typical:60,why:'Corrida leve, pouco contacto.'},
+  {id:'tennis',name:'Ténis',risk:2,rate:0.027,typical:60,why:'Lesões de ombro, cotovelo e tornozelo.'}
+];
+/* the user's own history (mock): personalised duration suggestion */
+const HIST={run:[48,52,50,55],foot:[80,90,75],bike:[100,110,95]};
+const RL=['','baixo','médio','alto'];
+
+const eur=n=>n.toFixed(2).replace('.',',')+' €';
+const dur=m=>m<60?`${m} min`:`${Math.floor(m/60)} h${m%60?' '+m%60:''}`;
+const durL=m=>m<60?`${m} min`:`${Math.floor(m/60)} h${m%60?' '+m%60+' min':''}`;
+const hhmm=d=>d.toTimeString().slice(0,5);
+const clock=s=>{s=Math.max(0,Math.ceil(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0')};
+const avg=id=>HIST[id]?Math.round(HIST[id].reduce((a,b)=>a+b)/HIST[id].length/5)*5:null;
+const extCost=(m)=>S.act.rate*m+(S.eq?EQ_RATE*m:0);
+
+const S={step:'setup',act:null,other:null,min:60,eq:false,q:null,timer:null,ext:0,sheet:null,sheetExt:30,nudged:false};
+const LBL={setup:[1,'Configurar'],calc:[2,'A calcular'],calcfail:[2,'A calcular'],quote:[3,'O teu preço'],active:[4,'Em atividade'],done:[4,'Concluído']};
+const view=document.getElementById('view');
+
+/* dial: only drawn where it can be dragged (setup, activity) */
+const R=96, C=112, LEN=2*Math.PI*R;
+const pt=f=>{const a=f*2*Math.PI-Math.PI/2;return [C+R*Math.cos(a),C+R*Math.sin(a)]};
+function dialSVG(frac,ghost){
+  const end=ghost||frac, [x,y]=pt(Math.min(end,.9999));
+  const ticks=Array.from({length:8},(_,i)=>{const a=i/8*2*Math.PI-Math.PI/2;return `<line x1="${C+(R-18)*Math.cos(a)}" y1="${C+(R-18)*Math.sin(a)}" x2="${C+(R-12)*Math.cos(a)}" y2="${C+(R-12)*Math.sin(a)}" stroke="#c4c9ce" stroke-width="2"/>`}).join('');
+  const g=ghost?`<circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="#9fc6ba" stroke-width="16" stroke-dasharray="${Math.min(ghost,1)*LEN} ${LEN}" transform="rotate(-90 ${C} ${C})" stroke-linecap="round"/>`:'';
+  return `<svg viewBox="0 0 224 224"><circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="#eef0f2" stroke-width="16"/>${ticks}${g}
+  <circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="var(--accent)" stroke-width="16" stroke-dasharray="${frac*LEN} ${LEN}" transform="rotate(-90 ${C} ${C})" stroke-linecap="round"/>
+  <circle class="knob" cx="${x}" cy="${y}" r="14" fill="#fff" stroke="var(--accent)" stroke-width="3"/></svg>`;
+}
+function bindDial(el,onFrac){
+  const f=e=>{const r=el.getBoundingClientRect();const dx=e.clientX-r.left-r.width/2,dy=e.clientY-r.top-r.height/2;let a=Math.atan2(dy,dx)+Math.PI/2;if(a<0)a+=2*Math.PI;return a/(2*Math.PI)};
+  let drag=false;
+  el.addEventListener('pointerdown',e=>{drag=true;el.setPointerCapture(e.pointerId);onFrac(f(e))});
+  el.addEventListener('pointermove',e=>{if(drag)onFrac(f(e))});
+  el.addEventListener('pointerup',()=>drag=false);
+}
+const meter=r=>`<span class="meter">${[1,2,3].map(i=>`<i class="${i<=r?'on':''}"></i>`).join('')}</span>`;
+
+function header(){
+  const [n,l]=LBL[S.step];document.getElementById('stepLbl').textContent=`${n} de 4 · ${l}`;
+  document.getElementById('dots').innerHTML=[1,2,3,4].map(i=>`<i class="${i===n?'on':i<n?'past':''}"></i>`).join('');
+}
+function render(){
+  header();const a=S.act;
+  if(S.step==='setup'){
+    const end=new Date(Date.now()+S.min*60000), mine=a&&avg(a.id);
+    const oth=S.other;
+    view.innerHTML=`<div class="title">Que atividade vais fazer?</div>
+    <div class="acts">${ACTS.map(x=>`<button class="act ${a&&a.id===x.id?'sel':''}" data-act="${x.id}"><span class="ic">${x.ab}</span><span>${x.name}</span></button>`).join('')}
+      <button class="act other ${oth&&a===oth?'sel':''}" data-sheet="other"><span class="ic">${oth&&a===oth?oth.name.slice(0,2):'+'}</span><span>${oth&&a===oth?oth.name:'Outro'}</span></button></div>
+    <div class="riskline">${a?`${meter(a.risk)}<span><b>Risco ${RL[a.risk]}</b> · ${a.why}</span>`:'<span>Escolhe uma atividade para veres o risco antes de começar.</span>'}</div>
+    <div class="dialbox" id="dial">${dialSVG(S.min/MAX)}<div class="center"><div class="big" id="dv">${dur(S.min)}</div><div class="small" id="de">até às ${hhmm(end)}</div><div class="tiny">arrasta · máx. 4 h</div></div></div>
+    <div class="hint" id="hint">${a?(mine?`Pusemos <b>${durL(mine)}</b>: a tua média em ${a.name.toLowerCase()}.${S.min!==mine?` <button data-min="${mine}">Usar</button>`:''}`:`Pusemos <b>${durL(a.typical)}</b>: a duração habitual de ${a.name.toLowerCase()}.`):'&nbsp;'}</div>
+    <div class="switch ${S.eq?'on':''}" data-eq><span>Proteger o equipamento<small>Danos ou roubo até 500 €</small></span><span class="tog"></span></div>
+    <div class="spacer"></div><button class="btn pri" data-start ${a?'':'disabled'}>${a?'Começar':'Escolhe uma atividade'}</button>`;
+    bindDial(document.getElementById('dial'),fr=>{if(S.min>=200&&fr<0.25)fr=1;if(S.min<=40&&fr>0.75)fr=0;const m=Math.min(MAX,Math.max(15,Math.round(fr*MAX/5)*5));if(m!==S.min){S.min=m;updSetup()}});
+  }
+  if(S.step==='calc'){
+    view.innerHTML=`<div class="loader"><div class="title">A calcular o teu preço</div><p class="sub">${a.name} · ${durL(S.min)} · ${S.eq?'com':'sem'} equipamento</p>
+    ${['Risco de '+a.name.toLowerCase(),'Duração de '+durL(S.min),S.eq?'Proteção do equipamento':'Sem equipamento'].map((t,i)=>`<div class="check" id="ck${i}"><span class="c"></span>${t}</div>`).join('')}</div>`;
+    runCalc();
+  }
+  if(S.step==='calcfail'){
+    view.innerHTML=`<div class="loader"><div class="title">Não conseguimos calcular o preço</div><p class="sub">Ainda não estás coberto e não foi cobrado nada. Verifica a ligação e tenta de novo.</p>
+    <button class="btn pri" data-start>Tentar de novo</button><button class="btn ghost" data-cancel>Voltar ao início</button></div>`;
+  }
+  if(S.step==='quote'){
+    const q=S.q, w=v=>(v/q.total*100)+'%';
+    view.innerHTML=`<p class="sub" style="margin:10px 0 0">${a.name} · ${durL(S.min)} · ${S.eq?'com':'sem'} equipamento</p>
+    <div class="price">${eur(q.total)}</div><div class="price-sub">Pagamento único, só para esta atividade.</div>
+    <div class="stack"><i style="width:${w(q.time)};background:#7fb3a4"></i><i style="width:${w(q.risk)};background:var(--accent)"></i><i style="width:${w(q.e)};background:#b9d6cd"></i><i style="width:${w(q.minAdj)};background:var(--line)"></i></div>
+    <div class="why"><h3>Porquê este preço</h3>
+      <details><summary><span class="sw" style="background:#7fb3a4"></span><span>Tempo: ${durL(S.min)}</span><span class="amt">${eur(q.time)}</span></summary><p>${eur(BASE)} por minuto. Pagas ao minuto, não ao dia nem ao ano. Se parares antes, devolvemos a diferença.</p></details>
+      <details><summary><span class="sw" style="background:var(--accent)"></span><span>Risco ${RL[a.risk]}</span><span class="amt">${eur(q.risk)}</span></summary><p>${a.why}${a.custom?' Como não conhecemos esta atividade, aplicámos o risco médio.':''}</p></details>
+      <details><summary><span class="sw" style="background:#b9d6cd"></span><span>Equipamento</span><span class="amt">${eur(q.e)}</span></summary><p>${S.eq?'Até 500 € em danos ou roubo. 0,20 € fixos + 0,01 € por minuto.':'Não incluído. Cancela para voltar e ligar a proteção.'}</p></details>
+      ${q.minAdj?`<details><summary><span class="sw" style="background:var(--line)"></span><span>Valor mínimo</span><span class="amt">${eur(q.minAdj)}</span></summary><p>Cada atividade custa pelo menos ${eur(MIN_PRICE)}.</p></details>`:''}
+    </div>
+    <div class="note"><span>✓</span><span>Nada é cobrado até tocares em Aceitar.</span></div>
+    <div class="spacer"></div><button class="btn pri" data-accept>Aceitar e ficar coberto</button><button class="btn ghost" data-cancel>Cancelar</button>`;
+  }
+  if(S.step==='active'){
+    view.innerHTML=`<div class="act-head"><span class="status"><i></i>Estás coberto</span><span class="n">${a.name}${S.eq?' · equipamento':''}</span></div>
+    <div class="dialbox" id="dial"><div id="dsvg" style="position:absolute;inset:0"></div><div class="center"><div class="big" id="cnt">${clock(S.left)}</div><div class="small" id="cend">até às ${hhmm(S.end)}</div><div class="tiny">arrasta para prolongar</div></div></div>
+    <div id="pend"></div><div id="nudge"></div>
+    <details class="cover"><summary>O que está coberto agora</summary><ul><li>Despesas médicas até 2 500 €</li><li>Assistência 24 h</li>${S.eq?'<li>Equipamento até 500 €</li>':''}</ul></details>
+    <div class="spacer"></div>
+    <button class="btn sos" data-sheet="sos">☎ SOS · Pedir ajuda</button>
+    <div class="row2"><button class="btn sec" data-sheet="stop">Parar</button><button class="btn pri" data-sheet="extend">Prolongar</button></div>`;
+    drawActive(true);
+    bindDial(document.getElementById('dial'),fr=>{const lm=S.left/60,scale=Math.max(MAX,lm);S.ext=Math.max(0,Math.round((fr*scale-lm)/5)*5);drawActive(true)});
+  }
+  if(S.step==='done'){
+    const used=Math.max(1,Math.round((S.total-Math.max(0,S.left))/60));
+    view.innerHTML=`<div class="big-ok">✓</div><div class="title">A cobertura terminou</div><p class="sub">${S.left>0?'Paraste antes do fim, por isso só pagas o tempo que usaste.':'O tempo escolhido chegou ao fim. A cobertura terminou sozinha, sem renovação.'}</p>
+    <div class="receipt"><div><span>Atividade</span><span>${a.name}</span></div><div><span>Tempo coberto</span><span>${durL(used)}</span></div>${S.charged<S.paid?`<div><span>Devolvido</span><span>${eur(S.paid-S.charged)}</span></div>`:''}<div><span>Total pago</span><span>${eur(S.charged)}</span></div></div>
+    <div class="spacer"></div><button class="btn pri" data-cancel>Nova atividade</button>`;
+  }
+  if(S.sheet)drawSheet();
+}
+function updSetup(){
+  const d=document.getElementById('dial');d.querySelector('svg').outerHTML=dialSVG(S.min/MAX);
+  document.getElementById('dv').textContent=dur(S.min);document.getElementById('de').textContent='até às '+hhmm(new Date(Date.now()+S.min*60000));
+  const mine=S.act&&avg(S.act.id);const b=document.querySelector('#hint button');
+  if(mine&&!b&&S.min!==mine)document.getElementById('hint').insertAdjacentHTML('beforeend',` <button data-min="${mine}">Usar</button>`);
+  if(b&&S.min===mine)b.remove();
+}
+function selectAct(x){S.act=x;S.min=avg(x.id)||x.typical;}
+function runCalc(){
+  let i=0;const fail=document.getElementById('fail').checked;
+  const tick=()=>{
+    if(S.step!=='calc')return;
+    if(i>0)document.getElementById('ck'+(i-1)).className='check done';
+    if(fail&&i===2){S.step='calcfail';return render();}
+    if(i===3){
+      const a=S.act,time=BASE*S.min,risk=(a.rate-BASE)*S.min,e=S.eq?EQ_FIX+EQ_RATE*S.min:0,sum=time+risk+e;
+      S.q={time,risk,e,minAdj:Math.max(0,MIN_PRICE-sum),total:Math.max(MIN_PRICE,sum)};S.step='quote';return setTimeout(render,350);
+    }
+    document.getElementById('ck'+i).className='check run';i++;setTimeout(tick,850);
+  };tick();
+}
+function drawActive(force){
+  const box=document.getElementById('dsvg');if(!box)return;
+  const lm=S.left/60, scale=Math.max(MAX,lm+S.ext);
+  box.innerHTML=dialSVG(lm/scale,S.ext?(lm+S.ext)/scale:0);
+  document.getElementById('cnt').textContent=clock(S.left);
+  document.getElementById('cend').textContent='até às '+hhmm(S.end);
+  const p=document.getElementById('pend'), key=S.ext+'|'+hhmm(S.end);
+  if(force||p.dataset.key!==key){p.dataset.key=key;
+    p.innerHTML=S.ext?`<div class="pending"><b>+ ${durL(S.ext)} · + ${eur(extCost(S.ext))}</b>Coberto até às ${hhmm(new Date(S.end.getTime()+S.ext*60000))}<div class="row2"><button class="btn ghost" data-noext>Cancelar</button><button class="btn pri" data-doext>Confirmar</button></div></div>`:'';}
+  const n=document.getElementById('nudge'), show=S.left<=300&&!S.ext;
+  if(force||n.dataset.show!==String(show)){n.dataset.show=show;
+    n.innerHTML=show?'<div class="nudge">Faltam menos de 5 minutos de cobertura. Se ainda estás em atividade, toca em Prolongar.</div>':'';}
+}
+function extend(v){S.paid+=extCost(v);S.total+=v*60;S.left+=v*60;S.end=new Date(S.end.getTime()+v*60000);S.ext=0;}
+function startCover(){
+  S.start=new Date();S.total=S.min*60;S.left=S.total;S.end=new Date(S.start.getTime()+S.total*1000);S.paid=S.q.total;S.ext=0;
+  S.step='active';render();clearInterval(S.timer);
+  S.timer=setInterval(()=>{S.left-=document.getElementById('fast').checked?60:1;if(S.left<=0){finish(false);return}drawActive(false)},1000);
+}
+function finish(early){
+  clearInterval(S.timer);S.charged=early?Math.max(MIN_PRICE,S.paid*(S.total-S.left)/S.total):S.paid;if(!early)S.left=0;S.sheet=null;S.step='done';render();
+}
+function closeSheet(){S.sheet=null;document.querySelector('.sheet-bg')?.remove();}
+function drawSheet(){
+  document.querySelector('.sheet-bg')?.remove();
+  const bg=document.createElement('div');bg.className='sheet-bg';let h='';
+  if(S.sheet==='other'){
+    h=`<h3>Outra atividade</h3><p>Procura ou escreve o teu desporto. Mostramos o risco antes de começares.</p>
+    <input class="search" id="q" placeholder="Ex.: basquetebol, surf, escalada" autocomplete="off">
+    <div id="olist"></div>`;
+  }
+  if(S.sheet==='extend'){
+    h=`<h3>Prolongar a atividade</h3><p>A cobertura continua sem interrupção.</p>
+    ${[15,30,60].map(v=>`<button class="opt ${v===S.sheetExt?'sel':''}" data-setext="${v}"><span>+ ${durL(v)}<small>Até às ${hhmm(new Date(S.end.getTime()+v*60000))}</small></span><span class="r">${eur(extCost(v))}</span></button>`).join('')}
+    <button class="btn pri" data-confext>Confirmar · + ${eur(extCost(S.sheetExt))}</button>`;
+  }
+  if(S.sheet==='stop'){
+    const c=Math.max(MIN_PRICE,S.paid*(S.total-S.left)/S.total);
+    h=`<h3>Parar a cobertura?</h3><p>Deixas de estar coberto a partir de agora. Pagas só o tempo usado: <b>${eur(c)}</b> em vez de ${eur(S.paid)}.</p><button class="btn pri" data-stop>Sim, parar agora</button>`;
+  }
+  if(S.sheet==='sos'){
+    h=`<h3>Pedir ajuda</h3><p>A tua cobertura continua ativa. A assistência já sabe que estás a fazer ${S.act.name.toLowerCase()} e até que horas estás coberto.</p>
+    <a class="opt" href="tel:112"><span><b>Ligar 112</b><small>Emergência: ferimento grave, perigo imediato</small></span><span class="r">☎</span></a>
+    <a class="opt" href="tel:+351800000000"><span><b>Ligar à assistência 24 h</b><small>800 000 000 · lesão, transporte, equipamento</small></span><span class="r">☎</span></a>`;
+  }
+  bg.innerHTML=`<div class="sheet">${h}<button class="btn ghost" data-close>${S.sheet==='other'||S.sheet==='sos'?'Fechar':'Cancelar'}</button></div>`;
+  bg.addEventListener('click',e=>{if(e.target===bg)closeSheet()});
+  document.getElementById('phone').appendChild(bg);
+  if(S.sheet==='other'){const i=document.getElementById('q');i.oninput=()=>drawOther(i.value);drawOther('');setTimeout(()=>i.focus(),50);}
+}
+function drawOther(t){
+  const s=t.trim().toLowerCase(), list=EXTRA.filter(x=>!s||x.name.toLowerCase().includes(s));
+  const exact=EXTRA.some(x=>x.name.toLowerCase()===s);
+  document.getElementById('olist').innerHTML=list.map(x=>`<button class="opt" data-extra="${x.id}"><span>${x.name}<small>Risco ${RL[x.risk]}</small></span>${meter(x.risk)}</button>`).join('')+
+    (s&&!exact?`<button class="opt" data-custom><span>Usar «${t.trim().replace(/</g,'&lt;')}»<small>Ainda não conhecemos: aplicamos o risco médio</small></span>${meter(2)}</button>`:'');
+}
+document.getElementById('phone').addEventListener('click',e=>{
+  const t=e.target.closest('button,[data-eq]');if(!t)return;const d=t.dataset;
+  if(d.act){selectAct(ACTS.find(x=>x.id===d.act));render();}
+  else if(d.extra){S.other=EXTRA.find(x=>x.id===d.extra);selectAct(S.other);closeSheet();render();}
+  else if('custom' in d){const n=document.getElementById('q').value.trim();S.other={id:'custom',ab:n.slice(0,2),name:n.charAt(0).toUpperCase()+n.slice(1),risk:2,rate:0.030,typical:60,why:'Avaliámos pelo tipo de esforço.',custom:true};selectAct(S.other);closeSheet();render();}
+  else if(d.min){S.min=+d.min;render();}
+  else if('eq' in d){S.eq=!S.eq;t.classList.toggle('on',S.eq);}
+  else if('start' in d){S.step='calc';render();}
+  else if('accept' in d){startCover();}
+  else if('cancel' in d){clearInterval(S.timer);closeSheet();S.step='setup';render();}
+  else if(d.sheet){S.sheet=d.sheet;S.sheetExt=30;drawSheet();}
+  else if(d.setext){S.sheetExt=+d.setext;drawSheet();}
+  else if('confext' in d){extend(S.sheetExt);closeSheet();drawActive(true);}
+  else if('noext' in d){S.ext=0;drawActive(true);}
+  else if('doext' in d){extend(S.ext);drawActive(true);}
+  else if('stop' in d){finish(true);}
+  else if('close' in d){closeSheet();}
+});
+render();
+</script>
+</body>
+</html>

@@ -7,7 +7,7 @@ description: Styles a screen's wireframe built by ia-structure with the group's 
 
 You turn a **wireframe** into a styled screen in the group's Figma file. Every visual decision comes from the group's design system, and the sections, content and navigation stay exactly as `ia-structure` built them.
 
-**References:** [[Baseline/DesignSystemTokens]] · [[Baseline/ProductRequirementsSpec]] §5 · [[Baseline/InformationArchSpec]] §4 · [[Baseline/C2-05/CompetitiveAnalysis]] §4 · the `Reference` page in the Figma file
+**References:** [[Baseline/DesignSystemTokens]] · [[Baseline/ProductRequirementsSpec]] §5 · [[Baseline/InformationArchSpec]] §4 · [[Baseline/C2-05/Fluxo StartInsurance/CompetitiveAnalysis]] §4 · the `Reference` page in the Figma file
 
 ## Input
 
@@ -23,7 +23,7 @@ A screen ID. The wireframe is Section `<ID>` on the `Wireframes` page of the Fig
    Done when: no fill, stroke, text, spacing or radius value in the Section is unbound, and every button, card, input and badge is a component instance.
 4. **Draw every state.** Next to `<ID>/default`, add one frame per state: empty, loading, error, and each AI state in [[Baseline/ProductRequirementsSpec]] §5, including the **fallback state**. Name them `<ID>/<state>` and use the feedback variables for each.
    Done when: every state in InformationArchSpec §4 and PR §5 has its own frame, and a user can tell them apart at a glance.
-5. **Apply the competitor lessons.** Use the opportunity gap from [[Baseline/C2-05/CompetitiveAnalysis]] §4, and solve the friction it lists where the screen meets the same situation.
+5. **Apply the competitor lessons.** Use the opportunity gap from [[Baseline/C2-05/Fluxo StartInsurance/CompetitiveAnalysis]] §4, and solve the friction it lists where the screen meets the same situation.
    Done when: you can point to where the screen applies each lesson.
 6. **Match the reference.** Compare a screenshot of the styled screen with the `Reference` page: same spacing rhythm, type hierarchy and component look.
    Done when: the screen would sit next to the reference as part of the same product.

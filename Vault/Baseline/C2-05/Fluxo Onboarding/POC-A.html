@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POC A · Uma pergunta de cada vez</title>
+<style>
+  :root{
+    --bg:#e9ebee; --surface:#fff; --soft:#f3f4f6; --line:#d8dce0;
+    --ink:#1c1f23; --ink2:#555c64; --ink3:#8a9097;
+    --accent:#1f6f5c; --accent-soft:#e2efeb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .wrap{display:flex;gap:40px;justify-content:center;align-items:flex-start;flex-wrap:wrap;padding:32px 16px}
+  .notes{max-width:340px;color:var(--ink2);font-size:14px}
+  .notes h1{font-size:20px;color:var(--ink);margin:0 0 4px}
+  .notes .tag{display:inline-block;font-size:12px;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:10px;margin-bottom:12px}
+  .notes h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin:20px 0 6px}
+  .notes ul{padding-left:18px;margin:0}
+  .notes li{margin-bottom:4px}
+  .demo{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:8px}
+  .demo label{display:flex;gap:8px;align-items:center;margin:4px 0;cursor:pointer}
+
+  .phone{width:375px;max-width:100%;height:760px;background:var(--surface);border-radius:36px;border:10px solid #2a2d31;overflow:hidden;display:flex;flex-direction:column;position:relative}
+  .bar{padding:18px 20px 10px;display:flex;align-items:center;gap:12px;min-height:56px}
+  .back{border:0;background:none;font-size:22px;color:var(--ink2);cursor:pointer;width:28px;padding:0}
+  .back[disabled]{visibility:hidden}
+  .steps{flex:1}
+  .steps small{display:block;color:var(--ink3);font-size:12px;margin-bottom:6px}
+  .track{display:flex;gap:4px}
+  .track i{flex:1;height:4px;border-radius:2px;background:var(--line)}
+  .track i.on{background:var(--accent)}
+  main{flex:1;overflow:auto;padding:8px 24px 24px;display:flex;flex-direction:column}
+  h2.q{font-size:24px;line-height:1.2;margin:12px 0 6px}
+  p.sub{color:var(--ink2);margin:0 0 20px}
+  .opt{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:14px 16px;margin-bottom:10px;font:inherit;color:inherit;cursor:pointer}
+  .opt small{display:block;color:var(--ink3);font-size:12px}
+  .opt .dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex:none}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+  .opt.sel .dot{border:6px solid var(--accent)}
+  .spacer{flex:1}
+  .btn{display:block;width:100%;border:0;border-radius:14px;padding:16px;font:600 16px/1 inherit;font-family:inherit;cursor:pointer;margin-top:10px}
+  .btn.pri{background:var(--accent);color:#fff}
+  .btn.pri[disabled]{background:var(--line);color:var(--ink3);cursor:default}
+  .btn.sec{background:var(--soft);color:var(--ink)}
+  .btn.ghost{background:none;color:var(--ink2);font-weight:500}
+  .readout{font-size:56px;font-weight:700;text-align:center;margin:20px 0 0;letter-spacing:-.02em}
+  .readout-sub{text-align:center;color:var(--ink2);margin-bottom:24px}
+  input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+  .scale{display:flex;justify-content:space-between;color:var(--ink3);font-size:12px}
+  .chips{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+  .chip{border:1.5px solid var(--line);background:var(--surface);border-radius:20px;padding:8px 14px;font:inherit;cursor:pointer;color:var(--ink)}
+  .chip.sel{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .hint{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:13px;color:var(--ink2);margin-top:16px}
+  .hint b{color:var(--ink)}
+
+  .loader{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .check{display:flex;gap:12px;align-items:center;padding:12px 0;color:var(--ink3);border-bottom:1px solid var(--soft)}
+  .check .c{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;flex:none}
+  .check.done{color:var(--ink)}
+  .check.done .c{background:var(--accent);border-color:var(--accent);color:#fff}
+  .check.run .c{border-color:var(--accent);border-top-color:transparent;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .price{font-size:48px;font-weight:700;letter-spacing:-.02em;margin:4px 0 0}
+  .price-sub{color:var(--ink2);margin-bottom:20px}
+  .why{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .why h3{margin:0;padding:12px 16px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);background:var(--soft)}
+  details{border-top:1px solid var(--line)}
+  details:first-of-type{border-top:0}
+  summary{list-style:none;display:flex;justify-content:space-between;padding:12px 16px;cursor:pointer}
+  summary::-webkit-details-marker{display:none}
+  summary span:last-child{font-weight:600}
+  summary::after{content:"＋";color:var(--ink3);margin-left:8px}
+  details[open] summary::after{content:"－"}
+  details p{margin:0;padding:0 16px 12px;color:var(--ink2);font-size:13px}
+  .note{font-size:13px;color:var(--ink2);margin-top:14px;display:flex;gap:8px}
+
+  .status{display:flex;align-items:center;gap:8px;color:var(--accent);font-weight:600;margin-top:8px}
+  .pulse{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+  .count{font-size:64px;font-weight:700;text-align:center;margin:28px 0 4px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .count-sub{text-align:center;color:var(--ink2)}
+  .prog{height:8px;background:var(--soft);border-radius:4px;margin:24px 0 8px;overflow:hidden}
+  .prog i{display:block;height:100%;background:var(--accent);transition:width 1s linear}
+  .prog-lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--ink3)}
+  .cover{margin-top:20px;background:var(--soft);border-radius:14px;padding:12px 16px;font-size:13px;color:var(--ink2)}
+  .cover b{color:var(--ink)}
+  .cover ul{margin:6px 0 0;padding-left:18px}
+  .row2{display:flex;gap:10px}
+  .row2 .btn{flex:1}
+  .banner{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:14px;margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .banner button{border:0;background:var(--accent);color:#fff;border-radius:10px;padding:8px 12px;font:inherit;font-weight:600;cursor:pointer}
+
+  .sheet-bg{position:absolute;inset:0;background:rgba(20,22,25,.4);display:flex;align-items:flex-end}
+  .sheet{background:var(--surface);width:100%;border-radius:22px 22px 0 0;padding:20px 24px 28px}
+  .sheet h3{margin:0 0 4px;font-size:20px}
+  .sheet p{margin:0 0 16px;color:var(--ink2)}
+  .receipt{border:1px solid var(--line);border-radius:14px;padding:4px 16px;margin:16px 0}
+  .receipt div{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--soft)}
+  .receipt div:last-child{border:0;font-weight:700}
+  .big-ok{width:64px;height:64px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:30px;margin:24px 0 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside class="notes">
+    <span class="tag">POC A</span>
+    <h1>Uma pergunta de cada vez</h1>
+    <p>A classic guided wizard. The homepage is split into three single questions (activity, duration, equipment), each on its own screen with one big answer area. Familiar form controls: radio list, slider, yes/no cards.</p>
+    <h2>Behaviour</h2>
+    <ul>
+      <li><b>Guided 5/0</b>: one path, progress bar, back arrow only.</li>
+      <li><b>Proactive 3/2</b>: smart default duration with a reason; a calm "5 min left" nudge.</li>
+      <li><b>Minimal 3/2</b>: price first, reasons in expandable rows.</li>
+      <li><b>Direct 4/1</b>: tap and slide; no typing.</li>
+      <li><b>Step control 3/2</b>: user confirms each answer; system only suggests.</li>
+      <li><b>Staged 4/1</b>: price only after Começar; extend and stop need a confirm.</li>
+    </ul>
+    <h2>Demo controls</h2>
+    <div class="demo">
+      <label><input type="checkbox" id="fast"> Speed up the countdown (×60)</label>
+      <label><input type="checkbox" id="fail"> Make the price calculation fail</label>
+    </div>
+  </aside>
+
+  <div class="phone" id="phone">
+    <div class="bar">
+      <button class="back" id="back" aria-label="Voltar">←</button>
+      <div class="steps"><small id="stepLbl"></small><div class="track" id="track"></div></div>
+    </div>
+    <main id="view"></main>
+  </div>
+</div>
+
+<script>
+const ACTS=[
+  {id:'run',name:'Corrida',risk:'baixo',rate:0.020,typical:45,why:'Lesões costumam ser ligeiras (entorses, quedas).'},
+  {id:'foot',name:'Futebol no parque',risk:'médio',rate:0.035,typical:60,why:'Há contacto físico e mais lesões de joelho e tornozelo.'},
+  {id:'bike',name:'Ciclismo',risk:'médio',rate:0.030,typical:90,why:'Quedas a velocidade aumentam o custo médio de tratamento.'},
+  {id:'padel',name:'Padel / ténis',risk:'médio',rate:0.028,typical:60,why:'Lesões de pulso, ombro e tornozelo são frequentes.'},
+  {id:'skate',name:'Skate / patins',risk:'alto',rate:0.045,typical:45,why:'Quedas frequentes, com mais fraturas.'},
+  {id:'hike',name:'Caminhada / trilho',risk:'baixo',rate:0.018,typical:120,why:'Ritmo baixo, mas em terreno irregular.'}
+];
+const EQ_FIX=0.20, EQ_RATE=0.010;
+const eur=n=>n.toFixed(2).replace('.',',')+' €';
+const dur=m=>m<60?`${m} min`:`${Math.floor(m/60)} h${m%60?' '+m%60+' min':''}`;
+const hhmm=d=>d.toTimeString().slice(0,5);
+const calc=(a,m,eq)=>{const act=a.rate*m, e=eq?EQ_FIX+EQ_RATE*m:0;return {act,e,total:Math.max(0.5,act+e)}};
+
+const S={step:'activity',act:null,min:null,eq:null,q:null,start:null,end:null,left:0,total:0,paid:0,timer:null,sheet:null,nudged:false,dismissed:false};
+const STEPS={activity:[1,'Passo 1 de 4 · Atividade'],duration:[1,'Passo 1 de 4 · Duração'],equip:[1,'Passo 1 de 4 · Equipamento'],calc:[2,'Passo 2 de 4 · A calcular'],quote:[3,'Passo 3 de 4 · Preço'],active:[4,'Passo 4 de 4 · Atividade'],done:[4,'Concluído']};
+const view=document.getElementById('view');
+
+function header(){
+  const [n,l]=STEPS[S.step];
+  document.getElementById('stepLbl').textContent=l;
+  document.getElementById('track').innerHTML=[1,2,3,4].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('');
+  document.getElementById('back').disabled=!['duration','equip'].includes(S.step);
+}
+
+function render(){
+  header();
+  const a=S.act;
+  if(S.step==='activity'){
+    view.innerHTML=`<h2 class="q">Que atividade vais fazer?</h2><p class="sub">O seguro cobre só esta atividade, só durante o tempo que escolheres.</p>
+    ${ACTS.map(x=>`<button class="opt ${a&&a.id===x.id?'sel':''}" data-act="${x.id}"><span>${x.name}<small>Risco ${x.risk}</small></span><span class="dot"></span></button>`).join('')}
+    <div class="spacer"></div><button class="btn pri" data-go="duration" ${a?'':'disabled'}>Continuar</button>`;
+  }
+  if(S.step==='duration'){
+    const m=S.min, end=new Date(Date.now()+m*60000);
+    view.innerHTML=`<h2 class="q">Quanto tempo vai durar?</h2><p class="sub">Se acabares mais cedo, só pagas o tempo que usaste.</p>
+    <div class="readout" id="ro">${dur(m)}</div><div class="readout-sub" id="ros">Coberto até às ${hhmm(end)}</div>
+    <input type="range" min="15" max="240" step="15" value="${m}" id="range"><div class="scale"><span>15 min</span><span>4 h</span></div>
+    <div class="chips">${[30,45,60,90,120].map(v=>`<button class="chip ${v===m?'sel':''}" data-min="${v}">${dur(v)}</button>`).join('')}</div>
+    <div class="hint">Sugerimos <b>${dur(a.typical)}</b>: é a duração habitual de ${a.name.toLowerCase()}. Podes mudar.</div>
+    <div class="spacer"></div><button class="btn pri" data-go="equip">Continuar</button>`;
+    document.getElementById('range').oninput=e=>{S.min=+e.target.value;document.getElementById('ro').textContent=dur(S.min);document.getElementById('ros').textContent='Coberto até às '+hhmm(new Date(Date.now()+S.min*60000));view.querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel',+c.dataset.min===S.min))};
+  }
+  if(S.step==='equip'){
+    view.innerHTML=`<h2 class="q">Queres proteger o teu equipamento?</h2><p class="sub">Ténis, bola, bicicleta, relógio: danos ou roubo durante a atividade.</p>
+    <button class="opt ${S.eq===false?'sel':''}" data-eq="0"><span>Não, só a mim<small>Despesas médicas e assistência</small></span><span class="dot"></span></button>
+    <button class="opt ${S.eq===true?'sel':''}" data-eq="1"><span>Sim, a mim e ao equipamento<small>Equipamento até 500 €</small></span><span class="dot"></span></button>
+    <div class="spacer"></div>
+    <div class="hint">Resumo: <b>${a.name}</b> · <b>${dur(S.min)}</b>${S.eq===null?'':' · '+(S.eq?'<b>com equipamento</b>':'<b>sem equipamento</b>')}</div>
+    <button class="btn pri" data-start ${S.eq===null?'disabled':''}>Começar</button>`;
+  }
+  if(S.step==='calc'){
+    view.innerHTML=`<div class="loader"><h2 class="q">A calcular o teu preço</h2><p class="sub">Isto demora poucos segundos.</p>
+    ${['Risco de '+a.name.toLowerCase(),'Duração de '+dur(S.min),S.eq?'Proteção do equipamento':'Sem equipamento'].map((t,i)=>`<div class="check" id="ck${i}"><span class="c"></span>${t}</div>`).join('')}</div>`;
+    runLoader();
+  }
+  if(S.step==='calcfail'){
+    view.innerHTML=`<div class="loader"><h2 class="q">Não conseguimos calcular o preço</h2><p class="sub">Ainda não estás coberto e não foi cobrado nada. Verifica a ligação e tenta de novo.</p>
+    <button class="btn pri" data-start>Tentar de novo</button><button class="btn sec" data-cancel>Voltar ao início</button></div>`;
+  }
+  if(S.step==='quote'){
+    const q=S.q;
+    view.innerHTML=`<p class="sub" style="margin:12px 0 0">${a.name} · ${dur(S.min)} · ${S.eq?'com':'sem'} equipamento</p>
+    <div class="price">${eur(q.total)}</div><div class="price-sub">Pagamento único, só para esta atividade.</div>
+    <div class="why"><h3>Porquê este preço</h3>
+      <details><summary><span>Atividade: risco ${a.risk}</span><span>${eur(q.act)}</span></summary><p>${a.why} ${a.name}: ${eur(a.rate)} por minuto × ${S.min} min.</p></details>
+      <details><summary><span>Duração: ${dur(S.min)}</span><span>incluído</span></summary><p>Pagas por minuto, não por dia nem por ano. Se parares antes, devolvemos a diferença.</p></details>
+      <details><summary><span>Equipamento</span><span>${S.eq?eur(q.e):'0,00 €'}</span></summary><p>${S.eq?'Até 500 € em danos ou roubo. 0,20 € fixos + 0,01 € por minuto.':'Não incluído. Podes voltar atrás e acrescentar.'}</p></details>
+    </div>
+    <div class="note"><span>✓</span><span>Nada é cobrado até tocares em Aceitar.</span></div>
+    <div class="spacer"></div>
+    <button class="btn pri" data-accept>Aceitar e ficar coberto</button><button class="btn ghost" data-cancel>Cancelar</button>`;
+  }
+  if(S.step==='active'){
+    const pct=Math.max(0,S.left/S.total*100);
+    view.innerHTML=`<div class="status"><span class="pulse"></span>Estás coberto</div>
+    <p class="sub" style="margin:2px 0 0">${a.name}${S.eq?' · com equipamento':''}</p>
+    <div class="count" id="cnt">${clock(S.left)}</div><div class="count-sub">de cobertura · até às ${hhmm(S.end)}</div>
+    <div class="prog"><i id="bar" style="width:${pct}%"></i></div><div class="prog-lbl"><span>${hhmm(S.start)}</span><span>${hhmm(S.end)}</span></div>
+    <div id="nudge"></div>
+    <div class="cover"><b>O que está coberto agora</b><ul><li>Despesas médicas até 2 500 €</li><li>Assistência 24 h · 800 000 000</li>${S.eq?'<li>Equipamento até 500 €</li>':''}</ul></div>
+    <div class="spacer"></div>
+    <div class="row2"><button class="btn sec" data-sheet="stop">Parar</button><button class="btn pri" data-sheet="extend">Prolongar</button></div>`;
+    drawNudge();
+  }
+  if(S.step==='done'){
+    const used=Math.round((S.total-Math.max(0,S.left))/60);
+    view.innerHTML=`<div class="big-ok">✓</div><h2 class="q">A cobertura terminou</h2><p class="sub">${S.left>0?'Paraste antes do fim, por isso só pagas o tempo que usaste.':'O tempo escolhido chegou ao fim.'}</p>
+    <div class="receipt"><div><span>Atividade</span><span>${a.name}</span></div><div><span>Tempo coberto</span><span>${dur(Math.max(1,used))}</span></div><div><span>Total pago</span><span>${eur(S.charged)}</span></div></div>
+    <div class="spacer"></div><button class="btn pri" data-cancel>Nova atividade</button>`;
+  }
+  if(S.sheet) drawSheet();
+}
+const clock=s=>{s=Math.max(0,Math.ceil(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0')};
+
+function runLoader(){
+  let i=0;const fail=document.getElementById('fail').checked;
+  const tick=()=>{
+    if(S.step!=='calc')return;
+    if(i>0)document.getElementById('ck'+(i-1)).className='check done';
+    if(fail&&i===2){S.step='calcfail';return render();}
+    if(i===3){S.q=calc(S.act,S.min,S.eq);S.step='quote';return setTimeout(render,400);}
+    document.getElementById('ck'+i).className='check run';i++;setTimeout(tick,900);
+  };tick();
+}
+
+function startCover(){
+  S.start=new Date();S.total=S.min*60;S.left=S.total;S.end=new Date(S.start.getTime()+S.total*1000);S.paid=S.q.total;S.nudged=false;S.dismissed=false;
+  S.step='active';render();
+  clearInterval(S.timer);
+  S.timer=setInterval(()=>{
+    const sp=document.getElementById('fast').checked?60:1;S.left-=sp;
+    if(S.left<=0){finish();return;}
+    const c=document.getElementById('cnt');if(c){c.textContent=clock(S.left);document.getElementById('bar').style.width=(S.left/S.total*100)+'%';}
+    if(!S.nudged&&S.left<=300){S.nudged=true;drawNudge();}
+  },1000);
+}
+function drawNudge(){
+  const n=document.getElementById('nudge');if(!n)return;
+  n.innerHTML=S.nudged&&!S.dismissed?`<div class="banner"><span>Faltam 5 min de cobertura. Ainda estás em atividade?</span><button data-sheet="extend">Prolongar</button></div>`:'';
+}
+function finish(early){
+  clearInterval(S.timer);
+  S.charged=early?Math.max(0.5,S.paid*(S.total-S.left)/S.total):S.paid;
+  if(!early)S.left=0;S.sheet=null;S.step='done';render();
+}
+function drawSheet(){
+  const old=document.querySelector('.sheet-bg');if(old)old.remove();
+  const bg=document.createElement('div');bg.className='sheet-bg';
+  if(S.sheet==='stop'){
+    const used=(S.total-S.left)/S.total, cost=Math.max(0.5,S.paid*used);
+    bg.innerHTML=`<div class="sheet"><h3>Parar a cobertura?</h3><p>Deixas de estar coberto a partir de agora. Pagas só o tempo usado: <b>${eur(cost)}</b> em vez de ${eur(S.paid)}.</p><button class="btn pri" data-stop>Sim, parar agora</button><button class="btn ghost" data-close>Continuar coberto</button></div>`;
+  } else {
+    const sel=S.ext||30, add=calc(S.act,sel,S.eq).act+(S.eq?EQ_RATE*sel:0);
+    bg.innerHTML=`<div class="sheet"><h3>Prolongar a atividade</h3><p>A cobertura continua sem interrupção.</p>
+    ${[15,30,60].map(v=>{const p=S.act.rate*v+(S.eq?EQ_RATE*v:0);return `<button class="opt ${v===sel?'sel':''}" data-ext="${v}"><span>+ ${dur(v)}<small>Até às ${hhmm(new Date(S.end.getTime()+v*60000))}</small></span><span>${eur(p)}</span></button>`}).join('')}
+    <button class="btn pri" data-doext>Confirmar · + ${eur(add)}</button><button class="btn ghost" data-close>Cancelar</button></div>`;
+  }
+  document.getElementById('phone').appendChild(bg);
+}
+
+document.getElementById('phone').addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;const d=t.dataset;
+  if(d.act){S.act=ACTS.find(x=>x.id===d.act);S.min=null;render();}
+  else if(d.go){if(d.go==='duration'&&!S.min)S.min=S.act.typical;S.step=d.go;render();}
+  else if(d.min){S.min=+d.min;render();}
+  else if(d.eq){S.eq=d.eq==='1';render();}
+  else if('start' in d){S.step='calc';render();}
+  else if('accept' in d){startCover();}
+  else if('cancel' in d){clearInterval(S.timer);Object.assign(S,{step:'activity',act:null,min:null,eq:null,sheet:null});render();}
+  else if(d.sheet){S.sheet=d.sheet;S.ext=30;drawSheet();}
+  else if(d.ext){S.ext=+d.ext;drawSheet();}
+  else if('close' in d){S.sheet=null;document.querySelector('.sheet-bg').remove();}
+  else if('stop' in d){finish(true);}
+  else if('doext' in d){const v=S.ext;S.paid+=S.act.rate*v+(S.eq?EQ_RATE*v:0);S.total+=v*60;S.left+=v*60;S.end=new Date(S.end.getTime()+v*60000);S.nudged=S.left<=300;S.dismissed=true;S.sheet=null;document.querySelector('.sheet-bg').remove();render();}
+  else if(t.id==='back'){S.step=S.step==='equip'?'duration':'activity';render();}
+});
+render();
+</script>
+</body>
+</html>

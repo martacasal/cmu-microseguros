@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POC C · A frase</title>
+<style>
+  :root{
+    --bg:#e9ebee; --surface:#fff; --soft:#f3f4f6; --line:#d8dce0;
+    --ink:#1c1f23; --ink2:#555c64; --ink3:#8a9097;
+    --accent:#1f6f5c; --accent-soft:#e2efeb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .wrap{display:flex;gap:40px;justify-content:center;align-items:flex-start;flex-wrap:wrap;padding:32px 16px}
+  .notes{max-width:340px;color:var(--ink2);font-size:14px}
+  .notes h1{font-size:20px;color:var(--ink);margin:0 0 4px}
+  .notes .tag{display:inline-block;font-size:12px;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:10px;margin-bottom:12px}
+  .notes h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin:20px 0 6px}
+  .notes ul{padding-left:18px;margin:0}
+  .notes li{margin-bottom:4px}
+  .demo{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:8px}
+  .demo label{display:flex;gap:8px;align-items:center;margin:4px 0;cursor:pointer}
+
+  .phone{width:375px;max-width:100%;height:760px;background:var(--surface);border-radius:36px;border:10px solid #2a2d31;overflow:hidden;display:flex;flex-direction:column;position:relative}
+  .top{padding:20px 24px 4px;font-size:13px;color:var(--ink3);display:flex;justify-content:space-between}
+  main{flex:1;padding:10px 24px 24px;display:flex;flex-direction:column;overflow:auto}
+  .sentence{font-size:28px;line-height:1.45;font-weight:600;margin:28px 0 10px;letter-spacing:-.01em}
+  .tok{display:inline;border:0;background:none;font:inherit;color:var(--accent);border-bottom:2.5px solid var(--accent);padding:0 2px;cursor:pointer;line-height:1.2}
+  .tok:hover{background:var(--accent-soft)}
+  .static .tok{color:var(--ink);border-bottom-color:var(--line);cursor:default}
+  .prefill{font-size:13px;color:var(--ink2);background:var(--soft);border-radius:12px;padding:10px 12px;display:flex;gap:8px}
+  .spacer{flex:1;min-height:10px}
+  .btn{display:block;width:100%;border:0;border-radius:14px;padding:16px;font:600 16px/1 inherit;font-family:inherit;cursor:pointer;margin-top:10px}
+  .btn.pri{background:var(--accent);color:#fff}
+  .btn.sec{background:var(--soft);color:var(--ink)}
+  .btn.ghost{background:none;color:var(--ink2);font-weight:500}
+  .row2{display:flex;gap:10px}.row2 .btn{flex:1}
+
+  .lines{margin-top:8px}
+  .line{display:flex;gap:10px;align-items:center;padding:8px 0;color:var(--ink3);font-size:14px;opacity:.4;transition:opacity .3s}
+  .line.on{opacity:1;color:var(--ink)}
+  .line .b{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+
+  .card{border:1.5px solid var(--line);border-radius:18px;overflow:hidden;margin-top:12px}
+  .card-h{padding:14px 16px;background:var(--soft);display:flex;justify-content:space-between;align-items:baseline}
+  .card-h b{font-size:14px}
+  .card-h span{font-size:12px;color:var(--ink3)}
+  .item{padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:10px}
+  .item .t{flex:1}
+  .item .t small{display:block;color:var(--ink2);font-size:13px}
+  .item .p{font-weight:600;white-space:nowrap}
+  .item.off .t,.item.off .p{color:var(--ink3);text-decoration:line-through}
+  .item .mini{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:4px 8px;font:inherit;font-size:12px;cursor:pointer;margin-top:6px;color:var(--ink2)}
+  .total{padding:14px 16px;border-top:1.5px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+  .total b{font-size:28px}
+  .changed{font-size:12px;color:var(--accent)}
+  .assure{font-size:13px;color:var(--ink2);margin-top:12px}
+
+  .live{font-size:22px;line-height:1.4;font-weight:600;margin:16px 0 6px}
+  .remain{font-size:14px;color:var(--ink2)}
+  .remain b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .tl{position:relative;margin:18px 0 6px;padding-left:22px}
+  .tl::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .tl .fillbar{position:absolute;left:5px;top:6px;width:2px;background:var(--accent)}
+  .ev{position:relative;padding:4px 0 12px;font-size:14px}
+  .ev::before{content:"";position:absolute;left:-21px;top:9px;width:10px;height:10px;border-radius:50%;background:var(--surface);border:2px solid var(--line)}
+  .ev.done::before{background:var(--accent);border-color:var(--accent)}
+  .ev small{display:block;color:var(--ink3);font-size:12px}
+  .ev .tm{font-variant-numeric:tabular-nums;color:var(--ink2);margin-right:6px}
+  .suggest{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:14px;margin-top:6px}
+  .suggest .row2 .btn{padding:10px;font-size:14px;margin-top:8px}
+
+  .sheet-bg{position:absolute;inset:0;background:rgba(20,22,25,.4);display:flex;align-items:flex-end}
+  .sheet{background:var(--surface);width:100%;border-radius:22px 22px 0 0;padding:20px 24px 28px}
+  .sheet h3{margin:0 0 4px;font-size:18px}
+  .sheet p{margin:0 0 14px;color:var(--ink2);font-size:14px}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;font:inherit;cursor:pointer;color:var(--ink);text-align:left}
+  .opt small{display:block;color:var(--ink3);font-size:12px}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside class="notes">
+    <span class="tag">POC C</span>
+    <h1>A frase</h1>
+    <p>The homepage is one sentence you can read out loud: <i>"Vou correr durante 45 min, sem proteger o equipamento."</i> It comes pre-filled from your last activity; every underlined word is a tap target that opens a small picker. The quote is a review card you approve or reject, and the activity screen is a timeline that logs everything the system did.</p>
+    <h2>Behaviour</h2>
+    <ul>
+      <li><b>Guided 5/0</b>: the sentence is the whole step; one button forward.</li>
+      <li><b>Proactive 3/2</b>: pre-filled from last time; near the end it suggests the extension it thinks you need, and you still decide.</li>
+      <li><b>Minimal 3/2</b>: a single sentence; the quote card lists each line with its reason.</li>
+      <li><b>Direct 4/1</b>: tap words and pick; the sentence gives a light conversational feel (the 1 point of intent-based) without typing.</li>
+      <li><b>Review 2/3</b>: the quote is an Approve / Reject card and the timeline is an automatic log, but every value stays user-set.</li>
+      <li><b>Staged 4/1</b>: price after Começar; removing equipment marks the total as updated; extend needs Confirmar.</li>
+    </ul>
+    <h2>Demo controls</h2>
+    <div class="demo">
+      <label><input type="checkbox" id="fast"> Speed up the countdown (×60)</label>
+      <label><input type="checkbox" id="fail"> Make the price calculation fail</label>
+    </div>
+  </aside>
+
+  <div class="phone" id="phone">
+    <div class="top"><span id="stepLbl"></span><span id="stepN"></span></div>
+    <main id="view"></main>
+  </div>
+</div>
+
+<script>
+const ACTS=[
+  {id:'run',verb:'correr',name:'Corrida',rl:'baixo',rate:0.020,typical:45,why:'Lesões costumam ser ligeiras.'},
+  {id:'foot',verb:'jogar futebol',name:'Futebol',rl:'médio',rate:0.035,typical:60,why:'Contacto físico; joelhos e tornozelos.'},
+  {id:'bike',verb:'andar de bicicleta',name:'Ciclismo',rl:'médio',rate:0.030,typical:90,why:'Quedas a velocidade.'},
+  {id:'padel',verb:'jogar padel',name:'Padel',rl:'médio',rate:0.028,typical:60,why:'Pulso, ombro e tornozelo.'},
+  {id:'skate',verb:'andar de skate',name:'Skate',rl:'alto',rate:0.045,typical:45,why:'Quedas frequentes, mais fraturas.'},
+  {id:'hike',verb:'fazer um trilho',name:'Caminhada',rl:'baixo',rate:0.018,typical:120,why:'Ritmo baixo, terreno irregular.'}
+];
+const DURS=[30,45,60,90,120,180], EQ_FIX=0.20, EQ_RATE=0.010;
+const eur=n=>n.toFixed(2).replace('.',',')+' €';
+const dur=m=>m<60?`${m} min`:`${Math.floor(m/60)} h${m%60?' '+m%60+' min':''}`;
+const hhmm=d=>d.toTimeString().slice(0,5);
+const clock=s=>{s=Math.max(0,Math.ceil(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0')};
+const costFor=(a,m,eq)=>a.rate*m+(eq?EQ_RATE*m:0);
+
+/* pre-filled from "last time" (proactive default) */
+const S={step:'setup',act:ACTS[0],min:45,eq:false,sheet:null,log:[],timer:null,ext:30,eqOff:false,suggested:false,suggestOpen:false};
+const LBL={setup:'O que vais fazer?',calc:'A calcular',calcfail:'A calcular',quote:'Proposta',active:'Em atividade',done:'Concluído'};
+const N={setup:1,calc:2,calcfail:2,quote:3,active:4,done:4};
+const view=document.getElementById('view');
+
+function sentence(stat){
+  const c=stat?'static':'';
+  return `<div class="sentence ${c}">Vou <button class="tok" data-pick="act">${S.act.verb}</button> durante <button class="tok" data-pick="min">${dur(S.min)}</button>, <button class="tok" data-pick="eq">${S.eq?'e':'sem'} proteger o equipamento</button>.</div>`;
+}
+function render(){
+  document.getElementById('stepLbl').textContent=LBL[S.step];document.getElementById('stepN').textContent=`Passo ${N[S.step]} de 4`;
+  const a=S.act;
+  if(S.step==='setup'){
+    view.innerHTML=sentence(false)+`<div class="prefill"><span>↺</span><span>Preenchido com a tua última atividade. Toca numa palavra sublinhada para mudar.</span></div>
+    <div class="spacer"></div><p class="assure" style="text-align:center">Coberto até às <b>${hhmm(new Date(Date.now()+S.min*60000))}</b>. Vês o preço antes de pagar.</p><button class="btn pri" data-start>Começar</button>`;
+  }
+  if(S.step==='calc'||S.step==='calcfail'){
+    const fail=S.step==='calcfail';
+    view.innerHTML=sentence(true)+(fail?`<p class="assure">Não conseguimos calcular o preço agora. Ainda não estás coberto e nada foi cobrado.</p><div class="spacer"></div><button class="btn pri" data-start>Tentar de novo</button><button class="btn ghost" data-cancel>Mudar a frase</button>`:
+    `<div class="lines">${['A ver o risco de '+a.name.toLowerCase(),'A contar '+dur(S.min),S.eq?'A incluir o equipamento':'Sem equipamento'].map((t,i)=>`<div class="line" id="ln${i}"><span class="b"></span>${t}</div>`).join('')}</div>`);
+    if(!fail)runCalc();
+  }
+  if(S.step==='quote'){
+    const act=a.rate*S.min, eqc=S.eq?EQ_FIX+EQ_RATE*S.min:0, on=S.eq&&!S.eqOff, total=Math.max(0.5,act+(on?eqc:0));
+    view.innerHTML=sentence(true).replace('class="sentence','style="font-size:20px;margin:10px 0 0" class="sentence')+`
+    <div class="card"><div class="card-h"><b>Proposta de cobertura</b><span>válida 10 min</span></div>
+      <div class="item"><div class="t">Tu, durante ${dur(S.min)}<small>Risco ${a.rl}: ${a.why} ${eur(a.rate)}/min.</small><small>Despesas médicas até 2 500 € · assistência 24 h</small></div><div class="p">${eur(act)}</div></div>
+      ${S.eq?`<div class="item ${S.eqOff?'off':''}"><div class="t">O teu equipamento<small>Danos ou roubo até 500 €. 0,20 € + 0,01 €/min.</small><button class="mini" data-eqoff>${S.eqOff?'Voltar a incluir':'Retirar'}</button></div><div class="p">${eur(eqc)}</div></div>`:''}
+      <div class="total"><span>Total, pagamento único${S.eqOff?'<br><span class="changed">Total atualizado</span>':''}</span><b>${eur(total)}</b></div>
+    </div>
+    <p class="assure">Pagas ao minuto. Se parares antes, devolvemos o resto. Nada é cobrado até aprovares.</p>
+    <div class="spacer"></div><button class="btn pri" data-accept>Aceitar</button><button class="btn ghost" data-cancel>Cancelar</button>`;
+    S.q={total,eq:on};
+  }
+  if(S.step==='active'){
+    view.innerHTML=`<div class="live">Estás coberto a ${a.verb} até às <button class="tok" data-pick="ext">${hhmm(S.end)}</button>.</div>
+    <div class="remain">Faltam <b id="cnt">${clock(S.left)}</b> · toca na hora para prolongar</div>
+    <div class="tl" id="tl"></div><div id="sug"></div>
+    <div class="spacer"></div><button class="btn sec" data-pick="stop">Parar a cobertura</button>`;
+    drawTL();drawSug();
+  }
+  if(S.step==='done'){
+    view.innerHTML=`<div class="live">Terminou. Estiveste coberto ${dur(Math.max(1,Math.round((S.total-Math.max(0,S.left))/60)))} e pagaste ${eur(S.charged)}.</div>
+    <div class="tl" id="tl"></div><div class="spacer"></div><button class="btn pri" data-cancel>Nova atividade</button>`;
+    drawTL(true);
+  }
+  if(S.sheet)drawSheet();
+}
+function drawTL(final){
+  const tl=document.getElementById('tl');if(!tl)return;
+  const evs=S.log.map(e=>`<div class="ev done"><span class="tm">${hhmm(e.t)}</span>${e.txt}${e.sub?`<small>${e.sub}</small>`:''}</div>`).join('');
+  tl.innerHTML=evs+(final?'':`<div class="ev"><span class="tm">${hhmm(S.end)}</span>Fim da cobertura<small>termina sozinha, sem renovação</small></div>`);
+}
+function drawSug(){
+  const s=document.getElementById('sug');if(!s)return;
+  s.innerHTML=S.suggestOpen?`<div class="suggest">Faltam 5 minutos. Costumas ficar mais tempo nesta atividade: queres <b>+ 15 min</b> por <b>${eur(costFor(S.act,15,S.q.eq))}</b>?<div class="row2"><button class="btn ghost" data-sugno>Não, obrigado</button><button class="btn pri" data-sugyes>Prolongar</button></div></div>`:'';
+}
+function runCalc(){
+  let i=0;const t=setInterval(()=>{
+    if(S.step!=='calc'){clearInterval(t);return}
+    if(i<3){document.getElementById('ln'+i).classList.add('on');if(i===2&&document.getElementById('fail').checked){clearInterval(t);setTimeout(()=>{S.step='calcfail';render()},500)}i++;return}
+    clearInterval(t);S.eqOff=false;S.step='quote';render();
+  },800);
+}
+function startCover(){
+  S.start=new Date();S.total=S.min*60;S.left=S.total;S.end=new Date(S.start.getTime()+S.total*1000);S.paid=S.q.total;S.suggested=false;S.suggestOpen=false;
+  S.log=[{t:S.start,txt:'Cobertura iniciada',sub:`${S.act.name} · ${dur(S.min)}${S.q.eq?' · com equipamento':''} · ${eur(S.q.total)}`}];
+  S.step='active';render();clearInterval(S.timer);
+  S.timer=setInterval(()=>{
+    S.left-=document.getElementById('fast').checked?60:1;
+    if(S.left<=0){finish(false);return}
+    const c=document.getElementById('cnt');if(c)c.textContent=clock(S.left);
+    if(!S.suggested&&S.left<=300){S.suggested=true;S.suggestOpen=true;S.log.push({t:new Date(),txt:'Aviso: faltam 5 min'});drawTL();drawSug();}
+  },1000);
+}
+function extend(v){
+  const c=costFor(S.act,v,S.q.eq);S.paid+=c;S.total+=v*60;S.left+=v*60;S.end=new Date(S.end.getTime()+v*60000);
+  S.log.push({t:new Date(),txt:`Prolongado até às ${hhmm(S.end)}`,sub:`+ ${dur(v)} · + ${eur(c)}`});S.suggestOpen=false;S.suggested=S.left<=300;
+}
+function finish(early){
+  clearInterval(S.timer);S.charged=early?Math.max(0.5,S.paid*(S.total-S.left)/S.total):S.paid;
+  S.log.push({t:new Date(),txt:early?'Paraste a cobertura':'Cobertura terminou',sub:early?`Pagas só o tempo usado: ${eur(S.charged)} (devolvidos ${eur(S.paid-S.charged)})`:`Total: ${eur(S.charged)}`});
+  if(!early)S.left=0;S.sheet=null;S.step='done';render();
+}
+function drawSheet(){
+  document.querySelector('.sheet-bg')?.remove();
+  const bg=document.createElement('div');bg.className='sheet-bg';let h='';
+  if(S.sheet==='act')h=`<h3>Que atividade?</h3><p>O preço depende do risco de cada uma.</p><div class="opts">${ACTS.map(x=>`<button class="opt ${x.id===S.act.id?'sel':''}" data-setact="${x.id}">${x.name}<small>risco ${x.rl}</small></button>`).join('')}</div>`;
+  if(S.sheet==='min')h=`<h3>Durante quanto tempo?</h3><p>Se acabares antes, pagas só o que usaste. Habitual para ${S.act.name.toLowerCase()}: ${dur(S.act.typical)}.</p><div class="opts">${DURS.map(v=>`<button class="opt ${v===S.min?'sel':''}" data-setmin="${v}">${dur(v)}<small>até às ${hhmm(new Date(Date.now()+v*60000))}</small></button>`).join('')}</div>`;
+  if(S.sheet==='eq')h=`<h3>E o equipamento?</h3><p>Ténis, bola, bicicleta, relógio: danos ou roubo até 500 €.</p><div class="opts"><button class="opt ${!S.eq?'sel':''}" data-seteq="0">sem proteger o equipamento</button><button class="opt ${S.eq?'sel':''}" data-seteq="1">e proteger o equipamento</button></div>`;
+  if(S.sheet==='ext')h=`<h3>Prolongar até quando?</h3><p>A cobertura continua sem interrupção.</p><div class="opts">${[15,30,60].map(v=>`<button class="opt ${v===S.ext?'sel':''}" data-setext="${v}">até às ${hhmm(new Date(S.end.getTime()+v*60000))}<small>+ ${dur(v)} · + ${eur(costFor(S.act,v,S.q.eq))}</small></button>`).join('')}</div><button class="btn pri" data-doext>Confirmar</button>`;
+  if(S.sheet==='stop'){const c=Math.max(0.5,S.paid*(S.total-S.left)/S.total);h=`<h3>Parar a cobertura agora?</h3><p>Deixas de estar coberto. Pagas só o tempo usado: <b>${eur(c)}</b> em vez de ${eur(S.paid)}.</p><button class="btn pri" data-stop>Sim, parar</button>`;}
+  bg.innerHTML=`<div class="sheet">${h}<button class="btn ghost" data-close>${S.sheet==='ext'||S.sheet==='stop'?'Cancelar':'Fechar'}</button></div>`;
+  bg.addEventListener('click',e=>{if(e.target===bg){S.sheet=null;bg.remove()}});
+  document.getElementById('phone').appendChild(bg);
+}
+const closeSheet=()=>{S.sheet=null;document.querySelector('.sheet-bg')?.remove()};
+document.getElementById('phone').addEventListener('click',e=>{
+  const t=e.target.closest('button');if(!t)return;const d=t.dataset;
+  if(d.pick){if(t.closest('.static'))return;S.sheet=d.pick;S.ext=30;drawSheet();}
+  else if(d.setact){S.act=ACTS.find(x=>x.id===d.setact);S.min=S.act.typical;closeSheet();render();}
+  else if(d.setmin){S.min=+d.setmin;closeSheet();render();}
+  else if(d.seteq){S.eq=d.seteq==='1';closeSheet();render();}
+  else if(d.setext){S.ext=+d.setext;drawSheet();}
+  else if('doext' in d){extend(S.ext);closeSheet();render();}
+  else if('close' in d){closeSheet();}
+  else if('stop' in d){finish(true);}
+  else if('start' in d){S.step='calc';render();}
+  else if('eqoff' in d){S.eqOff=!S.eqOff;render();}
+  else if('accept' in d){startCover();}
+  else if('cancel' in d){clearInterval(S.timer);S.step='setup';S.sheet=null;render();}
+  else if('sugyes' in d){extend(15);render();}
+  else if('sugno' in d){S.suggestOpen=false;drawSug();}
+});
+render();
+</script>
+</body>
+</html>

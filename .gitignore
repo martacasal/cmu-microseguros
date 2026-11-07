@@ -26,3 +26,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+
+# Obsidian: layout pessoal de cada pessoa
+Vault/.obsidian/workspace.json

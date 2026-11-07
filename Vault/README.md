@@ -8,7 +8,7 @@ This vault is your group's workspace for C2:05, C2:06 and C3:01. You install it 
 
 | Folder | What's in it | Who fills it |
 | --- | --- | --- |
-| `Baseline/` | The source of truth: your 3 specs (`DesignSystemTokens`, which documents your Figma variables and components, `InformationArchSpec`, `ProductRequirementsSpec`, ready to fill), `C2-05/` (your C2:05 work, filled in that class from the templates already there) | You (C2:05, then C2:06 E1–E2) |
+| `Baseline/` | The source of truth: your 3 specs (`DesignSystemTokens`, which documents your Figma variables and components, `InformationArchSpec`, `ProductRequirementsSpec`, ready to fill), `C2-05/` (your C2:05 work, filled in that class from the templates already there, one folder per flow: `Fluxo StartInsurance/` and `Fluxo Assistant/`) | You (C2:05, then C2:06 E1–E2) |
 | `Skills/` | `ia-structure` draws the **wireframe** in Figma (sections, content, navigation), `ui-design` styles it with your Figma variables and components and adds every state, `ui-orchestrator` runs the graph. | `ia-structure`: you, by hand (E3). `ui-design`: ready to use, it reads your Baseline. `ui-orchestrator`: ready to use, you only set your Figma link (C2:05 E0) and happy path (C2:06 E4) |
 | `Subagents/` | The 3 read-only auditors, already in shape (they read your Figma file and change nothing): `ds-linter` (design system respected?), `ia-auditor` (IA respected?), `uxai-auditor` (heuristics respected?) | `SETUP.md` fills their rule checks from your Baseline (E4) |
 | `Notes/` | What the work produces in the vault: `Reports/` (the 3 audit reports and the Orchestrator's summary per screen) and `Flow summary.md`. The screens themselves live in your Figma file | The graph, and you |
@@ -25,8 +25,8 @@ Open Obsidian's **graph view**: the links between these notes draw the UI genera
 ## C2:05
 
 - **E0 Install**: install Obsidian and Claude Code, open this folder as a vault, open a terminal in it and run `claude`. Then connect the **Figma MCP server** (skip if you already have it): in a terminal run `claude mcp add --transport http figma https://mcp.figma.com/mcp`, start `claude`, type `/mcp` and log in to Figma. Paste your group's Figma file link into `Skills/ui-orchestrator.md` → Settings.
-- **E1–E4**: fill the templates in `Baseline/C2-05/` (`StructureIdea`, `CompetitiveAnalysis`, `BehaviourSpectrum`, `AestheticsEmotionalSpec`) and save your sketch photos there too. In `CompetitiveAnalysis`, AI audits the 4 competitors you pick, and you write a SWOT for each one.
-- **E5 Proof of concept**: run the prompt in `Baseline/C2-05/POC prompt.md`. Your POCs land in `Baseline/C2-05/POC/`. Last, ask AI to rebuild `POC-final.html` as-is on the `Reference` page of your Figma file (prompt in the same note).
+- **E1–E4**: fill the templates in each flow folder of `Baseline/C2-05/` (`StructureIdea`, `CompetitiveAnalysis`, `BehaviourSpectrum`, `AestheticsEmotionalSpec`) and save your sketch photos there too. In `CompetitiveAnalysis`, AI audits the 4 competitors you pick, and you write a SWOT for each one.
+- **E5 Proof of concept**: run the `POC prompt.md` inside each flow folder of `Baseline/C2-05/`. Each flow's POCs land in that same folder. Last, ask AI to rebuild `POC-final.html` as-is on the `Reference` page of your Figma file (prompt in the same note).
 
 ## C2:06
 

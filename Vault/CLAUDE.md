@@ -22,10 +22,11 @@ This vault is a group's workspace for generating UI. Every part of the system is
 - [[Baseline/DesignSystemTokens]]: read when styling a screen or auditing its styling.
 - [[Baseline/InformationArchSpec]]: read when deciding a screen's structure, content, navigation or states.
 - [[Baseline/ProductRequirementsSpec]]: read for flows, AI behaviour, and the rules library (§7).
-- `Baseline/C2-05/`: the group's C2:05 work, split into **two flows**, each in its own folder with the same set of notes: mechanics (`StructureIdea`), competitive analysis (`CompetitiveAnalysis`), behaviour spectrums (`BehaviourSpectrum`), feelings (`AestheticsEmotionalSpec`), the `POC prompt` and the POCs (`POC-A.html` to `POC-C.html`, `POC-final.html`):
+- `Baseline/C2-05/`: the group's C2:05 work, split into **three flows**, each in its own folder with the same set of notes: mechanics (`StructureIdea`), competitive analysis (`CompetitiveAnalysis`), behaviour spectrums (`BehaviourSpectrum`), feelings (`AestheticsEmotionalSpec`), the `POC prompt` and the POCs (`POC-A.html` to `POC-C.html`, `POC-final.html`):
   - `Fluxo StartInsurance/`: setting up and starting the insurance for an activity. The default flow: skills and auditors read this folder unless told otherwise.
   - `Fluxo Assistant/`: the AI assistant flow. For now a copy of `Fluxo StartInsurance`, still to be adapted.
-  - When a task names a flow, read that flow's folder only. Never mix notes from the two flows.
+  - `Fluxo Onboarding/`: the onboarding flow. For now a copy of `Fluxo StartInsurance`, still to be adapted.
+  - When a task names a flow, read that flow's folder only. Never mix notes from different flows.
 
 ## Leading words
 

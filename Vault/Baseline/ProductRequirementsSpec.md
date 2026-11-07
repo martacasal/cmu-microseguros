@@ -1,4 +1,4 @@
-# [Project Name] - Exercise [N]: Product Requirements Spec (`ProductRequirementsSpec.md`)
+# Pulso - C2:06: Product Requirements Spec (`ProductRequirementsSpec.md`)
 
 ## 🧭 How to Read This File (Explanation for LLMs)
 
@@ -11,90 +11,158 @@ This file documents **what the product must do and the rules it must follow**. S
 3. Skip section 5 and every rule tagged `ai` in section 7 if section 2 says the product has no AI features.
 4. When auditing, use section 7 and follow the reporting format in section 8.
 
-*(Replace every `[ ... ]`. Delete anything that doesn't apply. File encoding: UTF-8. Use plain ASCII characters where possible.)*
+**Fontes**: página Notion "MICRO SEGUROS" (Conceito v3, Personas), definição do projeto Pulso (métricas e âmbito), wireframes do grupo (A01 a A07, C01 a C10). As personas do projeto são **sintéticas** (hipóteses do grupo, não dados de campo); nada nesta spec deve ser lido como validado com utilizadores.
 
-- **Version**: [Version]
-- **Owner**: [Owner]
-- **Last updated**: [Date]
-- **Linked IA Sitemap**: [File name of the Information Architecture spec]
+- **Version**: 1.0
+- **Owner**: Grupo 1 (Nelson Delicado, Marta Casal, Ellen Dámasio, Susana Martins)
+- **Last updated**: 2026-11-07
+- **Linked IA Sitemap**: `Baseline/InformationArchSpec.md`
 
 ---
 
 ## 1. Problem and Goal
 
-- **Product Name**: [Product name]
-- **Problem (the friction users have today)**: [Describe the specific obstacle or frustration]
-- **Goal (what the user wants to achieve, and how the product helps)**: [Describe the target outcome]
-- **Target Users (role, expertise level, how much data they handle)**: [Describe the users]
-- **Success Looks Like (measurable)**: [Measurable outcome]
+- **Product Name**: Pulso
+- **Problem (the friction users have today)**: Quem pratica atividade física por conta própria, ao ar livre e de forma irregular (uma corrida no parque, uma tarde de surf, uma volta de bicicleta) não tem seguro para esses momentos. O seguro desportivo obrigatório (DL 10/2009) só cobre federados, utilizadores de instalações abertas ao público e participantes de provas; o seguro do ginásio só vale dentro do ginásio. Os produtos de acidentes pessoais em Portugal são anuais ou mensais, não encaixam numa prática irregular e muitas vezes espontânea, e por isso as pessoas decidem que não compensa e ficam descobertas, contando com o SNS. Muitas acham, sem saber, que já estão cobertas pelo ginásio, pelo cartão bancário ou pelo seguro da empresa.
+- **Goal (what the user wants to achieve, and how the product helps)**: Ficar coberto só durante a atividade, em poucos toques: dizer o que vai fazer, onde e por quanto tempo, ver para que fica coberto, o que fica de fora, quanto custa e porquê, e saber o que fazer se se magoar. A IA prepara e explica a proposta; a pessoa decide e confirma. Se algo acontecer, um assistente faz a triagem e passa a uma pessoa da equipa.
+- **Target Users (role, expertise level, how much data they handle)**: Praticantes ocasionais de atividade física ao ar livre, 18 a 40 anos, a viver ou de passagem em Portugal, não federados na modalidade que vão praticar. Literacia digital variável (de muito alta a média); usam a app no telemóvel, muitas vezes pouco antes de sair. Inclui pessoas com deficiência que praticam desporto adaptado. Lidam com pouca informação: uma sessão de cada vez. Personas de trabalho (sintéticas): Tiago, 31, surf e corrida, decide 1 a 3 h antes; Joana, 36, handbike e canoagem adaptada, teme ser recusada ou pagar mais; Rita, 42, BTT e trail com o filho (fora do corte de idade atual, mantida como referência). Anti-persona: Maria, 64, caminhada em grupo, não compra pelo telemóvel.
+- **Success Looks Like (measurable)**: tempo até cobertura ativa < 60 s (mediana, de ATIVAR a ATIVA); compreensão ≥ 80% em 3 perguntas depois de ver PROPOSTA («Estás coberto para quê?», «Quanto custa e porquê?», «O que fazes se te magoares?»); confiança ≥ 5/7 sem diferença entre faixas etárias; diferença de taxa de sucesso por idade e por uso de tecnologias de apoio < 10 p.p.
 
 ---
 
 ## 2. Scope
 
-- **In Scope**: [Item 1], [Item 2], [Item 3]
-- **Out of Scope**: [Item 1], [Item 2]
-- **Platforms**: [Web desktop / Web mobile / iOS / Android (delete those not needed)]
-- **Accessibility Target**: [e.g., WCAG 2.2 AA]
-- **Does This Product Include AI Features?**: [Yes / No]
-  - If No, skip section 5 and ignore rules tagged `ai` in section 7.
+- **In Scope**: ativar uma sessão de cobertura por atividade (escolha, proposta explicada pela IA, confirmação e pagamento), sessão ativa (tempo restante, prolongar, parar), exclusão de federados na modalidade, assistente para dúvidas sobre a cobertura com passagem a uma pessoa, início do pedido de ajuda depois de um acidente (triagem de segurança, 112, questionário, resumo, passagem a uma pessoa), proteção opcional do equipamento.
+- **Out of Scope**: modelo atuarial e cálculo real do preço, desportos extremos e de alto risco (downhill, alpinismo, paraquedismo), venda B2B e via organizadores de eventos, integrações reais com seguradora, pagamentos e 112, validação jurídica formal, gestão completa do sinistro depois da passagem à equipa, onboarding e criação de conta (fluxo próprio, ainda por adaptar).
+- **Platforms**: iOS / Android (app mobile; protótipo em Figma)
+- **Accessibility Target**: WCAG 2.2 AA
+- **Does This Product Include AI Features?**: Yes. A IA prepara e explica a proposta (PREPARAR, PROPOSTA) e o assistente faz triagem, responde a dúvidas e prepara o resumo do pedido de ajuda (TRIAGEM a PEDIDO).
 
 ---
 
 ## 3. Key Data
 
-List the main things users see or manage.
-
 | Object | What It Is | Key Fields Users See | Who Can Change It |
 | --- | --- | --- | --- |
-| [Object] | [Description] | [Fields] | [Role] |
+| Atividade | Uma atividade do catálogo, com nível de intensidade 1 a 4 | Nome, nível («nível 2, moderada»), se inclui equipamento | Equipa Pulso (catálogo); o utilizador escolhe |
+| Proposta | O que a IA prepara para uma atividade, local e duração | Atividade, local, horário, o que cobre (com limites [VALOR]), o que não cobre, preço, fatores do preço, validade | Gerada pela IA; o utilizador altera as escolhas que lhe dão origem |
+| Sessão | Uma cobertura paga, com início e fim | Estado (ativa, terminada), atividade, local, início, fim, tempo restante, valor pago | Utilizador (prolongar, parar); termina sozinha no fim |
+| Pagamento | O pagamento de uma sessão ou de um prolongamento | Meio (MB WAY, cartão ···· [0000]), valor, estado | Utilizador |
+| Conversa | A conversa com o assistente ou com uma pessoa | Mensagens, rótulo de quem escreveu, hora, fonte das respostas | Utilizador e equipa; o assistente escreve mas não apaga |
+| Pedido de ajuda | O resumo de um acidente passado à equipa | N.º [REF], sessão, o que aconteceu, onde se magoou, se foi visto por médico, fotos e documentos | Utilizador (antes de enviar e depois, com anexos); equipa Pulso |
 
 ---
 
 ## 4. Flows
 
-*(Copy this block once per flow. Give each flow an ID: F1, F2, ... Describe only what the user sees and does. Leave out backend steps.)*
+### Flow F1: Ativar uma sessão
 
-### Flow [F#]: [Flow name]
-
-- **Starts When**: [Trigger]
-- **Starts on Screen (ID)**: [Screen ID]
-- **User Does**: [Inputs, choices, button presses]
+- **Starts When**: a pessoa vai praticar uma atividade e quer ficar coberta.
+- **Starts on Screen (ID)**: ATIVAR
+- **User Does**: escolhe atividade, local e duração; opcionalmente protege o equipamento; lê a proposta; responde à pergunta da federação; escolhe o meio de pagamento; toca em «Ativar e pagar».
 - **Steps (user-visible)**:
-  1. [Step 1]
-  2. [Step 2]
-  3. [Step 3]
-- **Success Result the User Sees**: [Result] (screen ID: [Screen ID])
-- **Can the User Undo or Cancel?**: [Answer]
-- **High-Risk Step Needing Confirmation?**: [Step, or "None"]
-- **What If It Fails?**: [What the user sees and how they recover]
-- **What If There Is No Data Yet?**: [What the user sees]
+  1. ATIVAR: escolhe atividade, local e duração e vê a hora de início e fim. Toca em «Ver proposta».
+  2. PREPARAR: vê a IA a confirmar os 3 fatores do preço e o contexto. Toca em «Ver proposta».
+  3. PROPOSTA: lê o que cobre, o que não cobre, quanto custa e porquê, e o que fazer se se magoar. Toca em «Continuar para pagar».
+  4. PAGAR: responde «Não» à pergunta da federação, escolhe MB WAY ou cartão e toca em «Ativar e pagar [PREÇO]».
+  5. ATIVA: vê «Estás coberto» e o tempo restante.
+- **Success Result the User Sees**: cartão «Estás coberto» com atividade, local, hora de fim e tempo restante (screen ID: ATIVA)
+- **Can the User Undo or Cancel?**: Sim, até ao passo 4: voltar em qualquer ecrã não cobra nada e mantém as escolhas. Depois de pagar, pode parar a sessão (PARAR).
+- **High-Risk Step Needing Confirmation?**: passo 4, o pagamento («Ativar e pagar [PREÇO]»).
+- **What If It Fails?**: pagamento falhado → ERROPAG («Nada foi cobrado», proposta guardada [N] min, «Tentar outra vez» / «Mudar a forma de pagar»). IA não consegue preparar a proposta → estado de erro de PREPARAR com «Tentar outra vez» e «Falar com uma pessoa». Pessoa federada na modalidade → F5.
+- **What If There Is No Data Yet?**: primeira utilização: ATIVAR sem atividade recente, com chips das atividades mais comuns de cada nível; sem meio de pagamento, PAGAR pede para adicionar um.
+
+### Flow F2: Prolongar ou parar uma sessão
+
+- **Starts When**: a sessão está ativa e a pessoa precisa de mais tempo, ou acabou mais cedo.
+- **Starts on Screen (ID)**: ATIVA
+- **User Does**: toca num chip de prolongamento e confirma, ou toca em parar e confirma.
+- **Steps (user-visible)**:
+  1. ATIVA: toca em «+30 min», «+1 h» ou «+1 h 30».
+  2. PROLONGAR: vê a nova hora de fim e o custo; toca em «Confirmar · + [PREÇO]».
+  3. ATIVA: vê a nova hora de fim.
+- **Success Result the User Sees**: nova hora de fim e tempo restante atualizado (screen ID: ATIVA)
+- **Can the User Undo or Cancel?**: Sim, «Cancelar» no popup não altera nada.
+- **High-Risk Step Needing Confirmation?**: passo 2 (cobra mais). Parar também é confirmado no popup PARAR.
+- **What If It Fails?**: banner em ATIVA «Não foi possível prolongar. A tua sessão continua até às [HH:MM].»
+- **What If There Is No Data Yet?**: Não aplicável (só existe com sessão ativa).
+
+### Flow F3: Tirar uma dúvida sobre a cobertura
+
+- **Starts When**: a pessoa não sabe se uma situação está coberta.
+- **Starts on Screen (ID)**: TRIAGEM
+- **User Does**: escolhe o tema, a sessão e escreve ou dita a dúvida; diz se a resposta ajudou.
+- **Steps (user-visible)**:
+  1. TRIAGEM: toca em «Tenho uma dúvida sobre a cobertura».
+  2. DUVIDA: confirma o tema e escolhe a sessão; escreve a dúvida.
+  3. RESPOSTA: lê a resposta com a fonte; responde «Respondeu à tua dúvida?».
+  4. Se «Não», EQUIPA: a conversa passa a uma pessoa, que já leu o que escreveu.
+- **Success Result the User Sees**: resposta com fonte e «Sim» à pergunta de verificação (screen ID: RESPOSTA), ou uma pessoa na conversa (screen ID: EQUIPA)
+- **Can the User Undo or Cancel?**: Sim, «Não é isso, voltar ao início» e voltar em qualquer passo.
+- **High-Risk Step Needing Confirmation?**: None
+- **What If It Fails?**: baixa confiança do assistente → passa logo a uma pessoa (EQUIPA) em vez de responder; sem rede → banner com a mensagem guardada e o 112.
+- **What If There Is No Data Yet?**: sem sessões, DUVIDA oferece só «Dúvida geral, antes de contratar».
+
+### Flow F4: Pedir ajuda depois de um acidente
+
+- **Starts When**: a pessoa magoa-se durante uma sessão.
+- **Starts on Screen (ID)**: ATIVA (ou TRIAGEM, via «Aconteceu um acidente»)
+- **User Does**: diz se precisa de socorro; liga 112 ou responde a 4 perguntas; confirma o resumo; escolhe como falar com a equipa.
+- **Steps (user-visible)**:
+  1. ATIVA: toca em «Aconteceu alguma coisa?».
+  2. SEGURANCA: responde «Precisas de socorro agora?». Se «Sim, preciso» ou «Não sei» → URGENCIA (Ligar 112, partilhar localização, uma pessoa entra na conversa). Se «Não, estou em segurança» → passo 3.
+  3. QUESTIONARIO: responde às 4 perguntas (pode saltar qualquer uma).
+  4. RESUMO: confirma o resumo ou corrige; toca em «Confirmar e enviar».
+  5. PEDIDO: escolhe falar no chat, ser ligado ou mais tarde; uma pessoa entra com o próximo passo.
+- **Success Result the User Sees**: uma pessoa da equipa na conversa, com o pedido n.º [REF] e o próximo passo concreto (screen ID: PEDIDO)
+- **Can the User Undo or Cancel?**: Sim, pode sair em qualquer passo; nada é enviado sem «Confirmar e enviar». «Falar já com uma pessoa» salta o questionário a qualquer momento.
+- **High-Risk Step Needing Confirmation?**: passo 4, envio do pedido («Confirmar e enviar»).
+- **What If It Fails?**: ninguém livre no chat → SEMPESSOAS («Ligar-me nos próximos 15 min», «Ligar já para a linha 24h», «Se for grave, liga 112»); sem rede → mensagem guardada e 112 (funciona sem dados móveis).
+- **What If There Is No Data Yet?**: sem sessão ativa, a pergunta 1 do questionário pede a sessão ou permite «Saltar»; o pedido segue para uma pessoa.
+
+### Flow F5: Exclusão por ser federado na modalidade
+
+- **Starts When**: em PAGAR, a pessoa responde «Sim» a «Competes em [atividade] numa federação ou como profissional?».
+- **Starts on Screen (ID)**: PAGAR
+- **User Does**: lê a explicação e escolhe outra atividade, tira uma dúvida ou corrige a resposta.
+- **Steps (user-visible)**:
+  1. PAGAR: responde «Sim».
+  2. EXCLUSAO: lê porquê (DL 10/2009), que nada foi cobrado e o que pode fazer.
+  3. Toca em «Escolher outra atividade» (→ ATIVAR), «Alguma dúvida?» (→ TRIAGEM) ou «Enganei-me, não compito em [atividade]» (→ PAGAR).
+- **Success Result the User Sees**: percebe porquê e segue para outra atividade (screen ID: ATIVAR)
+- **Can the User Undo or Cancel?**: Sim, «Enganei-me…» volta a PAGAR.
+- **High-Risk Step Needing Confirmation?**: None (nada é cobrado)
+- **What If It Fails?**: Não aplicável.
+- **What If There Is No Data Yet?**: Não aplicável.
 
 ---
 
 ## 5. AI Behavior (Only if Section 2 Says Yes)
 
-Describe each state for this product. The required states are defined once in section 7 (H-01 to H-04).
-
 | State | What the User Sees in This Product |
 | --- | --- |
-| Idle | [Description] |
-| Thinking | [Description] |
-| Streaming | [Description] |
-| Fallback / Low confidence / Offline | [Description] |
+| Idle | ATIVAR: ícone de conversa no topo, sem texto nem sugestões a ocupar o ecrã. TRIAGEM: mensagem de apresentação que diz o que o assistente faz («esclarecer dúvidas sobre a tua cobertura ou ajudar-te se aconteceu alguma coisa») e que pode passar a uma pessoa. |
+| Thinking | PREPARAR: badge «IA · a preparar» e os fatores do preço a aparecer um a um com visto. Assistente: indicador de escrita com o rótulo «Assistente automático». PROPOSTA a carregar: skeleton dos 4 cartões. |
+| Streaming | Assistente: a resposta aparece progressivamente na bolha e pode ser interrompida («Parar»). PREPARAR: os fatores entram um a um. A proposta só é mostrada completa (nunca preço sem porquê). |
+| Fallback / Low confidence / Offline | Baixa confiança numa dúvida: aviso «Esta dúvida precisa de uma pessoa. Vou passar a conversa à equipa Pulso. Tempo estimado: [N] min.» (EQUIPA). Falha a preparar a proposta: «Não conseguimos preparar a proposta agora…» + «Tentar outra vez» + «Falar com uma pessoa». Sem pessoas: SEMPESSOAS. Sem rede: banner com a mensagem guardada e o 112. Em todos os ecrãs de acidente, «Falar já com uma pessoa» está sempre visível. |
 
-- **What the AI Can Do on Its Own**: [Actions]
-- **What the AI Only Suggests (user must confirm)**: [Actions]
-- **What the AI Must Never Do**: [Actions]
-- **How Confidence Is Shown**: [Description]
-- **How the User Turns AI Help Off or Dismisses It**: [Description]
+- **What the AI Can Do on Its Own**: preparar e explicar a proposta a partir das escolhas da pessoa; mostrar contexto informativo (ex.: meteorologia) que não altera a cobertura; responder a dúvidas citando as condições; fazer as 4 perguntas de triagem; preparar o resumo do pedido; passar a conversa a uma pessoa quando não tem confiança.
+- **What the AI Only Suggests (user must confirm)**: a proposta (pagamento só com «Ativar e pagar»); prolongamentos (só com «Confirmar · + [PREÇO]»); o resumo do pedido de ajuda (só enviado com «Confirmar e enviar»); a interpretação do tema da conversa («Percebi que é sobre a cobertura. Certo?»).
+- **What the AI Must Never Do**: ativar ou cobrar uma sessão; usar a idade, o género ou a condição física ou motora no preço; recusar alguém por deficiência; fingir ser uma pessoa; decidir sozinha um pedido de ajuda ou um sinistro; dar conselho médico; atrasar o acesso ao 112 com perguntas sobre o seguro.
+- **How Confidence Is Shown**: respostas automáticas levam o badge «Resposta automática», a fonte («Fonte: Condições da sessão, ponto [X]») e a pergunta «Respondeu à tua dúvida?». Quando a confiança é baixa, o assistente não responde: diz que a dúvida precisa de uma pessoa e passa a conversa. A proposta mostra os fatores usados e os que não usa.
+- **How the User Turns AI Help Off or Dismisses It**: em qualquer ecrã do assistente, «Falar já com uma pessoa» (acidente) ou «Não» à pergunta de verificação (dúvida) passam a uma pessoa; «Saltar» em cada pergunta do questionário; «Não é isso, voltar ao início»; voltar sai da conversa sem enviar nada. A ativação não depende do assistente.
 
 ---
 
 ## 6. Open Questions
 
-- [Question 1]
-- [Question 2]
+- Que limites ([VALOR]) e preço ([PREÇO]) usar no protótipo? Fora de âmbito calcular, mas os testes de compreensão precisam de valores plausíveis.
+- A IA prepara a proposta ou só a explica? Se o preço vier de uma tabela fixa por nível, «IA · proposta» pode criar uma expectativa errada (risco de over-claiming).
+- A exclusão de federados deve ser perguntada antes de PROPOSTA, para não mostrar um preço a quem não pode comprar?
+- Turistas: que meio de pagamento e que língua? O público-alvo inclui turistas, mas a IA e os wireframes são só em PT.
+- O corte de 18 a 40 anos é de research (amostra), não do produto. O produto exclui alguém por idade? Se não, Maria e Rita continuam relevantes para os testes de acessibilidade e compreensão.
+- AI Act: confirmar se acidentes pessoais com preço calculado por IA é sistema de alto risco.
+- Hipóteses de maior risco ainda por validar (survey vaga 1 e entrevistas): há perceção de risco suficiente para pagar; a decisão é espontânea e no telemóvel; um só produto serve perfis muito diferentes; a explicação por IA aumenta a confiança.
 
 ---
 

@@ -7,7 +7,7 @@ description: Audits one screen in the group's Figma file to check that the desig
 
 You audit one screen for **token binding**: every color, text style, spacing value and radius must be bound to the group's Figma variables or styles, and every button, card, input and badge must be an instance of the group's components. You read the Figma file only and change nothing. You judge the screen as it is; how it was made is irrelevant.
 
-**Rules:** [[Baseline/DesignSystemTokens]] §4
+**Rules:** [[DesignSystemTokens]] §4
 
 ## Input
 
@@ -15,7 +15,7 @@ A screen ID. The screen is Section `<ID>` on the `Screens` page of the Figma fil
 
 ## Steps
 
-1. Read the variables (§1, §2), components (§3) and rules (§4) in [[Baseline/DesignSystemTokens]].
+1. Read the variables (§1, §2), components (§3) and rules (§4) in [[DesignSystemTokens]].
 2. Read Section `<ID>`: its layers (`get_metadata`), the values and variables of each state frame (`get_design_context`, `get_variable_defs`) and a screenshot of each state frame (`get_screenshot`).
 3. Check every rule:
    - [Checks filled by SETUP.md: one per rule in DesignSystemTokens §4, each with its ID, how to find it in the Figma file, and what counts as a violation.]

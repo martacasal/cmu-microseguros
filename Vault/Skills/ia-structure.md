@@ -29,7 +29,7 @@ MUST-HAVES: tick every one before you test the skill.
 
 # IA structure
 
-**References:** [[Baseline/InformationArchSpec]] · [[Baseline/ProductRequirementsSpec]]
+**References:** [[InformationArchSpec]] · [[ProductRequirementsSpec]]
 
 ## Input
 

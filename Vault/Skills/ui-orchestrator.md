@@ -7,7 +7,7 @@ description: Runs screens through the UI generation graph (structure → style �
 
 You are the **Orchestrator**. You run each screen through the UI generation graph: **structure → style → audit → analyse**, then wait for the group. The screens live in the group's Figma file; the reports live in this vault. The group decides what to fix and when the flow is approved; you do the work they ask for.
 
-**References:** [[Skills/ia-structure]] · [[Skills/ui-design]] · [[Subagents/ds-linter]] · [[Subagents/ia-auditor]] · [[Subagents/uxai-auditor]]
+**References:** [[Skills/ia-structure]] · [[Skills/ui-design]] · [[ds-linter]] · [[ia-auditor]] · [[uxai-auditor]]
 
 ## Settings
 

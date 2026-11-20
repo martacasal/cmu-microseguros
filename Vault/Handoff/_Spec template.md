@@ -2,7 +2,7 @@
 
 > [!info] Screen at a glance
 > - **Screen ID:** `[ID]`, the same ID as its screen card, its Figma Section and its file name.
-> - **Screen card:** [[Baseline/InformationArchSpec]] §2, "Screen: [Screen name] ([ID])". Goal, main action and content live there; this spec doesn't repeat them.
+> - **Screen card:** [[InformationArchSpec]] §2, "Screen: [Screen name] ([ID])". Goal, main action and content live there; this spec doesn't repeat them.
 > - **Figma:** [Section [ID] on the Screens page](paste-link) · [Prototype](paste-link)
 > - **Flow:** [[Handoff/handoff-glossary]] → step [n] of the happy path. Comes from [[Handoff/[ID]]] · goes to [[Handoff/[ID]]]
 
@@ -12,14 +12,14 @@
 
 ## 2. Layout
 
-[The areas from top to bottom, from [[Baseline/InformationArchSpec]] §3. Frame size, what scrolls and what stays pinned, what changes on a bigger screen.]
+[The areas from top to bottom, from [[InformationArchSpec]] §3. Frame size, what scrolls and what stays pinned, what changes on a bigger screen.]
 
 > [!tip] Why
 > [The layout decision a builder must not undo, and why.]
 
 ## 3. Design tokens
 
-Only the tokens this screen uses. Names come from [[Baseline/DesignSystemTokens]]; the value is there so nobody has to look it up.
+Only the tokens this screen uses. Names come from [[DesignSystemTokens]]; the value is there so nobody has to look it up.
 
 | Token | Value | Used for |
 | --- | --- | --- |

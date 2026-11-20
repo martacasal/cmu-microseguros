@@ -1,4 +1,4 @@
-# [Project Name] - Exercise [N]: Product Requirements Spec (`ProductRequirementsSpec.md`)
+# PULSE - Exercise [N]: Product Requirements Spec (`ProductRequirementsSpec.md`)
 
 ## 🧭 How to Read This File (Explanation for LLMs)
 

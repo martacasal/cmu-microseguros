@@ -1,4 +1,4 @@
-# [Project Name] - Exercise [N]: Design System Tokens Spec (`DesignSystemTokens.md`)
+# PULSE- Exercise [N]: Design System Tokens Spec (`DesignSystemTokens.md`)
 
 ## 🧭 How to Read This File (Explanation for LLMs)
 

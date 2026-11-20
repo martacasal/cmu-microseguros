@@ -1,4 +1,4 @@
-# [Project Name] - Exercise [N]: Information Architecture Spec (`InformationArchSpec.md`)
+# PULSE - Exercise [N]: Information Architecture Spec (`InformationArchSpec.md`)
 
 ## 🧭 How to Read This File (Explanation for LLMs)
 

@@ -1,4 +1,4 @@
-# [Project Name] - Exercise 4: User Emotional Characterization (`AestheticsEmotionalSpec.md`)
+# PULSE - Exercise 4: User Emotional Characterization (`AestheticsEmotionalSpec.md`)
 
 ## 1. Feelings the Solution MUST Evoke (5 Selected Words)
 

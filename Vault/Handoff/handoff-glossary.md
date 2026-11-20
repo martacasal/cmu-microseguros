@@ -17,8 +17,8 @@
 
 Every spec uses these words the same way.
 
-- **Screen ID**: the short name in capitals (e.g. `CART`). One ID names the screen card in [[Baseline/InformationArchSpec]] §2, the Figma Section, the state frames (`CART/empty`) and the spec file (`Handoff/CART.md`).
-- **States**: `default`, `empty`, `loading`, `error`[, plus the AI states from [[Baseline/ProductRequirementsSpec]] §5, e.g. `fallback`]. Each is its own Figma frame.
-- **Tokens**: the names in [[Baseline/DesignSystemTokens]] (e.g. `color/action/primary`). Specs name the token, then its value.
+- **Screen ID**: the short name in capitals (e.g. `CART`). One ID names the screen card in [[InformationArchSpec]] §2, the Figma Section, the state frames (`CART/empty`) and the spec file (`Handoff/CART.md`).
+- **States**: `default`, `empty`, `loading`, `error`[, plus the AI states from [[ProductRequirementsSpec]] §5, e.g. `fallback`]. Each is its own Figma frame.
+- **Tokens**: the names in [[DesignSystemTokens]] (e.g. `color/action/primary`). Specs name the token, then its value.
 - **Components**: [the group's component names and what each is, e.g. **Button** (type=primary / secondary / danger): every tappable action].
 - **[Product term]**: [words from your product that a builder could read two ways, e.g. "pickup time": the time the order is ready, not when it was placed].

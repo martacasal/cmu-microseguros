@@ -2,7 +2,7 @@
 
 > [!info] Screen at a glance
 > - **Screen ID:** `CART`, the same ID as its screen card, its Figma Section and its file name.
-> - **Screen card:** the coffee example in [[Baseline/InformationArchSpec]]: goal "Review the order and pay", main action Checkout, content items + total + pickup time.
+> - **Screen card:** the coffee example in [[InformationArchSpec]]: goal "Review the order and pay", main action Checkout, content items + total + pickup time.
 > - **Figma:** Section CART on the Screens page · Prototype *(an example: your specs link to your own file)*
 > - **Flow:** step 4 of the happy path HOME → MENU → DRINK → CART. Comes from DRINK · goes to CHECKOUT
 

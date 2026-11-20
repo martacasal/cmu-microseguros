@@ -11,7 +11,7 @@ This file documents the **structure of a digital product**: which screens exist,
 3. Use the layout tables in section 3 and the states in section 4 to design the detail of key screens.
 4. The **Rules** in section 5 override any other interpretation of this file.
 
-**Fontes deste ficheiro**: wireframes do grupo (`wireframes_png/A01` a `A07` e `C01` a `C10`, novembro 2026), breadboard em [[Baseline/C2-05/Fluxo StartInsurance/StructureIdea]] e `IMG_8682.jpg`, página Notion "MICRO SEGUROS" (Conceito v3, Personas, Info Architecture). Onde os wireframes e o breadboard divergem, mandam os wireframes, que são mais recentes. As divergências estão em §6.
+**Fontes deste ficheiro**: wireframes do grupo (`wireframes_png/A01` a `A07` e `C01` a `C10`, novembro 2026), breadboard em [[Design/Baseline/C2-05/Fluxo StartInsurance/StructureIdea]] e `IMG_8682.jpg`, página Notion "MICRO SEGUROS" (Conceito v3, Personas, Info Architecture). Onde os wireframes e o breadboard divergem, mandam os wireframes, que são mais recentes. As divergências estão em §6.
 
 **Língua**: toda a copy de interface é em Português de Portugal. Os textos entre «» são copy literal dos wireframes.
 

@@ -20,4 +20,4 @@ Save it as Skills/apply-design.md, then tell us how it meets each of the 4 pilla
 What the AI got wrong in POC-styled.html: [paste your E3 notes here]
 ```
 
-After the AI writes it: read the skill together and fix it by hand with the **Final check** in [[Baseline/C2-06/Skill writing guide]]. It's your skill: change anything that doesn't sound like how your group works.
+After the AI writes it: read the skill together and fix it by hand with the **Final check** in [[Skill writing guide]]. It's your skill: change anything that doesn't sound like how your group works.

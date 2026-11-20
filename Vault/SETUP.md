@@ -13,9 +13,9 @@ Turns the group's work into a running graph. The notes in `Baseline/`, `Skills/`
    Done when: every input passes. If any fails, list what's missing and stop here.
 
 2. **Fill the auditors' checks.** Each note in `Subagents/` already has its shape; only the line `[Checks filled by SETUP.md: …]` under step 3 is left. Replace it with one bullet per rule that line names, taken from the Baseline: `**<rule ID>, <rule name>**: <how to find it in the Figma file>. <what counts as a violation>.` Leave the rest of each note unchanged.
-   - [[Subagents/ds-linter]]: every rule in [[Baseline/DesignSystemTokens]] §4.
-   - [[Subagents/ia-auditor]]: H-06, H-07, H-08 from [[Baseline/ProductRequirementsSpec]], then every rule in [[Baseline/InformationArchSpec]] §5.
-   - [[Subagents/uxai-auditor]]: [[Baseline/ProductRequirementsSpec]] N-01 to N-10, plus the AI rules if §2 says the product has AI.
+   - [[ds-linter]]: every rule in [[DesignSystemTokens]] §4.
+   - [[ia-auditor]]: H-06, H-07, H-08 from [[ProductRequirementsSpec]], then every rule in [[InformationArchSpec]] §5.
+   - [[uxai-auditor]]: [[ProductRequirementsSpec]] N-01 to N-10, plus the AI rules if §2 says the product has AI.
    Done when: no `[Checks filled by SETUP.md` line is left, and every rule from each source has a bullet.
 
 3. **Install** for every AI tool the group might use:

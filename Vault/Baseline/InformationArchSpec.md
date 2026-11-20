@@ -1,4 +1,4 @@
-# Pulso - C2:06: Information Architecture Spec (`InformationArchSpec.md`)
+# PULSE - C2:06: Information Architecture Spec (`InformationArchSpec.md`)
 
 ## 🧭 How to Read This File (Explanation for LLMs)
 

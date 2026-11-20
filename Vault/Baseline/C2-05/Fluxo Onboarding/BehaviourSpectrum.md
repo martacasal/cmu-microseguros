@@ -1,4 +1,4 @@
-# [Project Name] - Behavioral Spectrums
+# PULSE - Behavioral Spectrums
 
 ## 🧭 How to Read This File (Explanation for LLMs)
 
@@ -52,33 +52,33 @@ This file documents the **intended interaction behavior** of a digital product u
 ### 3. Information Density
 
 - **Option A: Progressive Disclosure / Minimal** — High whitespace, summary cards, expandable accordions (e.g., **Apple Weather**, **Medium**).
-  - **Points**: 3
+  - **Points**: 4
 - **Option B: High-Density Overview / Dashboard** — Multi-column data grids, real-time telemetry panels (e.g., **Bloomberg Terminal**, **Grafana**).
-  - **Points**: 2
+  - **Points**: 1
 - **Non-Negotiable Behavioral Rule**: [ 1 sentence rule ]
 
 ### 4. Interaction Modality
 
 - **Option A: Direct Manipulation / Visual** — Tactile graphic controls, sliders, visual handles (e.g., **Canva**, **Webflow**).
-  - **Points**: 4
+  - **Points**: 3
 - **Option B: Intent-Based / Conversational** — Natural language input bars, prompt feeds, command palettes (e.g., **ChatGPT**, **Raycast**).
-  - **Points**: 1
+  - **Points**: 2
 - **Non-Negotiable Behavioral Rule**: [ 1 sentence rule ]
 
 ### 5. Automation & Human Control
 
 - **Option A: Autonomous Execution / Review Mode** — Diff previews, "Approve / Reject" action cards, automated change logs (e.g., **Descript**, **Copilot Workspace**).
-  - **Points**: 2
+  - **Points**: 1
 - **Option B: Direct Step-by-Step Control** — Granular manual levers, step-by-step inspector panels (e.g., **DaVinci Resolve**, **Illustrator**).
-  - **Points**: 3
+  - **Points**: 4
 - **Non-Negotiable Behavioral Rule**: [ 1 sentence rule ]
 
 ### 6. Feedback Tempo & State Visibility
 
 - **Option A: Real-Time Dynamic Preview** — Live split-screen previews, instant inline validation (e.g., **CodePen**, **Figma Color Picker**).
-  - **Points**: 1
+  - **Points**: 0
 - **Option B: Staged / On-Commit Validation** — Explicit "Save / Submit" buttons, post-commit confirmation toasts (e.g., **GitHub Pull Requests**, **Banking Portals**).
-  - **Points**: 4
+  - **Points**: 5
 - **Non-Negotiable Behavioral Rule**: [ 1 sentence rule ]
 
 ---

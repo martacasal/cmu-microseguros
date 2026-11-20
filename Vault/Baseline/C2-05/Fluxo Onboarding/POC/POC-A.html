@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POC A · Um passo, um ecrã</title>
+<style>
+  :root{
+    --bg:#e9ebee; --surface:#fff; --soft:#f3f4f6; --line:#d8dce0;
+    --ink:#1c1f23; --ink2:#555c64; --ink3:#8a9097;
+    --accent:#1f6f5c; --accent-soft:#e2efeb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  .wrap{display:flex;gap:40px;justify-content:center;align-items:flex-start;flex-wrap:wrap;padding:32px 16px}
+  .notes{max-width:360px;color:var(--ink2);font-size:14px}
+  .notes h1{font-size:20px;color:var(--ink);margin:0 0 4px}
+  .tag{display:inline-block;font-size:12px;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:10px;margin-bottom:12px}
+  .notes h2{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin:20px 0 6px}
+  .notes ul{padding-left:18px;margin:0}.notes li{margin-bottom:4px}
+  .notes select{width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff;font:inherit}
+
+  .phone{width:375px;max-width:100%;height:760px;background:var(--surface);border-radius:36px;border:10px solid #2a2d31;overflow:hidden;display:flex;flex-direction:column;position:relative}
+  .top{padding:16px 20px 8px;min-height:20px}
+  .toprow{display:flex;align-items:center;gap:12px}
+  .back{border:0;background:none;font:inherit;color:var(--ink2);padding:6px 0;cursor:pointer}
+  .count{margin-left:auto;font-size:12px;color:var(--ink3)}
+  .prog{height:6px;background:var(--soft);border-radius:3px;margin-top:8px;overflow:hidden}
+  .prog i{display:block;height:100%;background:var(--accent);border-radius:3px}
+  .body{flex:1;overflow:auto;padding:8px 20px 20px}
+  .foot{padding:12px 20px 22px;border-top:1px solid var(--soft)}
+  h3{font-size:24px;line-height:1.2;margin:12px 0 6px}
+  .sub{color:var(--ink2);margin:0 0 18px}
+  .btn{display:block;width:100%;padding:14px;border-radius:12px;border:1px solid var(--line);background:#fff;font:inherit;font-weight:600;color:var(--ink);cursor:pointer;margin-top:8px}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn:disabled{background:var(--soft);border-color:var(--soft);color:var(--ink3);cursor:not-allowed}
+  .btn.link{border:0;background:none;color:var(--ink2);font-weight:500;padding:10px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;color:var(--ink2);margin-bottom:4px}
+  .field input,.field select{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+  .row{display:flex;gap:8px}.row>*{flex:1}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .chip{padding:10px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;font:inherit;cursor:pointer;color:var(--ink)}
+  .chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+  .card{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;background:#fff}
+  .card.soft{background:var(--soft);border-color:var(--soft)}
+  .card.accent{background:var(--accent-soft);border-color:var(--accent-soft)}
+  .card b{display:block;margin-bottom:2px}
+  .muted{color:var(--ink2);font-size:13px}
+  .err{margin-top:8px;padding:10px 12px;border-radius:10px;border:1px solid var(--ink);font-size:13px}
+  .check{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--soft);cursor:pointer}
+  .check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--accent)}
+  .req{font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em}
+  details{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:8px}
+  summary{cursor:pointer;font-weight:600}
+  details p{margin:8px 0 0;color:var(--ink2)}
+  .illu{height:200px;border-radius:16px;background:var(--soft);display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:13px;margin:12px 0 18px;text-align:center;padding:12px}
+  .dots{display:flex;gap:6px;justify-content:center;margin-bottom:10px}
+  .dots i{width:8px;height:8px;border-radius:4px;background:var(--line)}.dots i.on{background:var(--accent);width:20px}
+  .seal{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--ink2);border:1px solid var(--line);border-radius:20px;padding:4px 10px}
+  .seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:6px 0}
+  .seg button{flex:1;border:0;background:#fff;padding:10px 4px;font:inherit;cursor:pointer;border-right:1px solid var(--line)}
+  .seg button:last-child{border-right:0}.seg button.on{background:var(--accent);color:#fff;font-weight:600}
+  .map{height:170px;border-radius:14px;background:repeating-linear-gradient(45deg,var(--soft),var(--soft) 10px,#eceef1 10px,#eceef1 20px);position:relative;margin-bottom:14px}
+  .map i{position:absolute;width:12px;height:12px;border-radius:6px;background:var(--ink3);border:2px solid #fff}
+  .map i.me{background:var(--accent);width:16px;height:16px}
+  .sheet{position:absolute;inset:0;background:rgba(28,31,35,.35);display:flex;align-items:flex-end}
+  .sheet>div{background:#fff;width:100%;max-height:80%;overflow:auto;border-radius:20px 20px 0 0;padding:20px}
+  .toast{position:absolute;left:16px;right:16px;bottom:96px;background:var(--ink);color:#fff;padding:12px 14px;border-radius:12px;font-size:14px}
+  .tabs{display:flex;border-top:1px solid var(--line)}
+  .tabs span{flex:1;text-align:center;padding:12px 0 18px;font-size:12px;color:var(--ink3)}.tabs span.on{color:var(--accent);font-weight:600}
+  .center{text-align:center}
+  .logo{font-size:34px;font-weight:800;letter-spacing:.08em;margin:120px 0 6px}
+  .price{font-size:30px;font-weight:700}
+  .kv{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--soft);font-size:14px}.kv span:first-child{color:var(--ink2)}
+  .live{border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;background:#fff;box-shadow:0 6px 20px rgba(28,31,35,.06)}
+  .live .btn{margin-top:12px}
+  .liverow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:4px}
+  .pill{font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:12px;padding:3px 10px}
+  .clock{font-size:44px;font-weight:700;letter-spacing:.02em;margin:6px 0 2px}
+  .okmark{width:64px;height:64px;border-radius:32px;background:var(--accent);color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+  .steps{list-style:none;padding:0;margin:8px 0 14px}.steps li{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--soft)}
+  .steps span{width:24px;height:24px;border-radius:12px;background:var(--soft);font-size:12px;display:flex;align-items:center;justify-content:center;color:var(--ink2)}
+  .codein{font-size:26px!important;letter-spacing:.5em;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="notes">
+    <span class="tag">POC A</span>
+    <h1>Um passo, um ecrã</h1>
+    <p>The classic guided wizard: each screen asks one thing, with big tactile controls and one primary button. <b>First impression: show the product working.</b> Welcome shows the real "in activity" screen, and each value screen has a small demo the user can try (turn protection on, include the bike), so they understand the app before they create an account. The account screen says what the account gives them, and a "Conta criada" screen marks the moment and explains what comes next.</p>
+    <h2>How it follows the spectrum</h2>
+    <ul>
+      <li><b>Guided 5/0:</b> one path, Back + progress 1–12 on every question; no menus, no jumping.</li>
+      <li><b>Proactive 3/2:</b> quiet hint cards built from earlier answers ("Because you run…"), never pop-ups.</li>
+      <li><b>Minimal 4/1:</b> one question per screen; detail in "Why?" accordions and bottom sheets.</li>
+      <li><b>Direct 3/2:</b> tap chips and segments; free text only for name and "+ outra".</li>
+      <li><b>Step control 4/1:</b> the user answers every step; one review at "O teu perfil".</li>
+      <li><b>On-commit 5/0:</b> nothing is checked while typing; errors appear only after Continue, confirmations as toasts.</li>
+    </ul>
+    <h2>Try</h2>
+    <ul>
+      <li>Birth year 2012 → age exception.</li>
+      <li>Leave the email empty and tap Continue.</li>
+      <li>Profile → "Editar perfil" returns to the questions, then straight back.</li>
+    </ul>
+    <h2>Reviewer shortcut (not in the product)</h2>
+    <select id="jump" onchange="jumpTo(this.value)"></select>
+  </div>
+  <div class="phone" id="phone"></div>
+</div>
+
+<script>
+const D={email:'',code:'',name:'',nick:'',dd:'',mm:'',yy:'',concelho:'',ecName:'',ecPhone:'',ecRel:'',ecNotify:true,
+  acts:[],other:'',levels:{},freq:'',where:[],tryActs:[],ins:[],c:{terms:false,pre:false,loc:false,news:false},remind:null};
+let demo={on:false,eq:false};
+let cur='1.1',hist=[],err='',sheet=null,toast='',editMode=false,timer=30,tInt=null;
+const ACTS=['Corrida','Ciclismo','Futebol','Padel','Surf','Caminhada','Skate','Escalada','Basquetebol','Calistenia'];
+const LV={'Iniciante':'Pratico há pouco tempo ou sem regularidade.','Intermédio':'Pratico com regularidade e conheço os meus limites.','Avançado':'Treino com intensidade, por vezes em terreno exigente.'};
+const FREQ=['De vez em quando','1× por semana','2–3× por semana','4× ou mais'];
+const WHERE=['Parque','Rua','Praia','Montanha / trilho','Campo público','Mar / rio'];
+const TRY=['Trail running','Bodyboard','Remo','BTT','Escalada','Yoga ao ar livre'];
+const INS=['Saúde','Vida / acidentes pessoais','Do banco ou do cartão','Não tenho / não sei'];
+const CONC=['Lisboa','Porto','Cascais','Oeiras','Sintra','Almada','Braga','Coimbra','Faro','Aveiro'];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const actsAll=()=>D.acts.concat(D.other.trim()?[D.other.trim()]:[]);
+function age(){const b=new Date(+D.yy,+D.mm-1,+D.dd),n=new Date();let a=n.getFullYear()-b.getFullYear();if(n<new Date(n.getFullYear(),b.getMonth(),b.getDate()))a--;return a}
+function price(){const f={'Iniciante':.40,'Intermédio':.45,'Avançado':.55};const a=actsAll()[0];return (f[D.levels[a]]||.45).toFixed(2).replace('.',',')}
+const chips=(key,list,single)=>`<div class="chips">${list.map(x=>`<button class="chip ${(single?D[key]===x:D[key].includes(x))?'on':''}" onclick="pick('${key}','${x}',${!!single})">${x}</button>`).join('')}</div>`;
+const why=(q,a)=>`<details><summary>${q}</summary><p>${a}</p></details>`;
+const inp=(k,label,type='text',ph='')=>`<div class="field"><label>${label}</label><input type="${type}" value="${esc(D[k])}" placeholder="${ph}" oninput="D['${k}']=this.value"></div>`;
+
+const S={
+ '1.1':{bare:1,body:()=>`<div class="center" style="margin-top:28px"><div class="logo" style="margin:0 0 4px;font-size:28px">PULSE</div><p class="sub">Seguro à hora para quem pratica desporto por conta própria.</p></div>
+   <div class="live"><span class="muted">É assim que vais ver a app durante um treino</span><div class="liverow"><b>Corrida · Parque da Cidade</b><span class="pill">Protegido</span></div><div class="clock">00:42</div><span class="muted">Termina às 19:30 · 0,45 € · Pedir ajuda</span></div>
+   <p class="center"><span class="seal">● Seguradora supervisionada pela ASF</span></p>`,
+   foot:()=>`<button class="btn primary" onclick="go('1.2')">Começar</button><button class="btn link" onclick="say('Abre o Login (fora deste fluxo)')">Já tenho conta</button>`},
+ '1.2':{bare:1,body:()=>`<p class="muted" style="margin-top:12px">1 de 3</p><h3>Pagas só a hora em que treinas</h3><p class="sub">Ligas quando começas, desligas quando acabas. Sem anuidades.</p>
+   <div class="live">${demo.on?`<div class="liverow"><b>Corrida · 1 hora</b><span class="pill">Protegido</span></div><p style="margin:8px 0 0">Protegido até às 19:30. Pagas <b>0,45 €</b>; se acabares mais cedo, pagas menos.</p><span class="muted">É só um exemplo: ainda não estás protegido.</span>`
+     :`<div class="liverow"><b>Corrida · 1 hora</b><span class="muted">0,45 €</span></div><button class="btn" onclick="demo.on=true;render()">Experimenta: ligar a proteção</button>`}</div>`,
+   foot:()=>`<div class="dots"><i class="on"></i><i></i><i></i></div><button class="btn primary" onclick="go('1.3')">Próximo</button><button class="btn link" onclick="go('2.1')">Pular</button>`},
+ '1.3':{bare:1,body:()=>`<p class="muted" style="margin-top:12px">2 de 3</p><h3>Sabes o que diz a lei</h3><p class="sub">Em linguagem simples, sem juridiquês.</p>
+   ${['Se praticas por conta própria, o seguro não é obrigatório.','Mas, sem ele, um acidente fica por tua conta.','O Pulse dá-te as coberturas que a lei define para o desporto.'].map(t=>`<div class="kv"><span>✓ ${t}</span></div>`).join('')}
+   <div class="card" style="cursor:pointer;margin-top:14px" onclick="openSheet('law')"><b>Decreto-Lei 10/2009</b><span class="muted">Regime do seguro desportivo · Ver resumo ›</span></div>`,
+   foot:()=>`<div class="dots"><i></i><i class="on"></i><i></i></div><button class="btn primary" onclick="go('1.4')">Próximo</button><button class="btn link" onclick="go('2.1')">Pular</button>`},
+ '1.4':{bare:1,body:()=>`<p class="muted" style="margin-top:12px">3 de 3</p><h3>O teu equipamento também</h3><p class="sub">Bicicleta, prancha ou raquete: decides em cada atividade.</p>
+   <div class="live"><div class="liverow"><b>Ciclismo · 2 horas</b><span class="muted">${demo.eq?'1,10 €':'0,90 €'}</span></div>${demo.eq?`<p style="margin:8px 0 0">+ Bicicleta coberta até 1 500 € (+0,10 €/h).</p><span class="muted">É só um exemplo.</span>`:`<button class="btn" onclick="demo.eq=true;render()">Experimenta: incluir a bicicleta</button>`}</div>`,
+   foot:()=>`<div class="dots"><i></i><i></i><i class="on"></i></div><button class="btn primary" onclick="go('2.1')">Criar conta</button><button class="btn link" onclick="say('Abre o Login (fora deste fluxo)')">Já tenho conta</button>`},
+ '2.1':{back:1,body:()=>`<h3>Cria a tua conta</h3><p class="sub">A conta guarda o teu perfil, para depois ligares a proteção em 2 toques.</p>
+   <div class="card soft">${['O teu perfil desportivo, guardado','Proteção ligada em 2 toques','Recibos e histórico num só sítio'].map(t=>`<div>✓ ${t}</div>`).join('')}</div>
+   <button class="btn" onclick="social('Apple')"> Continuar com Apple</button><button class="btn" onclick="social('Google')">G Continuar com Google</button><p class="muted center" style="margin:14px 0">ou</p>${inp('email','Email','email','nome@exemplo.pt')}`,
+   foot:()=>`<button class="btn primary" onclick="next()">Continuar com email</button><p class="muted center">Sem palavra-passe: enviamos-te um código. Ao continuar aceitas os <u style="cursor:pointer" onclick="openSheet('terms')">Termos</u> e a <u style="cursor:pointer" onclick="openSheet('priv')">Política de privacidade</u>.</p>`,
+   next:()=>/^\S+@\S+\.\S+$/.test(D.email)?'2.2':'Escreve um email válido, por exemplo nome@exemplo.pt.'},
+ '2.2':{back:1,enter:startTimer,body:()=>`<h3>Confirma que és tu</h3><p class="sub">Enviámos um código de 6 dígitos para <b>${esc(D.email)}</b>.</p><div class="field"><input class="codein" inputmode="numeric" maxlength="6" value="${esc(D.code)}" placeholder="••••••" oninput="D.code=this.value"></div><p class="muted" id="tm">${tmHtml()}</p><p class="muted">Não chegou? Vê a pasta de spam.</p>`,
+   foot:()=>`<button class="btn primary" onclick="next()">Confirmar</button>`,
+   next:()=>/^\d{6}$/.test(D.code)?'ok':'O código tem 6 números. Confirma no teu email.'},
+ 'ok':{bare:1,body:()=>`<div class="center" style="margin-top:60px"><div class="okmark">✓</div><h3>Conta criada</h3><p class="sub">Bem-vindo/a ao Pulse${D.via?' (entraste com '+D.via+')':''}.<br>Agora preparamos a tua proteção: 12 perguntas curtas, cerca de 3 minutos.</p></div>
+   <ul class="steps">${['Sobre ti','O teu desporto','O que está coberto','O teu acordo'].map((t,i)=>`<li><span>${i+1}</span>${t}</li>`).join('')}</ul><p class="muted center">Podes voltar atrás em qualquer pergunta sem perder respostas.</p>`,
+   foot:()=>`<button class="btn primary" onclick="go('2.3')">Vamos lá</button>`},
+ '2.3':{p:1,body:()=>`<h3>Como te chamas?</h3><p class="sub">Usamos o nome completo na apólice.</p>${D.via?`<div class="card soft"><span class="muted">Trouxemos o nome da tua conta ${D.via}. Confirma ou corrige.</span></div>`:''}${inp('name','Nome completo')}${inp('nick','Como preferes que te tratemos? (opcional)')}`,
+   next:()=>D.name.trim().split(/\s+/).length>=2?'2.4':'Precisamos do nome e apelido, tal como no teu documento.'},
+ '2.4':{p:2,body:()=>`<h3>Quando nasceste?</h3><p class="sub">A idade define se te podemos proteger.</p><div class="row">${inp('dd','Dia','number','DD')}${inp('mm','Mês','number','MM')}${inp('yy','Ano','number','AAAA')}</div>${why('Porque perguntamos isto?','O seguro aceita pessoas entre 18 e 70 anos. Não partilhamos a tua data de nascimento com ninguém além da seguradora.')}`,
+   next:()=>{if(!(+D.dd>=1&&+D.dd<=31&&+D.mm>=1&&+D.mm<=12&&+D.yy>1900))return 'Confirma o dia, o mês e o ano.';const a=age();return a<18||a>70?'7.1':'2.5'}},
+ '7.1':{back:1,body:()=>`<div class="illu">[ilustração · escudo em pausa]</div><h3>Ainda não te conseguimos proteger</h3><p class="sub">O seguro só aceita pessoas entre 18 e 70 anos. Se isto mudar, avisamos-te.</p>`,
+   foot:()=>`<button class="btn primary" onclick="say('Vamos avisar-te quando houver.')">Avise-me quando houver</button><button class="btn link" onclick="back()">Voltar</button>`},
+ '2.5':{p:3,body:()=>`<h3>Onde costumas praticar?</h3><p class="sub">Mostramos spots perto de ti e confirmamos a cobertura na tua zona.</p><div class="map"><i style="left:30%;top:40%"></i><i style="left:62%;top:28%"></i><i style="left:70%;top:66%"></i><i class="me" style="left:48%;top:52%"></i></div>${D.concelho?`<div class="card accent"><b>${esc(D.concelho)}</b><span class="muted">3 spots perto · cobertura disponível</span></div>`:''}<div class="field"><label>Ou escolhe o concelho</label><select onchange="D.concelho=this.value;render()"><option value="">Escolher…</option>${CONC.map(c=>`<option ${D.concelho===c?'selected':''}>${c}</option>`).join('')}</select></div>`,
+   foot:()=>`<button class="btn primary" onclick="${D.concelho?'next()':"D.concelho='Lisboa (detetado)';say('Localização permitida');render()"}">${D.concelho?'Continuar':'Permitir localização'}</button>`,
+   next:()=>D.concelho?'2.6':'Permite a localização ou escolhe um concelho.'},
+ '2.6':{p:4,body:()=>`<h3>Quem avisamos se precisares?</h3><p class="sub">Opcional. Só usamos este contacto se pedires ajuda.</p>${inp('ecName','Nome')}${inp('ecPhone','Telemóvel','tel','9xx xxx xxx')}<label class="muted">Relação</label>${chips('ecRel',['Mãe / Pai','Companheiro/a','Irmão/ã','Amigo/a','Outro'],1)}<label class="check"><input type="checkbox" ${D.ecNotify?'checked':''} onchange="D.ecNotify=this.checked"><span>Avisar esta pessoa quando eu pedir ajuda</span></label>`,
+   foot:()=>`<button class="btn primary" onclick="next()">Continuar</button><button class="btn link" onclick="D.ecName=D.ecPhone=D.ecRel='';go('3.1')">Adicionar depois</button>`,
+   next:()=>{if(!D.ecName&&!D.ecPhone)return '3.1';if(!D.ecName.trim())return 'Falta o nome do contacto.';return /^9\d{8}$/.test(D.ecPhone.replace(/\s/g,''))?'3.1':'O telemóvel tem 9 números e começa por 9.'}},
+ '3.1':{p:5,body:()=>`<h3>O que praticas?</h3><p class="sub">Escolhe todas as que fazes por conta própria.</p>${chips('acts',ACTS)}${inp('other','+ outra (escreve à tua maneira)','text','ex.: frisbee na praia')}`,
+   foot:()=>`<button class="btn primary" onclick="next()">Continuar (${actsAll().length})</button>`,
+   next:()=>actsAll().length?'3.2':'Escolhe pelo menos uma atividade.'},
+ '3.2':{p:6,body:()=>`<h3>Qual é o teu nível?</h3><p class="sub">Ajuda a calcular um preço justo.</p>${actsAll().map(a=>`<div class="card"><b>${esc(a)}</b><div class="seg">${Object.keys(LV).map(l=>`<button class="${D.levels[a]===l?'on':''}" onclick="D.levels['${esc(a)}']='${l}';render()">${l}</button>`).join('')}</div><span class="muted">${D.levels[a]?LV[D.levels[a]]:'Toca no nível que melhor te descreve.'}</span></div>`).join('')}`,
+   next:()=>actsAll().every(a=>D.levels[a])?'3.3':'Escolhe um nível para cada atividade.'},
+ '3.3':{p:7,body:()=>`<h3>Como praticas?</h3><p class="sub">Com que frequência</p>${chips('freq',FREQ,1)}<p class="sub">Onde (podes escolher vários)</p>${chips('where',WHERE)}`,
+   next:()=>D.freq&&D.where.length?(editMode?'3.5':'3.4'):'Escolhe a frequência e pelo menos um local.'},
+ '3.4':{p:8,body:()=>{const s=sugg();return `<h3>Queres experimentar algo novo?</h3><p class="sub">Opcional. Avisamos-te quando estiver coberto.</p>${s?`<div class="card soft"><b>Sugestão</b><span class="muted">Como fazes ${esc(s[0])}, talvez gostes de <b>${s[1]}</b>.</span></div>`:''}${chips('tryActs',TRY)}`},
+   foot:()=>`<button class="btn primary" onclick="next()">Continuar</button><button class="btn link" onclick="D.tryActs=[];go('3.5')">Agora não</button>`,next:()=>'3.5'},
+ '3.5':{p:9,body:()=>`<h3>Já tens algum seguro?</h3><p class="sub">Assim não pagas duas vezes pelo mesmo.</p>${INS.map(x=>`<label class="check"><input type="checkbox" ${D.ins.includes(x)?'checked':''} onchange="tog('ins','${x}')"><span>${x}</span></label>`).join('')}<div class="card soft" style="margin-top:14px"><b>Bom saber</b><span class="muted">Os seguros de cartão raramente cobrem desporto amador. Vê na próxima página o que o Pulse cobre.</span></div>`,
+   next:()=>D.ins.length?(editMode?(editMode=false,toast='Perfil atualizado','5.1'):'4.1'):'Escolhe uma opção, mesmo que seja "Não tenho / não sei".'},
+ '4.1':{p:10,body:()=>`<h3>O que está coberto</h3><p class="sub">Durante a hora em que a proteção está ligada.</p>${[['Tratamento','Despesas médicas e hospitalares após um acidente, até 5 000 €.'],['Morte ou invalidez','Capital para ti ou para a tua família, até 25 000 €.'],['Responsabilidade civil','Se magoares alguém ou estragares algo de outra pessoa.'],['Equipamento','Se escolheres, reparação ou substituição do teu material.']].map(c=>`<div class="card"><b>${c[0]}</b><span class="muted">${c[1]}</span></div>`).join('')}<button class="btn" onclick="openSheet('not')">Ver o que não está coberto</button><p class="center" style="margin-top:14px"><span class="seal">● Supervisionado pela ASF</span></p>`,
+   foot:()=>`<button class="btn primary" onclick="go('4.2')">Entendi</button>`},
+ '4.2':{p:11,body:()=>`<h3>O que precisas de saber</h3><p class="sub">Seis respostas curtas, sem juridiquês.</p>${FAQ.map(f=>why(f[0],f[1])).join('')}<button class="btn" onclick="openSheet('doc')">Ler documento completo</button>`,next:()=>'4.3'},
+ '4.3':{p:12,body:()=>`<h3>Últimos consentimentos</h3><p class="sub">Os três primeiros são necessários para te proteger.</p>${[['terms','Aceito os Termos e condições',1],['pre','Li a Informação pré-contratual',1],['loc','Autorizo a localização durante uma atividade ativa',1],['news','Quero receber novidades',0]].map(c=>`<label class="check"><input type="checkbox" ${D.c[c[0]]?'checked':''} onchange="D.c['${c[0]}']=this.checked;render()"><span>${c[1]}<br><span class="req">${c[2]?'Obrigatório':'Opcional'}</span></span></label>`).join('')}`,
+   foot:()=>`<button class="btn primary" ${D.c.terms&&D.c.pre&&D.c.loc?'':'disabled'} onclick="toast='Consentimentos guardados';go('5.1')">Aceitar e continuar</button>`},
+ '5.1':{bare:1,body:()=>`<h3>O teu perfil</h3><p class="sub">Confirma se está tudo certo.</p><div class="card">${[['Nome',D.nick||D.name],['Zona',D.concelho],['Atividades',actsAll().map(a=>a+' · '+D.levels[a]).join('<br>')],['Frequência',D.freq],['Onde',D.where.join(', ')],['Contacto de emergência',D.ecName||'Adicionar depois']].map(k=>`<div class="kv"><span>${k[0]}</span><span style="text-align:right">${k[1]?k[1]:'—'}</span></div>`).join('')}</div><div class="card accent center"><span class="muted">Exemplo para ${esc(actsAll()[0]||'')}</span><div class="price">${price()} €/hora</div><span class="muted">Só pagas quando ligas a proteção.</span></div>`,
+   foot:()=>`<button class="btn primary" onclick="go('5.2')">Continuar</button><button class="btn link" onclick="editMode=true;go('3.1')">Editar perfil</button>`},
+ '5.2':{bare:1,body:()=>`<div class="illu">[ilustração · notificação "Vais treinar?"]</div><h3>Lembramos-te de ligar a proteção</h3><p class="sub">Um aviso antes dos treinos habituais (${esc(D.freq.toLowerCase())}). Nunca durante a atividade.</p>`,
+   foot:()=>`<button class="btn primary" onclick="D.remind=true;toast='Lembretes ligados';go('5.3')">Ligar lembretes</button><button class="btn link" onclick="D.remind=false;go('5.3')">Agora não</button>`},
+ '5.3':{bare:1,tabs:1,body:()=>`<p class="muted" style="margin-top:12px">Olá, ${esc((D.nick||D.name).split(' ')[0])}</p><div class="card soft"><b>Sem proteção agora</b><span class="muted">Liga antes de começar a tua atividade.</span></div><div class="chips">${actsAll().map(a=>`<span class="chip">${esc(a)}</span>`).join('')}</div><button class="btn primary" onclick="go('6')">Ativar proteção</button><p class="sub" style="margin-top:18px"><b>Como funciona</b></p>${['1 · Escolhe a atividade e a duração','2 · Vê o preço e porquê','3 · Estás protegido até acabar'].map(t=>`<div class="card">${t}</div>`).join('')}`,foot:()=>''},
+ '6':{bare:1,body:()=>`<div class="illu">Passo 6 · Primeira ativação guiada<br>continua no fluxo <b>Start Insurance</b></div>`,foot:()=>`<button class="btn" onclick="back()">Voltar à Home</button>`}
+};
+const FAQ=[['Sou obrigado a ter seguro?','Se praticas por conta própria, não. O Decreto-Lei 10/2009 obriga federações e organizadores de eventos; o Pulse dá-te a mesma base de proteção quando treinas sozinho.'],['Quando é que estou coberto?','Só entre o momento em que ligas e o momento em que desligas a proteção (ou acaba o tempo escolhido).'],['Quanto pago?','Um preço por hora, que vês antes de ligar. Não há mensalidade nem anuidade.'],['O que faço se me magoar?','Toca em "Pedir ajuda" na app. Indicamos o hospital e, se quiseres, avisamos o teu contacto.'],['Posso desligar antes do tempo?','Sim. Pagas só os minutos em que estiveste protegido.'],['Quem é a seguradora?','Uma seguradora parceira, autorizada e supervisionada pela ASF (Autoridade de Supervisão de Seguros e Fundos de Pensões).']];
+const SHEETS={law:['Decreto-Lei 10/2009, em resumo','<p>Define o regime do seguro desportivo: as coberturas mínimas (acidentes pessoais, tratamento, morte e invalidez) e quem é obrigado a tê-lo (federados e organizadores de provas).</p><p class="muted">Quem pratica sozinho não é obrigado, mas fica sem esta proteção.</p>'],
+ not:['O que não está coberto','<ul><li>Competições federadas</li><li>Desportos motorizados</li><li>Acidentes sob efeito de álcool ou drogas</li><li>Lesões que já tinhas antes</li><li>Tudo o que acontece com a proteção desligada</li></ul>'],
+ terms:['Termos e condições','<p class="muted">[Termos completos · resumo em 5 pontos]</p><ul><li>Proteção só com a atividade ligada</li><li>Preço por hora mostrado antes de ligar</li><li>Cancelas quando quiseres</li></ul>'],
+ priv:['Política de privacidade','<p>Usamos os teus dados para criar a apólice e, durante uma atividade, a tua localização. Não vendemos dados a ninguém.</p>'],
+ doc:['Condições gerais (documento completo)','<p class="muted">[Documento legal completo: 14 páginas · PDF]</p><p>Artigo 1.º Objeto do contrato… Artigo 2.º Definições… Artigo 3.º Âmbito territorial…</p>']};
+
+function sugg(){const m={Corrida:'Trail running',Surf:'Bodyboard',Ciclismo:'BTT',Caminhada:'Trail running',Skate:'Bodyboard'};const a=D.acts.find(x=>m[x]);return a?[a,m[a]]:null}
+function pick(k,x,single){if(single)D[k]=D[k]===x?'':x;else tog(k,x,1);render()}
+function tog(k,x,norender){const i=D[k].indexOf(x);i<0?D[k].push(x):D[k].splice(i,1);if(!norender&&k!=='ins')render()}
+function social(p){D.via=p;D.email='ana.silva@'+(p==='Apple'?'icloud.com':'gmail.com');if(!D.name)D.name='Ana Silva';toast='Conta '+p+' ligada';go('ok')}
+function go(id){hist.push(cur);cur=id;err='';sheet=null;render();S[id].enter&&S[id].enter()}
+function back(){if(hist.length){cur=hist.pop();err='';sheet=null;render()}}
+function next(){const r=S[cur].next();if(S[r])go(r);else{err=r;render()}}
+function say(t){toast=t;render()}
+function openSheet(k){sheet=k;render()}
+function startTimer(){timer=30;clearInterval(tInt);tInt=setInterval(()=>{timer--;if(cur!=='2.2'||timer<=0)clearInterval(tInt);const el=document.getElementById('tm');if(el)el.innerHTML=tmHtml()},1000)}
+function tmHtml(){return timer>0?'Reenviar código em 0:'+String(timer).padStart(2,'0'):'<u style="cursor:pointer" onclick="startTimer();say(\'Código reenviado\')">Reenviar código</u>'}
+function jumpTo(id){hist=[];cur=id;err='';render()}
+function render(){
+  const s=S[cur],ph=document.getElementById('phone');
+  const top=s.p?`<div class="top"><div class="toprow"><button class="back" onclick="back()">‹ Voltar</button><span class="count">${s.p} de 12</span></div><div class="prog"><i style="width:${s.p/12*100}%"></i></div></div>`
+           :s.back?`<div class="top"><button class="back" onclick="back()">‹ Voltar</button></div>`:`<div class="top"></div>`;
+  const foot=s.foot?s.foot():`<button class="btn primary" onclick="next()">Continuar</button>`;
+  ph.innerHTML=top+`<div class="body">${s.body()}</div>`+(foot?`<div class="foot">${err?`<div class="err" style="margin:0 0 6px">⚠ ${esc(err)}</div>`:''}${foot}</div>`:'')+(s.tabs?`<div class="tabs"><span class="on">Início</span><span>Atividades</span><span>Cobertura</span><span>Perfil</span></div>`:'')
+    +(sheet?`<div class="sheet" onclick="if(event.target===this){sheet=null;render()}"><div><h3 style="font-size:20px">${SHEETS[sheet][0]}</h3>${SHEETS[sheet][1]}<button class="btn" onclick="sheet=null;render()">Fechar</button></div></div>`:'')
+    +(toast?`<div class="toast">✓ ${esc(toast)}</div>`:'');
+  if(toast){const t=toast;setTimeout(()=>{if(toast===t){toast='';render()}},2200)}
+  document.getElementById('jump').value=cur;
+}
+document.getElementById('jump').innerHTML=Object.keys(S).map(k=>`<option value="${k}">${k}</option>`).join('');
+render();
+</script>
+</body>
+</html>

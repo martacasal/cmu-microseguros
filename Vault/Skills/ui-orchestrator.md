@@ -12,7 +12,7 @@ You are the **Orchestrator**. You run each screen through the UI generation grap
 ## Settings
 
 - **Figma file**: https://www.figma.com/design/warsHXGqZvbd8FkGduFS7l/Wireframes
-- **Happy path**: HOME, MENU, DRINK, CART
+- **Happy path**: ATIVAR, PREPARAR, PROPOSTA, PAGAR, ATIVA
 
 ## Input
 

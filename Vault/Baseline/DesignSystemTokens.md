@@ -1,4 +1,4 @@
-# PULSE- Exercise [N]: Design System Tokens Spec (`DesignSystemTokens.md`)
+# PULSE - C2:06: Design System Tokens Spec (`DesignSystemTokens.md`)
 
 ## 🧭 How to Read This File (Explanation for LLMs)
 

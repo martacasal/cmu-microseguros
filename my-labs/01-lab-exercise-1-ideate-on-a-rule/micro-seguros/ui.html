@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Micro Seguros</title>
+<style>
+  :root {
+    --bg: #f6f3ee; --surface: #ffffff; --surface-2: #efebe4; --line: #e2dcd2;
+    --text: #1f1d1a; --muted: #6b665e; --accent: #0f6e6a; --accent-soft: #dcefed;
+    --ok: #2f7a3e; --ok-soft: #e1f1e3; --bad: #b3401f; --bad-soft: #f8e3dc;
+    --radius: 14px; --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151413; --surface: #1f1e1c; --surface-2: #2a2826; --line: #34312d;
+      --text: #f0ece6; --muted: #a39d94; --accent: #4fb8b1; --accent-soft: #17332f;
+      --ok: #6cc47c; --ok-soft: #1b3020; --bad: #ec8a6b; --bad-soft: #3a211a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 16px 64px; }
+  header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  h1 { margin: 2px 0 4px; font-size: 30px; letter-spacing: -.02em; }
+  .sub { color: var(--muted); margin: 0; }
+  button {
+    font: inherit; cursor: pointer; border: 1px solid var(--line); background: var(--surface);
+    color: var(--text); border-radius: 999px; padding: 7px 14px;
+  }
+  button:hover { border-color: var(--accent); }
+  .score { font-weight: 600; padding: 6px 12px; border-radius: 999px; }
+  .score.ok { background: var(--ok-soft); color: var(--ok); }
+  .score.bad { background: var(--bad-soft); color: var(--bad); }
+
+  .knobs { display: flex; flex-wrap: wrap; gap: 6px; margin: 20px 0 28px; }
+  .knob { font-family: var(--mono); font-size: 12px; background: var(--surface-2); border-radius: 8px; padding: 4px 8px; color: var(--muted); }
+  .knob b { color: var(--text); font-weight: 600; }
+
+  .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 20px; align-items: start; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .card h2 { font-size: 17px; margin: 0 0 14px; }
+  .sticky { position: sticky; top: 16px; }
+  @media (max-width: 860px) { .sticky { position: static; } }
+
+  .seg { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  label { display: block; font-size: 13px; color: var(--muted); margin: 12px 0 4px; }
+  .row { display: flex; align-items: center; gap: 10px; }
+  input[type=range] { flex: 1; accent-color: var(--accent); }
+  input[type=number] {
+    width: 92px; font: inherit; padding: 6px 8px; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--surface-2); color: var(--text);
+  }
+  .unit { font-size: 13px; color: var(--muted); width: 36px; }
+  .opt { margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--line); }
+  .opt summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+
+  .result { margin-top: 18px; background: var(--accent-soft); border-radius: 12px; padding: 16px; }
+  .big { font-size: 40px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+  .why { color: var(--muted); font-size: 14px; margin-top: 4px; }
+  .extra { margin-top: 10px; font-size: 14px; }
+  .error { color: var(--bad); font-family: var(--mono); font-size: 13px; }
+
+  .moment { display: grid; grid-template-columns: 26px 72px 1fr; gap: 4px 10px; padding: 12px 0; border-top: 1px solid var(--line); }
+  .moment:first-of-type { border-top: 0; padding-top: 0; }
+  .mark { font-weight: 700; }
+  .mark.ok { color: var(--ok); } .mark.bad { color: var(--bad); }
+  .price { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .label { font-weight: 500; }
+  .label small { color: var(--muted); font-weight: 400; margin-left: 6px; }
+  .moment .why { grid-column: 3; margin: 0; }
+  h3 { font-size: 14px; color: var(--muted); font-weight: 600; margin: 22px 0 6px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 6px; border-top: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 500; border-top: 0; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .down { color: var(--ok); } .up { color: var(--bad); }
+  .note { color: var(--muted); font-size: 13px; margin: 10px 0 0; }
+  .stack { display: grid; gap: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Lab · Exercise 1 · Ideate on a rule</div>
+      <h1>Micro Seguros</h1>
+      <p class="sub">The price for one moment of cover, live from <code>micro_seguros_price.py</code>.</p>
+    </div>
+    <div class="row">
+      <span id="score" class="score">…</span>
+      <button id="reload" title="Re-read micro_seguros_price.py">↻ Reload rule</button>
+    </div>
+  </header>
+
+  <div class="knobs" id="knobs"></div>
+  <div id="loadError" class="error"></div>
+
+  <div class="grid">
+    <section class="card sticky" aria-labelledby="try">
+      <h2 id="try">Try your own moment</h2>
+      <div class="seg" id="momentPick" role="group" aria-label="Kind of moment"></div>
+
+      <label for="hours">How long do you want cover for?</label>
+      <div class="row">
+        <input type="range" id="hoursR" min="0.25" max="8" step="0.25" value="2">
+        <input type="number" id="hours" min="0" step="0.25" value="2"><span class="unit">hours</span>
+      </div>
+
+      <label for="value">What is the item worth?</label>
+      <div class="row">
+        <input type="range" id="valueR" min="0" max="3000" step="50" value="600">
+        <input type="number" id="value" min="0" step="50" value="600"><span class="unit">€</span>
+      </div>
+
+      <label for="wind">How windy is it?</label>
+      <div class="row">
+        <input type="range" id="windR" min="0" max="80" step="1" value="12">
+        <input type="number" id="wind" min="0" step="1" value="12"><span class="unit">km/h</span>
+      </div>
+
+      <details class="opt">
+        <summary>Leaving early or coming back with credit</summary>
+        <label for="stayed">How long did they really stay? (blank = don't know)</label>
+        <div class="row"><input type="number" id="stayed" min="0" step="0.25" placeholder="—"><span class="unit">hours</span></div>
+        <label for="old_credit">Old credit to use (blank = none)</label>
+        <div class="row"><input type="number" id="old_credit" min="0" step="5" placeholder="—"><span class="unit">min</span></div>
+      </details>
+
+      <div class="result" aria-live="polite">
+        <div class="big" id="ownPrice">—</div>
+        <div class="why" id="ownWhy"></div>
+        <div id="ownExtra"></div>
+      </div>
+    </section>
+
+    <div class="stack">
+      <section class="card" aria-labelledby="real">
+        <h2 id="real">Real moments and what the team expects</h2>
+        <div id="moments"></div>
+        <h3>When someone leaves early</h3>
+        <div id="used"></div>
+        <h3>When someone comes back with old credit</h3>
+        <div id="credit"></div>
+      </section>
+
+      <section class="card" aria-labelledby="cmp">
+        <h2 id="cmp">Compare an idea: discount for coming back</h2>
+        <p class="note" id="ideaNote" style="margin:0 0 10px"></p>
+        <table>
+          <thead><tr><th>Moment</th><th class="num">Old</th><th class="num">New</th><th class="num">Change</th></tr></thead>
+          <tbody id="compare"></tbody>
+        </table>
+        <p class="note">The new price only moves for people who come back with credit.</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const eur = (n) => "€" + Number(n).toFixed(2);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+let moment = null;
+
+function pairInputs(name) {
+  const num = $(name), range = $(name + "R");
+  range.addEventListener("input", () => { num.value = range.value; calc(); });
+  num.addEventListener("input", () => { range.value = num.value; calc(); });
+}
+["hours", "value", "wind"].forEach(pairInputs);
+["stayed", "old_credit"].forEach((id) => $(id).addEventListener("input", calc));
+
+function renderKnobs(knobs) {
+  const box = $("knobs"); box.replaceChildren();
+  for (const [name, val] of Object.entries(knobs)) {
+    const k = el("span", "knob");
+    const shown = typeof val === "object"
+      ? Object.entries(val).map(([a, b]) => `${a} ${b}`).join(" · ")
+      : String(val);
+    k.append(name + " ", el("b", null, shown));
+    box.append(k);
+  }
+}
+
+function renderMomentPick(rates) {
+  const box = $("momentPick"); box.replaceChildren();
+  const names = Object.keys(rates);
+  if (!names.includes(moment)) moment = names[0];
+  for (const name of names) {
+    const b = el("button", null, `${name} · ${eur(rates[name])}/h`);
+    b.type = "button";
+    b.setAttribute("aria-pressed", String(name === moment));
+    b.addEventListener("click", () => { moment = name; renderMomentPick(rates); calc(); });
+    box.append(b);
+  }
+}
+
+function row(markOk, price, label, small, why) {
+  const r = el("div", "moment");
+  r.append(
+    el("span", "mark " + (markOk === null ? "" : markOk ? "ok" : "bad"), markOk === null ? "•" : markOk ? "✓" : "✗"),
+    el("span", "price", price),
+  );
+  const l = el("span", "label", label);
+  if (small) l.append(el("small", null, small));
+  r.append(l, el("p", "why", why));
+  return r;
+}
+
+async function load() {
+  $("loadError").textContent = "";
+  let s;
+  try {
+    const res = await fetch("/api/state");
+    s = await res.json();
+    if (s.error) throw new Error(s.error);
+  } catch (e) {
+    $("loadError").textContent = "The rule file has a problem: " + e.message;
+    return;
+  }
+  renderKnobs(s.knobs);
+  renderMomentPick(s.knobs.RATE_PER_HOUR);
+
+  const sc = $("score");
+  sc.textContent = `${s.holding}/${s.total} expectations hold`;
+  sc.className = "score " + (s.holding === s.total ? "ok" : "bad");
+
+  $("moments").replaceChildren(...s.moments.map((m) => row(
+    m.ok, eur(m.price), m.label,
+    "expected " + (m.low === m.high ? eur(m.low) : `${eur(m.low)}–${eur(m.high)}`), m.why)));
+  $("used").replaceChildren(...s.used.map((u) => row(null, `${u.credit} min`, u.label, "credit", u.why)));
+  $("credit").replaceChildren(...s.credit.map((c) => row(null, eur(c.price), c.label,
+    `for ${c.paid_minutes} min not covered · ${c.new_credit} min new credit`, c.why)));
+
+  const k = s.knobs;
+  $("ideaNote").textContent = `Right now: ${k.RETURNING_OFF * 100}% off, plus ${k.RETURNING_EXTRA * 100}% for every ${k.SLOT_MINUTES} min of credit.` +
+    (k.RETURNING_OFF === 0 && k.RETURNING_EXTRA === 0 ? " The idea is off." : "");
+  $("compare").replaceChildren(...s.compare.map((c) => {
+    const tr = el("tr");
+    const d = c.new - c.old;
+    const change = Math.abs(d) < 0.005 ? "same" : (d < 0 ? "-" : "+") + eur(Math.abs(d));
+    tr.append(el("td", null, c.label), el("td", "num", eur(c.old)), el("td", "num", eur(c.new)),
+      el("td", "num " + (d < -0.005 ? "down" : d > 0.005 ? "up" : ""), change));
+    return tr;
+  }));
+  calc();
+}
+
+let calcSeq = 0;
+async function calc() {
+  if (!moment) return;
+  const seq = ++calcSeq;
+  const body = { moment, hours: $("hours").value, value: $("value").value, wind: $("wind").value,
+                 stayed: $("stayed").value, old_credit: $("old_credit").value };
+  const res = await fetch("/api/price", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const r = await res.json();
+  if (seq !== calcSeq) return;
+  const extra = $("ownExtra"); extra.replaceChildren();
+  if (r.error) { $("ownPrice").textContent = "—"; $("ownWhy").replaceChildren(el("span", "error", r.error)); return; }
+  $("ownPrice").textContent = eur(r.price);
+  $("ownWhy").textContent = r.why;
+  if (r.stayed) {
+    const d = el("div", "extra"); d.append(el("b", null, `${r.stayed.credit} min of credit for next time. `), el("span", "why", r.stayed.why));
+    extra.append(d);
+  }
+  if (r.with_credit) {
+    const d = el("div", "extra"); d.append(el("b", null, `With old credit: ${eur(r.with_credit.price)} for ${r.with_credit.paid_minutes} min. `), el("span", "why", r.with_credit.why));
+    extra.append(d);
+  }
+}
+
+$("reload").addEventListener("click", load);
+window.addEventListener("focus", load);
+load();
+</script>
+</body>
+</html>

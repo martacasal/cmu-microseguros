@@ -5,5 +5,4 @@ Work from the class build labs. Each collaborator has their own folder, named af
 ## Collaborators
 
 - [`ellen/`](ellen/README.md): Ellen Damazio
-
-To add yourself, ask Claude: *"Set me up in my-labs as <name>"*.
+- [`marta/`](marta/README.md): Marta Casal

@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Micro Seguros · your quote</title>
+<style>
+  :root { --ink: #1d2422; --muted: #66706c; --line: #e2e7e4; --brand: #1f6f5c; --soft: #f4f7f5; --warn: #b4530a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.5 system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--soft); }
+  main { max-width: 420px; margin: 0 auto; padding: 24px 16px; }
+  .brand { font-weight: 700; color: var(--brand); letter-spacing: -0.3px; }
+  h1 { font-size: 22px; margin: 6px 0 16px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+  .row { display: flex; justify-content: space-between; gap: 12px; }
+  .muted { color: var(--muted); font-size: 14px; }
+  .empty { border: 1.5px dashed #c9d2ce; background: #fafbfa; color: var(--muted); text-align: center; padding: 22px 14px; border-radius: 12px; font-size: 14px; }
+  button { width: 100%; border: 0; border-radius: 12px; padding: 14px; font: inherit; font-weight: 600; color: #fff; background: var(--brand); }
+  .tag { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #eef4f1; color: var(--brand); }
+  .tag.risky { background: #fdf1e6; color: var(--warn); }
+  .note { margin-top: 10px; font-size: 13px; color: var(--muted); }
+
+  /* Where you are: a slim green bar that opens up when you tap it. */
+  .place { background: var(--brand); color: #fff; border: 0; padding: 0; }
+  .place .summary { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 14px;
+    background: transparent; color: #fff; text-align: left; border-radius: 14px; }
+  .place .pin { font-size: 20px; line-height: 1; }
+  .place .summary .name { font-size: 16px; font-weight: 700; }
+  .place .summary .mini { font-size: 12px; opacity: 0.85; }
+  .place .summary .chev { margin-left: auto; font-size: 12px; opacity: 0.9; }
+  .place .details { padding: 0 14px 14px; }
+  .place .details[hidden] { display: none; }
+  .place .coords { font-size: 13px; opacity: 0.85; }
+  .place .weather-line { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.25); }
+  .place .weather-line .icon { font-size: 34px; line-height: 1; }
+  .place .weather-line .temp { font-size: 22px; font-weight: 700; }
+  .place .weather-line .muted { color: rgba(255,255,255,0.85); }
+  .place .tag { background: rgba(255,255,255,0.18); color: #fff; }
+  .place .tag.risky { background: #fdf1e6; color: var(--warn); }
+  .place .note { color: rgba(255,255,255,0.8); }
+  .place .empty { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.35); color: #fff; }
+
+  /* Pick the activity: a grid of cards, one per activity in the list. */
+  .activities { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .activities button { background: #fff; color: var(--ink); border: 1.5px solid var(--line); padding: 12px 8px; text-align: left; }
+  .activities button .icon { font-size: 24px; display: block; line-height: 1.2; }
+  .activities button .what { font-size: 15px; font-weight: 700; display: block; }
+  .activities button .rate { font-size: 12px; color: var(--muted); font-weight: 500; }
+  .activities button[aria-pressed="true"] { border-color: var(--brand); background: #eef4f1; }
+  .activities button[aria-pressed="true"] .rate { color: var(--brand); }
+
+  /* The dial: a slider you drag, with the length written above it. */
+  .dial { margin-top: 10px; }
+  .dial-head { display: flex; align-items: baseline; justify-content: space-between; }
+  .dial-length { font-size: 22px; font-weight: 700; }
+  .dial-ends { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 2px; }
+  input[type="range"] { width: 100%; margin: 10px 0 0; accent-color: var(--brand); height: 28px; }
+  .quick { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .quick button { width: auto; flex: 1 1 auto; background: #fff; color: var(--ink); border: 1.5px solid var(--line); padding: 8px 10px; font-size: 13px; }
+
+  /* The price, big, inside the quote card. */
+  .total-box { margin-top: 16px; padding: 14px; border-radius: 12px; background: #eef4f1; text-align: center; }
+  .total-box .label { font-size: 12px; color: var(--brand); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 700; }
+  .total-box .price { font-size: 44px; font-weight: 800; color: var(--brand); line-height: 1.1; letter-spacing: -1px; }
+  .total-box .per { font-size: 13px; color: var(--muted); }
+
+  /* The button, alone at the bottom. */
+  .action { margin-top: 4px; }
+  .action button { padding: 16px; font-size: 17px; }
+  .action-note { margin-top: 8px; font-size: 13px; color: var(--muted); text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">Micro Seguros</div>
+  <h1>Your quote</h1>
+
+  <!-- 1. Where you are: a slim bar. Tap it to see the coordinates and the weather. -->
+  <section class="card place">
+    <button type="button" class="summary" id="place-toggle" aria-expanded="false" aria-controls="place-details">
+      <span class="pin" aria-hidden="true">📍</span>
+      <span>
+        <span class="name" id="place-name">Finding you…</span>
+        <span class="mini" id="place-mini">weather loading…</span>
+      </span>
+      <span class="chev" id="place-chev" aria-hidden="true">▾ more</span>
+    </button>
+    <div class="details" id="place-details" hidden>
+      <div class="coords" id="place-coords">using your phone's GPS</div>
+      <div id="weather" class="empty">Looking up the weather here…</div>
+    </div>
+  </section>
+
+  <!-- 2. What you're covering, for how long, and what it costs. -->
+  <section class="card">
+    <strong>What are you covering?</strong>
+    <div class="activities" id="activities"></div>
+    <div class="muted" id="cover-line" style="margin-top:10px">Cover for the ride, right now</div>
+
+    <div class="muted" style="margin-top:14px" id="dial-question">How long is the ride? Drag the dial.</div>
+    <div class="dial">
+      <div class="dial-head">
+        <span class="dial-length" id="dial-length">3h</span>
+        <span class="muted" id="dial-price">€1.59</span>
+      </div>
+      <input type="range" id="dial" min="0" max="5" step="1" value="4"
+             aria-label="Length of the cover">
+      <div class="dial-ends"><span>30 min</span><span>4h</span></div>
+    </div>
+    <div class="quick" id="quick"></div>
+
+    <!-- The price, big, inside the card. -->
+    <div class="total-box">
+      <div class="label">Your total</div>
+      <div class="price" id="price">€1.59</div>
+      <div class="per" id="price-line">3h at €0.50/h, +6% because the bike is worth €600.</div>
+    </div>
+  </section>
+
+  <!-- 3. The button, alone at the bottom. -->
+  <div class="action">
+    <button type="button" id="cover-button">Cover my ride</button>
+    <div class="action-note">One moment of cover. Nothing renews.</div>
+  </div>
+</main>
+
+<script>
+// ---- The knobs -------------------------------------------------------------
+const PLACE = "Nazaré beach";   // the name we show if GPS is not allowed
+const LAT = 39.60;              // where the activity happens (Nazaré, Praia do Norte side)
+const LON = -9.07;
+const USE_GPS = true;           // true = ask the phone where you are, false = always use LAT/LON
+const WINDY_KMH = 25;           // above this, we call the weather "windy"
+const RAINY_PCT = 40;           // above this chance of rain, we call it "rain likely"
+const OPEN_BY_DEFAULT = false;  // true = the location card starts open, false = starts as a slim bar
+
+// THE LIST OF ACTIVITIES. To add one, copy a line and change the words and numbers.
+//   icon       the little picture on the card
+//   name       what it's called
+//   rate       price per hour, in euros
+//   gearValue  what the gear is worth (a bigger value adds a little to the price)
+//   gearName   the word used in the explanation line ("the bike is worth €600")
+//   thing      the word used in the sentences ("How long is the ride?")
+//   button     what the green button says
+const ACTIVITIES = [
+  { id: "ride", icon: "🚲", name: "Bike ride", rate: 0.50, gearValue: 600, gearName: "bike",
+    thing: "ride", button: "Cover my ride" },
+  { id: "surf", icon: "🏄", name: "Surf session", rate: 0.80, gearValue: 350, gearName: "board",
+    thing: "session", button: "Cover my session" },
+  { id: "climb", icon: "🧗", name: "Climbing", rate: 0.70, gearValue: 450, gearName: "rope and harness",
+    thing: "climb", button: "Cover my climb" },
+  { id: "kayak", icon: "🛶", name: "Kayak trip", rate: 0.60, gearValue: 800, gearName: "kayak",
+    thing: "trip", button: "Cover my trip" }
+];
+const VALUE_UPLIFT = 0.06;      // +6% because the gear is worth something
+const SLOTS = [30, 60, 90, 120, 180, 240]; // the lengths on the dial, in minutes
+const START_MINUTES = 180;      // the length picked when the page opens
+const QUICK_PICKS = [30, 60, 120]; // the shortcuts under the dial
+// ---------------------------------------------------------------------------
+
+let chosenMinutes = START_MINUTES;
+let chosenActivity = ACTIVITIES[0];
+let lastSpot = { name: PLACE };
+let lastWeather = null;         // the latest weather reading, for the slim bar
+
+const weatherBox = document.getElementById("weather");
+const placeName = document.getElementById("place-name");
+const placeMini = document.getElementById("place-mini");
+const placeCoords = document.getElementById("place-coords");
+const placeToggle = document.getElementById("place-toggle");
+const placeDetails = document.getElementById("place-details");
+const placeChev = document.getElementById("place-chev");
+const activitiesBox = document.getElementById("activities");
+const coverLine = document.getElementById("cover-line");
+const dialQuestion = document.getElementById("dial-question");
+const dial = document.getElementById("dial");
+const dialLength = document.getElementById("dial-length");
+const dialPrice = document.getElementById("dial-price");
+const quickBox = document.getElementById("quick");
+const priceBox = document.getElementById("price");
+const priceLine = document.getElementById("price-line");
+const coverButton = document.getElementById("cover-button");
+
+// "30 min", "1h", "1h30", "2h" …
+function slotLabel(minutes) {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  if (h === 0) return `${m} min`;
+  return m === 0 ? `${h}h` : `${h}h${String(m).padStart(2, "0")}`;
+}
+
+// The price grows with the length, and depends on which activity you picked.
+function totalPrice(minutes, activity) {
+  return (minutes / 60) * activity.rate * (1 + VALUE_UPLIFT);
+}
+
+// Open or close the location card.
+function setPlaceOpen(open) {
+  placeDetails.hidden = !open;
+  placeToggle.setAttribute("aria-expanded", String(open));
+  placeChev.textContent = open ? "▴ less" : "▾ more";
+}
+
+// One card for every activity in the list — add a line above and a card appears.
+function buildActivities() {
+  activitiesBox.innerHTML = "";
+  ACTIVITIES.forEach(activity => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-pressed", String(activity.id === chosenActivity.id));
+    b.innerHTML = `
+      <span class="icon" aria-hidden="true">${activity.icon}</span>
+      <span class="what">${activity.name}</span>
+      <span class="rate">€${activity.rate.toFixed(2)}/h</span>`;
+    b.addEventListener("click", () => {
+      chosenActivity = activity;
+      buildActivities();
+      drawPrice();
+    });
+    activitiesBox.appendChild(b);
+  });
+}
+
+// Set the dial up once, and the shortcut buttons under it.
+function buildDial() {
+  dial.max = String(SLOTS.length - 1);
+  dial.value = String(SLOTS.indexOf(chosenMinutes));
+
+  dial.addEventListener("input", () => {
+    chosenMinutes = SLOTS[Number(dial.value)];
+    drawPrice();
+  });
+
+  quickBox.innerHTML = "";
+  QUICK_PICKS.forEach(minutes => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = slotLabel(minutes);
+    b.addEventListener("click", () => {
+      chosenMinutes = minutes;
+      dial.value = String(SLOTS.indexOf(minutes));
+      drawPrice();
+    });
+    quickBox.appendChild(b);
+  });
+}
+
+// Show the chosen length on the dial, and the big total inside the card.
+function drawPrice() {
+  const a = chosenActivity;
+  const money = `€${totalPrice(chosenMinutes, a).toFixed(2)}`;
+  priceBox.textContent = money;
+  dialLength.textContent = slotLabel(chosenMinutes);
+  dialPrice.textContent = money;
+  dialQuestion.textContent = `How long is the ${a.thing}? Drag the dial.`;
+  coverButton.textContent = a.button;
+  priceLine.textContent = `${slotLabel(chosenMinutes)} at €${a.rate.toFixed(2)}/h, `
+    + `+${Math.round(VALUE_UPLIFT * 100)}% because the ${a.gearName} is worth €${a.gearValue}.`;
+  coverLine.textContent = `Cover for the ${a.thing} at ${lastSpot.name}, right now`;
+}
+
+// Ask the phone where we are. If it says no, we fall back to the known spot.
+function findMe() {
+  return new Promise(resolve => {
+    if (!USE_GPS || !navigator.geolocation) {
+      resolve({ lat: LAT, lon: LON, name: PLACE, fromGps: false });
+      return;
+    }
+    // Don't wait forever for the phone to answer.
+    const timer = setTimeout(() => resolve({ lat: LAT, lon: LON, name: PLACE, fromGps: false }), 6000);
+
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        clearTimeout(timer);
+        resolve({
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+          name: "Your spot",
+          fromGps: true
+        });
+      },
+      () => {
+        clearTimeout(timer);
+        resolve({ lat: LAT, lon: LON, name: PLACE, fromGps: false });
+      },
+      { timeout: 6000, maximumAge: 60000 }
+    );
+  });
+}
+
+// Ask Open-Meteo for the weather at this very moment, at the given spot.
+async function loadWeather(spot) {
+  const url = "https://api.open-meteo.com/v1/forecast"
+    + `?latitude=${spot.lat}&longitude=${spot.lon}`
+    + "&current=temperature_2m,weather_code,wind_speed_10m,precipitation_probability"
+    + "&timezone=auto";
+
+  // Give up politely after 8 seconds.
+  const stop = new AbortController();
+  const timer = setTimeout(() => stop.abort(), 8000);
+
+  try {
+    const res = await fetch(url, { signal: stop.signal });
+    if (!res.ok) throw new Error("bad answer");
+    const data = await res.json();
+    showWeather(data.current, spot);
+  } catch (err) {
+    weatherBox.className = "empty";
+    weatherBox.textContent = "The weather isn't answering right now. Your quote still works — try again in a moment.";
+    placeMini.textContent = "weather unavailable";
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// Turn a weather code into a picture and a few words.
+function describe(code) {
+  if (code === 0) return { icon: "☀️", words: "clear sky" };
+  if (code <= 2) return { icon: "🌤️", words: "mostly sunny" };
+  if (code === 3) return { icon: "☁️", words: "cloudy" };
+  if (code <= 48) return { icon: "🌫️", words: "foggy" };
+  if (code <= 57) return { icon: "🌦️", words: "drizzle" };
+  if (code <= 67) return { icon: "🌧️", words: "rain" };
+  if (code <= 77) return { icon: "🌨️", words: "snow" };
+  if (code <= 82) return { icon: "🌧️", words: "showers" };
+  if (code <= 86) return { icon: "🌨️", words: "snow showers" };
+  return { icon: "⛈️", words: "thunderstorm" };
+}
+
+// Show the weather for this moment, with a picture.
+function showWeather(now, spot) {
+  const wind = Math.round(now.wind_speed_10m);
+  const rain = Math.round(now.precipitation_probability ?? 0);
+  const temp = Math.round(now.temperature_2m);
+  const look = describe(now.weather_code);
+
+  const windy = wind > WINDY_KMH;
+  const rainy = rain > RAINY_PCT;
+  const label = windy && rainy ? "wind + rain" : windy ? "windy" : rainy ? "rain likely" : "calm";
+  const stamp = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+
+  lastWeather = { icon: look.icon, temp, wind, rain, label, risky: windy || rainy };
+
+  // The one line you see when the card is closed.
+  placeMini.textContent = `${look.icon} ${temp}°C · ${label}`;
+
+  weatherBox.className = "";
+  weatherBox.innerHTML = `
+    <div class="weather-line">
+      <span class="icon" aria-hidden="true">${look.icon}</span>
+      <div>
+        <div class="temp">${temp}°C</div>
+        <div class="muted">${look.words} · ${wind} km/h wind · ${rain}% rain</div>
+      </div>
+    </div>
+    <div class="note">
+      <span class="tag ${windy || rainy ? "risky" : ""}">${label}</span>
+      ${windy || rainy
+        ? " Rough out there — in a real product this could add a small weather surcharge."
+        : " Calm right now — nothing extra to charge for."}
+    </div>`;
+
+  const note = document.createElement("div");
+  note.className = "note";
+  note.textContent = `Weather for this spot · updated ${stamp}`;
+  weatherBox.appendChild(note);
+
+  coverLine.textContent = `Cover for the ${chosenActivity.thing} at ${spot.name}, right now`;
+}
+
+// Put the place at the top of the page, then fetch its weather.
+async function start() {
+  setPlaceOpen(OPEN_BY_DEFAULT);
+  placeToggle.addEventListener("click", () => setPlaceOpen(placeDetails.hidden));
+
+  const spot = await findMe();
+  lastSpot = spot;
+  placeName.textContent = spot.name;
+  placeCoords.textContent = spot.fromGps
+    ? `${spot.lat.toFixed(3)}, ${spot.lon.toFixed(3)} · from your GPS`
+    : `${spot.lat.toFixed(2)}, ${spot.lon.toFixed(2)} · GPS not allowed, using this spot`;
+  loadWeather(spot);
+}
+
+buildActivities();
+buildDial();
+drawPrice();
+start();
+</script>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Micro Seguros · your quote</title>
+<style>
+  :root { --ink: #1d2422; --muted: #66706c; --line: #e2e7e4; --brand: #1f6f5c; --soft: #f4f7f5; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.5 system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--soft); }
+  main { max-width: 420px; margin: 0 auto; padding: 24px 16px; }
+  .brand { font-weight: 700; color: var(--brand); letter-spacing: -0.3px; }
+  h1 { font-size: 22px; margin: 6px 0 16px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+  .row { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+  .muted { color: var(--muted); font-size: 14px; }
+  .price { font-size: 34px; font-weight: 700; color: var(--brand); }
+  button { width: 100%; border: 0; border-radius: 12px; padding: 14px; font: inherit; font-weight: 600; color: #fff; background: var(--brand); }
+  .why { margin-top: 12px; font-size: 14px; border-left: 3px solid var(--brand); padding-left: 10px; }
+  .source { margin-top: 10px; font-size: 12px; color: var(--muted); }
+
+  /* Small inline icons: drawn in the page, so nothing extra to load. */
+  .icon { width: 18px; height: 18px; flex: 0 0 auto; vertical-align: -3px; }
+  .icon.sm { width: 14px; height: 14px; vertical-align: -2px; }
+  .icon.big { width: 26px; height: 26px; }
+  .icon-wrap { display: flex; align-items: center; gap: 8px; }
+
+  /* Calm loading: soft grey shapes that breathe, no spinning or shouting. */
+  .loading { padding: 6px 0; }
+  .loading .line { color: var(--muted); font-size: 14px; margin-bottom: 12px; }
+  .skeleton { height: 12px; border-radius: 6px; background: #e6ebe8; margin: 6px auto; animation: breathe 1.8s ease-in-out infinite; }
+  .skeleton.wide { width: 70%; }
+  .skeleton.narrow { width: 45%; }
+  @keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+  @media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+
+  /* Calm fallback: same box, no red, no alarm. */
+  .calm { border: 1.5px solid var(--line); background: #fafbfa; border-radius: 12px; padding: 16px 14px; font-size: 14px; }
+  .calm .title { font-weight: 600; margin-bottom: 4px; }
+  .calm .muted { margin-bottom: 10px; }
+  .calm button { width: auto; padding: 8px 14px; font-size: 14px; background: #fff; color: var(--brand); border: 1px solid var(--brand); }
+
+  /* The hour cards: hour, wind, and rain only when it might matter. */
+  .hours { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+  .hour { background: var(--soft); border-radius: 10px; padding: 10px 8px; text-align: center; }
+  .hour.worst { background: #fdf3e7; outline: 1.5px solid #e8b877; }
+  .hour .t { font-size: 13px; color: var(--muted); }
+  .hour .w { font-size: 20px; font-weight: 700; }
+  .hour .r { font-size: 12px; color: var(--muted); }
+  .hour .r .icon { color: var(--muted); }
+  .hour .wind-icon { color: var(--brand); }
+  .hour.worst .wind-icon { color: #d98b2b; }
+
+  /* The pickers: sport, place search, start time, length. Quiet, one line each. */
+  .pick { margin-top: 12px; }
+  .pick .label { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { width: auto; padding: 7px 12px; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--soft); border: 1px solid var(--line); border-radius: 999px; }
+  .chip.on { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .chip:disabled { opacity: 0.4; }
+  .stepper { display: flex; align-items: center; gap: 10px; }
+  .stepper button { width: 34px; height: 34px; padding: 0; font-size: 18px; line-height: 1; background: #fff; color: var(--brand); border: 1px solid var(--brand); border-radius: 10px; }
+  .stepper button:disabled { opacity: 0.35; }
+  .stepper .count { font-size: 14px; color: var(--muted); }
+
+  /* Place search: a text box with a few suggestions underneath. */
+  .search { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: #fff; }
+  .search:focus-within { border-color: var(--brand); }
+  .search input { flex: 1; border: 0; outline: 0; font: inherit; font-size: 15px; color: var(--ink); background: transparent; padding: 2px 0; }
+  .search .icon { color: var(--muted); }
+  .suggest { list-style: none; margin: 6px 0 0; padding: 0; }
+  .suggest li { padding: 8px 10px; font-size: 14px; border-radius: 8px; cursor: pointer; }
+  .suggest li:hover, .suggest li.hot { background: var(--soft); }
+  .suggest li .muted { font-size: 12px; }
+  .suggest .note { color: var(--muted); font-size: 13px; cursor: default; }
+  .suggest .note:hover { background: none; }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">Micro Seguros</div>
+  <h1>Your quote</h1>
+
+  <section class="card">
+    <div class="row">
+      <div class="icon-wrap">
+        <svg class="icon big" id="sportIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+             stroke-linecap="round" stroke-linejoin="round" style="color:var(--brand)" aria-hidden="true"></svg>
+        <strong id="sportTitle">Bike parked</strong>
+      </div>
+      <span class="muted" id="sportValue">€600 bike</span>
+    </div>
+    <div class="muted" id="summary">Carcavelos beach · today 14:00–17:00</div>
+    <div class="price" id="price">€1.59</div>
+    <div class="muted" id="priceWhy">3h at €0.50/h, +6% because the bike is worth €600.</div>
+
+    <div class="pick">
+      <div class="label">What are you covering?</div>
+      <div class="chips" id="sports"></div>
+    </div>
+
+    <div class="pick">
+      <div class="label">Where</div>
+      <div class="search">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/>
+        </svg>
+        <input id="placeSearch" type="text" placeholder="Search a beach or town"
+               autocomplete="off" aria-label="Search a beach or town">
+      </div>
+      <ul class="suggest" id="suggest"></ul>
+    </div>
+
+    <div class="pick">
+      <div class="label">Starting at</div>
+      <div class="chips" id="starts"></div>
+    </div>
+
+    <div class="pick">
+      <div class="label">How long</div>
+      <div class="stepper">
+        <button type="button" id="less" aria-label="Half an hour less">−</button>
+        <span class="count" id="count">3 hours</span>
+        <button type="button" id="more" aria-label="Half an hour more">+</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="icon-wrap">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+           stroke-linecap="round" stroke-linejoin="round" style="color:var(--brand)" aria-hidden="true">
+        <path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h7"/>
+      </svg>
+      <strong>Weather for these hours</strong>
+    </div>
+    <div id="weather" class="loading">
+      <div class="line">Checking the forecast at Carcavelos…</div>
+      <div class="skeleton narrow"></div>
+      <div class="skeleton wide"></div>
+      <div class="skeleton"></div>
+      <div class="muted" style="margin-top:10px">Your price is ready — the weather only fine-tunes it.</div>
+    </div>
+  </section>
+
+  <button type="button" id="cover">Cover my bike</button>
+</main>
+
+<script>
+// ---- The knobs ----------------------------------------------------------
+const PLACES = [                    // the beaches you can pick from straight away
+  { name: "Carcavelos beach", lat: 38.68, lon: -9.33 },
+  { name: "Costa da Caparica", lat: 38.64, lon: -9.24 },
+  { name: "Guincho beach", lat: 38.73, lon: -9.47 },
+];
+
+// Each sport cares about different weather, and covers something different.
+//   wind / rain: how much each km/h of wind and each 10% of rain adds to the price
+//   windMatters: false means wind is shown but doesn't change the price
+const SPORTS = [
+  { key: "bike",  title: "Bike parked",   short: "Bike",     value: "€600 bike",       button: "Cover my bike",
+    wind: 0.02, rain: 0.02, windMatters: true },
+  { key: "surf",  title: "Surf session",  short: "Surf",     value: "board + wetsuit", button: "Cover my session",
+    wind: 0.04, rain: 0.01, windMatters: true },
+  { key: "foot",  title: "Football match", short: "Football", value: "boots + kit",     button: "Cover my match",
+    wind: 0.00, rain: 0.05, windMatters: false },
+];
+
+const START_CHOICES = [9, 11, 14, 16];  // hours you can start cover at
+const MIN_HALF_HOURS = 2;           // shortest cover: 2 half-hours = 1 hour
+const MAX_HALF_HOURS = 12;          // longest cover: 12 half-hours = 6 hours
+const BASE_PER_HOUR = 0.50;         // € per hour of cover
+const BIKE_VALUE = 600;             // €
+const BIKE_LOAD = 0.06;             // +6% for a €600 bike
+const RAIN_SHOWS_AT = 30;           // rain only appears when it's at least this likely
+const WAIT_SECONDS = 8;             // how long we wait before offering a retry
+const SEARCH_WAIT_SECONDS = 6;      // how long a place search may take
+// -------------------------------------------------------------------------
+
+// What the customer has chosen right now. Length is counted in half-hours.
+const choice = { sport: 0, place: 0, start: 14, halfHours: 6 };
+
+const euro = (n) => "€" + n.toFixed(2);
+const weatherBox = () => document.getElementById("weather");
+const place = () => PLACES[choice.place];
+const sport = () => SPORTS[choice.sport];
+const hours = () => choice.halfHours / 2;
+
+// "14:00", "14:30", "15:00" … for a start hour plus a number of half-hours.
+function clock(hour, halfSteps) {
+  const total = hour * 60 + halfSteps * 30;
+  return String(Math.floor(total / 60)).padStart(2, "0") + ":" + String(total % 60).padStart(2, "0");
+}
+const endTime = () => clock(choice.start, choice.halfHours);
+
+// The hours the cover touches, e.g. 14:00–16:30 → [14, 15, 16].
+const coverHours = () => {
+  const list = [];
+  for (let i = 0; i < Math.ceil(choice.halfHours / 2); i++) list.push(choice.start + i);
+  return list;
+};
+
+// ---- Icons, drawn as small shapes so the page loads nothing extra ----
+const ICON = {
+  wind: '<svg class="icon sm wind-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h7"/></svg>',
+  rain: '<svg class="icon sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 15a4 4 0 0 1 .6-8 5.5 5.5 0 0 1 10.3 1.6A3.5 3.5 0 0 1 17.5 15"/><path d="M8 18l-1 2M12 18l-1 2M16 18l-1 2"/></svg>',
+  cloud: '<svg class="icon sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17a4 4 0 0 1 .6-8 5.5 5.5 0 0 1 10.3 1.6A3.5 3.5 0 0 1 17.5 17z"/></svg>',
+  bike: '<svg class="icon big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="17" r="3.5"/><circle cx="18.5" cy="17" r="3.5"/><path d="M5.5 17 9 8h4l3 9M9 8h6M13 8l2-3h3"/></svg>',
+  surf: '<svg class="icon big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20c2-9 7-15 15-16-1 8-7 13-15 16z"/><path d="M4 20l6-6"/></svg>',
+  foot: '<svg class="icon big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5l3 2.2-1.1 3.6h-3.8L9 9.7z"/></svg>',
+};
+
+// ---- The pickers --------------------------------------------------------
+function drawPickers() {
+  // Sport
+  document.getElementById("sports").innerHTML = SPORTS.map((s, i) =>
+    '<button type="button" class="chip' + (i === choice.sport ? " on" : "") + '" data-sport="' + i + '">'
+    + s.short + "</button>").join("");
+
+  // The heading and the button follow the sport
+  const s = sport();
+  document.getElementById("sportIcon").innerHTML = ICON[s.key];
+  document.getElementById("sportTitle").textContent = s.title;
+  document.getElementById("sportValue").textContent = s.value;
+  document.getElementById("cover").textContent = s.button;
+
+  // Start times
+  document.getElementById("starts").innerHTML = START_CHOICES.map((h) =>
+    '<button type="button" class="chip' + (h === choice.start ? " on" : "") + '" data-start="' + h + '">'
+    + h + ":00</button>").join("");
+
+  // How long, in half-hours
+  const h = hours();
+  document.getElementById("count").textContent =
+    (Number.isInteger(h) ? h : h.toFixed(1)) + (h === 1 ? " hour" : " hours");
+  document.getElementById("less").disabled = choice.halfHours <= MIN_HALF_HOURS;
+  document.getElementById("more").disabled = choice.halfHours >= MAX_HALF_HOURS;
+
+  // The one-line summary at the top
+  document.getElementById("summary").textContent =
+    place().name + " · today " + clock(choice.start, 0) + "–" + endTime();
+}
+
+function chooseSport(i) {
+  if (i === choice.sport) return;
+  choice.sport = i;
+  drawPickers();
+  loadWeather();
+}
+
+function chooseStart(h) {
+  if (h === choice.start) return;
+  choice.start = h;
+  drawPickers();
+  loadWeather();
+}
+
+function changeHalfHours(step) {
+  const next = Math.min(MAX_HALF_HOURS, Math.max(MIN_HALF_HOURS, choice.halfHours + step));
+  if (next === choice.halfHours) return;
+  choice.halfHours = next;
+  drawPickers();
+  loadWeather();
+}
+
+document.getElementById("sports").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-sport]");
+  if (b) chooseSport(Number(b.dataset.sport));
+});
+document.getElementById("starts").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-start]");
+  if (b) chooseStart(Number(b.dataset.start));
+});
+document.getElementById("less").addEventListener("click", () => changeHalfHours(-1));
+document.getElementById("more").addEventListener("click", () => changeHalfHours(1));
+
+// ---- Place search -------------------------------------------------------
+// Typing shows a few suggestions: the three beaches first, then any place
+// found by name (Photon, a free search that needs no key).
+const searchInput = document.getElementById("placeSearch");
+const suggestList = document.getElementById("suggest");
+let searchTimer = null;
+let searchNumber = 0;   // so a slow answer for older typing is ignored
+
+function drawSuggestions(items, note) {
+  suggestList.innerHTML = items.map((p, i) =>
+    '<li data-suggest="' + i + '">' + p.name
+    + (p.area ? ' <span class="muted">· ' + p.area + "</span>" : "") + "</li>").join("")
+    + (note ? '<li class="note">' + note + "</li>" : "");
+  suggestList._items = items;
+}
+
+function localMatches(text) {
+  const t = text.trim().toLowerCase();
+  if (!t) return PLACES.slice();
+  return PLACES.filter((p) => p.name.toLowerCase().includes(t));
+}
+
+function onSearchInput() {
+  const text = searchInput.value;
+  const mine = ++searchNumber;
+  clearTimeout(searchTimer);
+
+  const local = localMatches(text);
+  drawSuggestions(local, text.trim() ? "Looking for more places…" : "");
+
+  if (!text.trim()) return;
+
+  searchTimer = setTimeout(async () => {
+    const stop = new AbortController();
+    const timer = setTimeout(() => stop.abort(), SEARCH_WAIT_SECONDS * 1000);
+    try {
+      const url = "https://photon.komoot.io/api/?limit=5&lang=en&q=" + encodeURIComponent(text);
+      const res = await fetch(url, { signal: stop.signal });
+      if (!res.ok) throw new Error("search unavailable");
+      const data = await res.json();
+      clearTimeout(timer);
+      if (mine !== searchNumber) return;
+
+      const found = (data.features || []).map((f) => {
+        const p = f.properties || {};
+        const label = p.name || p.city || p.street || "Unnamed place";
+        const area = [p.city, p.state, p.country].filter(Boolean).join(", ");
+        return { name: label, area: area, lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0] };
+      }).filter((p) => p.name);
+
+      // Keep the beaches we know, then add the found places (no duplicates by name).
+      const seen = new Set(local.map((p) => p.name.toLowerCase()));
+      const extra = found.filter((p) => !seen.has(p.name.toLowerCase()));
+      drawSuggestions(local.concat(extra), extra.length ? "" : "No other places found.");
+    } catch (err) {
+      clearTimeout(timer);
+      if (mine !== searchNumber) return;
+      drawSuggestions(local, "Place search is taking a moment — the beaches above still work.");
+    }
+  }, 350);
+}
+
+function pickSuggestion(i) {
+  const p = (suggestList._items || [])[i];
+  if (!p) return;
+
+  // A beach we already know? Use it. Otherwise add the found place to the list.
+  const known = PLACES.findIndex((x) => x.name === p.name && x.lat === p.lat);
+  if (known >= 0) {
+    choice.place = known;
+  } else {
+    PLACES.push({ name: p.name, lat: p.lat, lon: p.lon });
+    choice.place = PLACES.length - 1;
+  }
+
+  searchInput.value = "";
+  drawSuggestions([], "");
+  drawPickers();
+  loadWeather();
+}
+
+searchInput.addEventListener("input", onSearchInput);
+searchInput.addEventListener("focus", () => {
+  if (!searchInput.value.trim()) drawSuggestions(PLACES.slice(), "");
+});
+suggestList.addEventListener("click", (e) => {
+  const li = e.target.closest("[data-suggest]");
+  if (li) pickSuggestion(Number(li.dataset.suggest));
+});
+
+// ---- Weather ------------------------------------------------------------
+// Shown while the forecast is on its way: quiet shapes, and the price already there.
+function showLoading() {
+  const box = weatherBox();
+  box.className = "loading";
+  box.innerHTML =
+    '<div class="line">Checking the forecast at ' + place().name + '…</div>'
+    + '<div class="skeleton narrow"></div><div class="skeleton wide"></div><div class="skeleton"></div>'
+    + '<div class="muted" style="margin-top:10px">Your price is ready — the weather only fine-tunes it.</div>';
+}
+
+// Shown if the forecast is slow or unreachable: no blame, no red, a gentle way back.
+function showCalm(message) {
+  const box = weatherBox();
+  box.className = "calm";
+  box.innerHTML =
+    '<div class="title icon-wrap">' + ICON.cloud + 'Weather is taking a moment</div>'
+    + '<div class="muted">' + message + '</div>'
+    + '<button type="button" id="retry">Check the forecast again</button>';
+  document.getElementById("retry").addEventListener("click", loadWeather);
+}
+
+async function loadWeather() {
+  showLoading();
+
+  // Remember what we asked for, so a slow answer for an old choice is ignored.
+  const asked = { sport: choice.sport, place: choice.place, start: choice.start, halfHours: choice.halfHours };
+  const stillCurrent = () =>
+    asked.sport === choice.sport && asked.place === choice.place
+    && asked.start === choice.start && asked.halfHours === choice.halfHours;
+
+  const url = "https://api.open-meteo.com/v1/forecast"
+    + "?latitude=" + place().lat + "&longitude=" + place().lon
+    + "&hourly=wind_speed_10m,precipitation_probability,temperature_2m"
+    + "&forecast_days=2&timezone=Europe%2FLisbon";
+
+  // Give up after a few seconds so the page never hangs.
+  const stop = new AbortController();
+  const timer = setTimeout(() => stop.abort(), WAIT_SECONDS * 1000);
+
+  try {
+    const res = await fetch(url, { signal: stop.signal });
+    if (!res.ok) throw new Error("weather unavailable");
+    const data = await res.json();
+    clearTimeout(timer);
+    if (!stillCurrent()) return;
+    readWeather(data.hourly);
+  } catch (err) {
+    clearTimeout(timer);
+    if (!stillCurrent()) return;
+    showCalm("We couldn't reach the forecast just now. Your quote still stands — we'll check the weather again before your cover starts.");
+  }
+}
+
+// The forecast starts at midnight today, so we can look up any hour of today.
+function readWeather(hourly) {
+  const today = new Date();
+  const day = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0")
+    + "-" + String(today.getDate()).padStart(2, "0");
+
+  const list = coverHours().map((h) => {
+    const stamp = day + "T" + String(h).padStart(2, "0") + ":00";
+    const i = hourly.time.indexOf(stamp);
+    if (i === -1) return null;
+    return {
+      hour: h,
+      wind: Math.round(hourly.wind_speed_10m[i]),
+      rain: Math.round(hourly.precipitation_probability[i]),
+    };
+  }).filter(Boolean);
+
+  if (!list.length) {
+    showCalm("The forecast doesn't reach that far yet. Your quote still stands.");
+    return;
+  }
+
+  // Which hour costs the most for this sport? Wind counts double for surfing,
+  // not at all for football, so the amber card follows the sport.
+  const s = sport();
+  const costOf = (h) => (s.windMatters ? h.wind * s.wind : 0) + Math.floor(h.rain / 10) * s.rain;
+  const worst = list.reduce((a, b) => (costOf(b) > costOf(a) ? b : a));
+
+  priceWithWeather(list);
+  drawWeather(list, worst);
+}
+
+// The hour cards: hour, wind, and rain only when it might matter.
+// The amber card already shows the hour that matters most, so we don't repeat it in words.
+function drawWeather(list, worst) {
+  const box = weatherBox();
+  box.className = "";
+  box.innerHTML = '<div class="muted">' + place().name + " · today</div>"
+    + '<div class="hours">' + list.map((h) =>
+        '<div class="hour' + (h === worst ? " worst" : "") + '">'
+        + '<div class="t">' + h.hour + ":00</div>"
+        + '<div class="w">' + h.wind + "</div>"
+        + '<div class="r">' + ICON.wind + " km/h</div>"
+        + (h.rain >= RAIN_SHOWS_AT ? '<div class="r">' + ICON.rain + " " + h.rain + "%</div>" : "")
+        + "</div>"
+      ).join("") + "</div>"
+    + '<div class="why">' + whyText(list) + "</div>"
+    + '<div class="source">Forecast: Open-Meteo, updated today.</div>';
+}
+
+// The price, split into the parts that actually apply for this sport.
+// No rain part when rain is unlikely, and no wind part when wind doesn't count.
+function priceParts(list) {
+  const s = sport();
+  const avgWind = list.reduce((sum, h) => sum + h.wind, 0) / list.length;
+  const avgRain = list.reduce((sum, h) => sum + h.rain, 0) / list.length;
+
+  const base = hours() * BASE_PER_HOUR;
+  const bikePart = base * BIKE_LOAD;
+  const windPart = s.windMatters ? base * avgWind * s.wind : 0;
+  const rainPart = base * Math.floor(avgRain / 10) * s.rain;
+  const total = base + bikePart + windPart + rainPart;
+
+  return { base, bikePart, windPart, rainPart, total };
+}
+
+// One short line: only the parts that apply, then the total.
+function whyText(list) {
+  const p = priceParts(list);
+
+  let line = "Why this price: " + euro(p.base) + " cover + " + euro(p.bikePart) + " bike";
+  if (p.windPart > 0) line += " + " + euro(p.windPart) + " wind";
+  if (p.rainPart > 0) line += " + " + euro(p.rainPart) + " rain";
+  line += " = <strong>" + euro(p.total) + "</strong>.";
+
+  return line;
+}
+
+function priceWithWeather(list) {
+  const p = priceParts(list);
+  const h = hours();
+
+  document.getElementById("price").textContent = euro(p.total);
+  document.getElementById("priceWhy").textContent =
+    (Number.isInteger(h) ? h : h.toFixed(1)) + "h at " + euro(BASE_PER_HOUR) + "/h, +"
+    + Math.round(BIKE_LOAD * 100) + "% because the bike is worth " + euro(BIKE_VALUE) + ".";
+}
+
+drawPickers();
+drawSuggestions(PLACES.slice(), "");
+loadWeather();
+</script>
+</body>
+</html>

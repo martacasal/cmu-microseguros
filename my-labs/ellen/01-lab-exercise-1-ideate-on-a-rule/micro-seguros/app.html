@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f0f0ee">
+<title>Micro Seguros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0f0ee; --card: #ffffff; --ink: #111111; --ink-2: #6b6b66; --fill: #e3e3df;
+    --dark: #111111; --dark-card: #1e1e1e; --dark-line: #2c2c2c; --on-dark: #ffffff; --on-dark-2: #9a9a94;
+    --ok: #1f9d55; --bad: #c2410c; --outside: #d4d4cf;
+    --r-lg: 24px; --r-md: 16px;
+    --font: "Inter Tight", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) { :root { --outside: #2a2a28; } }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--outside); font-family: var(--font); color: var(--ink); display: grid; place-items: center; }
+  button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; padding: 0; }
+  button:disabled { cursor: not-allowed; opacity: .35; }
+  :focus-visible { outline: 3px solid #3b82f6; outline-offset: 2px; }
+
+  /* Phone frame on wide screens, full screen on a real phone */
+  .phone {
+    position: relative; width: 390px; height: 844px; background: var(--bg);
+    border-radius: 48px; overflow: hidden; box-shadow: 0 0 0 10px #0d0d0d, 0 30px 80px rgba(0,0,0,.35);
+    display: flex; flex-direction: column;
+  }
+  @media (max-width: 500px), (max-height: 700px) {
+    body { display: block; }
+    .phone { width: 100%; height: 100dvh; border-radius: 0; box-shadow: none; }
+    .status { display: none !important; }
+  }
+  .phone.dark { background: var(--dark); color: var(--on-dark); }
+  .status { height: 44px; flex: none; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; font-weight: 600; font-size: 15px; }
+  .screen { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .scroll { flex: 1; overflow-y: auto; padding: 0 24px 24px; }
+  .foot { flex: none; padding: 12px 24px calc(20px + env(safe-area-inset-bottom)); }
+
+  .bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px 16px; flex: none; }
+  .bar .title { font-weight: 500; font-size: 16px; }
+  .round { width: 44px; height: 44px; border-radius: 50%; background: var(--card); display: grid; place-items: center; font-size: 18px; }
+  .dark .round { background: var(--dark-card); color: var(--on-dark); }
+  .round.sos { width: 56px; height: 56px; background: var(--ink); color: #fff; font-weight: 700; font-size: 15px; }
+  .round svg { width: 20px; height: 20px; }
+
+  h1 { font-size: 34px; line-height: 1.02; letter-spacing: -.03em; font-weight: 800; margin: 4px 0 16px; }
+  h1 .soft { color: var(--ink-2); }
+  .dark h1 .soft { color: var(--on-dark-2); }
+  h1 button { font-weight: 800; letter-spacing: inherit; color: var(--ink-2); text-align: left; }
+  .over { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; margin: 4px 0 8px; }
+  .muted { color: var(--ink-2); }
+  .small { font-size: 13px; }
+  .center { text-align: center; }
+
+  .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .tile { background: var(--card); border-radius: 18px; height: 84px; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; font-weight: 600; font-size: 15px; text-align: left; }
+  .tile .dot { width: 22px; height: 22px; border-radius: 50%; background: var(--fill); }
+  .tile[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .tile[aria-pressed="true"] .dot { background: #fff; }
+
+  .badge { display: inline-flex; align-items: center; gap: 8px; border: 2px solid var(--ink); border-radius: 999px; padding: 6px 14px 6px 6px; font-weight: 600; font-size: 14px; margin: 14px 0; }
+  .badge i { width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: #fff; font-style: normal; display: grid; place-items: center; font-size: 13px; }
+
+  .card { background: var(--card); border-radius: var(--r-lg); padding: 18px 20px; margin-bottom: 12px; }
+  .dark .card { background: var(--dark-card); }
+  .dur { display: flex; justify-content: space-between; align-items: center; }
+  .dur b { font-size: 44px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+  .steps { display: flex; gap: 8px; }
+  .step { width: 44px; height: 44px; border-radius: 50%; background: var(--fill); font-size: 22px; font-weight: 500; }
+  .step.plus { background: var(--ink); color: #fff; }
+  .segs { display: flex; gap: 6px; margin-top: 14px; }
+  .segs span { flex: 1; height: 26px; border-radius: 7px; background: var(--fill); }
+  .segs span.on { background: var(--ink); }
+
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .toggle { width: 52px; height: 32px; border-radius: 999px; background: var(--fill); position: relative; flex: none; transition: background .2s; }
+  .toggle::after { content: ""; position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: transform .2s; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+  .toggle[aria-checked="true"] { background: var(--ink); }
+  .toggle[aria-checked="true"]::after { transform: translateX(20px); }
+  .mini { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+  .mini button { width: 32px; height: 32px; border-radius: 50%; background: var(--fill); font-size: 18px; }
+  .mini b { min-width: 70px; text-align: center; }
+
+  .cta { width: 100%; height: 64px; border-radius: 999px; background: var(--ink); color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 26px; font-weight: 600; font-size: 18px; }
+  .cta .price { color: #a3a3a3; font-weight: 500; }
+  .cta.center { justify-content: center; }
+  .dark .cta { background: #fff; color: var(--ink); }
+  .ghost { width: 100%; height: 52px; border-radius: 999px; font-weight: 600; margin-top: 6px; }
+  .secondary { width: 100%; height: 56px; border-radius: 999px; background: var(--fill); font-weight: 600; margin-top: 8px; }
+  .note { font-size: 13px; color: var(--ink-2); text-align: center; margin-top: 10px; }
+
+  .hero { font-size: 84px; font-weight: 800; letter-spacing: -.05em; line-height: .95; margin: 4px 0 10px; }
+  .bars .b { display: grid; grid-template-columns: 110px 1fr 58px; gap: 10px; align-items: center; margin-top: 10px; font-size: 15px; }
+  .bars .track { height: 8px; border-radius: 999px; background: var(--fill); overflow: hidden; }
+  .bars .fill { display: block; height: 100%; background: var(--ink); border-radius: 999px; }
+  .bars .fill.neg { background: var(--ok); }
+  .bars .amt { text-align: right; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .bento { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .bento > div { border-radius: var(--r-lg); padding: 16px; min-height: 150px; display: flex; flex-direction: column; }
+  .bento .k { font-weight: 700; font-size: 18px; margin-bottom: 6px; }
+  .bento .v { color: inherit; opacity: .75; line-height: 1.4; font-size: 15px; }
+  .bento .end { margin-top: auto; font-size: 13px; opacity: .8; padding-top: 10px; }
+  .bento .black { background: var(--ink); color: #fff; }
+  .bento .grey { background: var(--fill); }
+
+  .list { background: var(--card); border-radius: var(--r-lg); overflow: hidden; }
+  .item { display: flex; align-items: center; gap: 14px; padding: 16px 18px; width: 100%; text-align: left; border-top: 1px solid var(--fill); }
+  .item:first-child { border-top: 0; }
+  .item .ico { width: 40px; height: 40px; border-radius: 50%; background: var(--fill); flex: none; display: grid; place-items: center; font-weight: 700; }
+  .item .t { flex: 1; } .item .t b { display: block; font-weight: 600; } .item .t span { font-size: 13px; color: var(--ink-2); }
+  .item.off { opacity: .55; cursor: not-allowed; }
+  .search { width: 100%; height: 52px; border-radius: 999px; border: 0; background: var(--card); padding: 0 20px; font: inherit; font-size: 16px; margin-bottom: 14px; }
+
+  .progress { display: flex; gap: 6px; margin: 8px 0 8px; }
+  .progress span { flex: 1; height: 8px; border-radius: 999px; background: var(--fill); transition: background .3s; }
+  .progress span.on { background: var(--ink); }
+  .timeline .item { cursor: default; }
+  .tag { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--fill); color: var(--ink-2); }
+  .tag.now { background: var(--ink); color: #fff; }
+  .tag.done { background: transparent; color: var(--ok); }
+
+  .rows .r { display: flex; justify-content: space-between; padding: 14px 0; border-top: 1px solid var(--fill); }
+  .rows .r:first-child { border-top: 0; }
+  .rows .r span { color: var(--ink-2); } .rows .r b { font-weight: 600; text-align: right; }
+  .dark .rows .r { border-color: var(--dark-line); } .dark .rows .r span { color: var(--on-dark-2); }
+
+  .check { width: 96px; height: 96px; border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; margin: 8px 0 22px; }
+  .light .check { background: var(--ink); color: #fff; }
+  .check svg { width: 40px; height: 40px; }
+
+  .pay-opt { display: flex; align-items: center; gap: 14px; width: 100%; background: var(--card); border-radius: var(--r-md); padding: 18px; margin-bottom: 8px; text-align: left; font-weight: 600; border: 2px solid transparent; }
+  .pay-opt[aria-checked="true"] { border-color: var(--ink); }
+  .pay-opt .radio { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--ink-2); margin-left: auto; }
+  .pay-opt[aria-checked="true"] .radio { border: 7px solid var(--ink); }
+  .field label { display: block; font-size: 13px; color: var(--ink-2); margin: 10px 0 6px; }
+  .field input { width: 100%; height: 54px; border-radius: var(--r-md); border: 2px solid transparent; background: var(--card); padding: 0 16px; font: inherit; font-size: 17px; }
+  .field input[aria-invalid="true"] { border-color: var(--bad); }
+  .err { color: var(--bad); font-size: 13px; margin-top: 6px; min-height: 18px; }
+  .seal { display: flex; gap: 10px; align-items: center; font-size: 13px; color: var(--ink-2); margin: 14px 0 4px; }
+  .seal i { width: 30px; height: 30px; border-radius: 50%; background: var(--fill); display: grid; place-items: center; font-style: normal; font-weight: 700; color: var(--ink); }
+
+  .countdown { background: var(--ink); color: #fff; border-radius: var(--r-lg); padding: 22px; margin: 18px 0 12px; }
+  .countdown .over { color: #a3a3a3; margin: 0; }
+  .countdown b { font-size: 56px; font-weight: 800; letter-spacing: -.03em; display: block; line-height: 1.1; }
+  .phone-illo { height: 180px; border-radius: var(--r-lg); background: var(--card); display: grid; place-items: center; }
+  .phone-illo div { width: 86px; height: 150px; border-radius: 18px; border: 3px solid var(--ink); display: grid; place-items: center; font-weight: 800; font-size: 13px; }
+
+  .pill { display: inline-flex; align-items: center; gap: 8px; background: var(--card); border-radius: 999px; padding: 10px 16px; font-weight: 600; font-size: 15px; }
+  .pill i { width: 10px; height: 10px; border-radius: 50%; background: var(--ok); }
+  .ring { position: relative; width: 270px; height: 270px; margin: 4px auto 18px; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .mid { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+  .ring .mid b.long { font-size: 44px; }
+  .ring .mid b { font-size: 60px; font-weight: 800; letter-spacing: -.04em; font-variant-numeric: tabular-nums; line-height: 1; }
+  .so-far { font-size: 28px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; margin: 0 0 12px; }
+  .chips { display: flex; gap: 8px; margin: 8px 0 12px; flex-wrap: wrap; }
+  .chip { background: var(--card); border-radius: 999px; padding: 12px 18px; font-weight: 500; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .two button { height: 56px; border-radius: 999px; font-weight: 600; font-size: 17px; }
+  .btn-black { background: var(--ink); color: #fff; }
+  .hold { background: var(--fill); position: relative; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .hold::before { content: ""; position: absolute; inset: 0; background: var(--bad); opacity: .25; transform: scaleX(0); transform-origin: left; }
+  .hold.holding::before { transform: scaleX(1); transition: transform 1s linear; }
+  .hold span { position: relative; }
+  .demo { display: inline-flex; gap: 6px; align-items: center; font-size: 12px; color: var(--ink-2); background: var(--fill); border-radius: 999px; padding: 6px 12px; margin-top: 14px; }
+
+  .scrim { position: absolute; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: flex-end; z-index: 10; animation: fade .2s; }
+  .sheet { width: 100%; background: var(--bg); color: var(--ink); border-radius: 28px 28px 0 0; padding: 10px 24px calc(24px + env(safe-area-inset-bottom)); animation: up .25s ease-out; }
+  .sheet .handle { width: 40px; height: 5px; border-radius: 999px; background: #c9c9c4; margin: 0 auto 16px; }
+  .sheet h2 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin: 0 0 4px; }
+  @keyframes up { from { transform: translateY(100%); } }
+  @keyframes fade { from { opacity: 0; } }
+
+  .receipt { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 6px 0 12px; }
+  .receipt > div { border-radius: var(--r-lg); padding: 16px; background: var(--card); }
+  .receipt .black { background: var(--ink); color: #fff; }
+  .receipt .over { margin: 0 0 6px; } .receipt .black .over { color: #a3a3a3; }
+  .receipt b { font-size: 32px; font-weight: 800; letter-spacing: -.02em; }
+  .used { height: 10px; border-radius: 999px; background: var(--fill); overflow: hidden; margin-top: 10px; }
+  .used span { display: block; height: 100%; background: var(--ink); }
+
+  .faq { border-top: 1px solid var(--fill); }
+  .faq:first-child { border-top: 0; }
+  .faq button { display: flex; width: 100%; padding: 16px 18px; gap: 12px; align-items: center; text-align: left; font-weight: 600; }
+  .faq button span { flex: 1; }
+  .faq button em { font-style: normal; font-size: 22px; font-weight: 400; transition: transform .2s; }
+  .faq button[aria-expanded="true"] em { transform: rotate(45deg); }
+  .faq p { margin: 0; padding: 0 18px 16px; color: var(--ink-2); line-height: 1.45; }
+
+  .toast { position: absolute; left: 16px; right: 16px; top: 54px; background: var(--ink); color: #fff; border-radius: 16px; padding: 14px 16px; font-size: 14px; z-index: 20; animation: fade .2s; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+  .dark .toast { background: #fff; color: var(--ink); }
+  .why-line { font-size: 13px; color: var(--ink-2); margin-top: 12px; line-height: 1.45; }
+  .error-box { background: #fde8e1; color: var(--bad); border-radius: var(--r-md); padding: 14px; font-size: 14px; margin: 12px 0; }
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+  <div class="status" aria-hidden="true"><span id="clock">9:41</span><span>●●● ▮</span></div>
+  <main class="screen" id="screen" aria-live="polite"></main>
+</div>
+
+<script>
+/* Micro Seguros · mobile prototype of the "Turn on cover" happy path (Vault/Handoff/HappyPath.md).
+   Every price, credit and sentence comes from micro_seguros_price.py through ui.py. */
+
+const PLACES = [
+  { name: "Praia de Matosinhos", wind: 34 },
+  { name: "Parque da Cidade", wind: 8 },
+  { name: "Foz do Douro", wind: 22 },
+];
+const NOT_COVERED = ["Kitesurfing", "Paragliding", "Jet ski"];
+const ITEM = { "bike parked": "your bike", "surf session": "your board", "borrowed gear": "the gear" };
+const ICON = { check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>',
+  close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  help: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>' };
+
+const S = {
+  cfg: null, screen: "turnon", moment: null, place: 0, slots: 2, itemOn: true, value: 600,
+  useCredit: true, credit: loadCredit(), quote: null, payMethod: "mbway", phone: "",
+  session: null, result: null, speed: 1, extraSlots: 1, faqOpen: 0, search: "",
+};
+
+/* ── helpers ─────────────────────────────────────────────────────────────── */
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const eur = (n) => "€" + Number(n).toFixed(2);
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+const hhmm = (ms) => new Date(ms).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+function dur(hours) {
+  const mins = Math.round(hours * 60), h = Math.floor(mins / 60), m = mins % 60;
+  if (!h) return `${m} min`;
+  return m ? `${h} h ${String(m).padStart(2, "0")}` : `${h} h`;
+}
+function risk(rate) { return rate >= 1 ? "High" : rate >= 0.5 ? "Medium" : "Low"; }
+function loadCredit() { try { return Number(localStorage.getItem("ms.credit")) || 0; } catch { return 0; } }
+function saveCredit() { try { localStorage.setItem("ms.credit", String(S.credit)); } catch {} }
+function itemName(m) { return ITEM[m] || "your item"; }
+const hours = () => S.slots * S.cfg.slot / 60;
+const maxSlots = () => Math.round(S.cfg.max_hours * 60 / S.cfg.slot);
+const place = () => PLACES[S.place];
+
+/* A clock that can run faster, so a 2-hour cover can be tried in a few minutes. */
+const clock = { real0: Date.now(), sim0: Date.now(), speed: 1 };
+const now = () => clock.sim0 + (Date.now() - clock.real0) * clock.speed;
+function setSpeed(x) { clock.sim0 = now(); clock.real0 = Date.now(); clock.speed = x; S.speed = x; }
+
+async function api(path, body) {
+  const res = await fetch(path, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
+  const data = await res.json();
+  if (data.error) throw new Error(data.error);
+  return data;
+}
+function quoteBody(extra = {}) {
+  return { moment: S.moment, hours: hours(), value: S.itemOn ? S.value : 0, wind: place().wind,
+           credit: S.credit, use_credit: S.useCredit && S.credit > 0, ...extra };
+}
+
+let toastTimer;
+function toast(msg) {
+  document.querySelector(".toast")?.remove();
+  const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg;
+  $("phone").append(t); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.remove(), 3200);
+}
+function sheet(html) {
+  closeSheet();
+  const s = document.createElement("div"); s.className = "scrim"; s.id = "scrim";
+  s.innerHTML = `<div class="sheet" role="dialog" aria-modal="true"><div class="handle"></div>${html}</div>`;
+  s.addEventListener("click", (e) => { if (e.target === s) closeSheet(); });
+  $("phone").append(s);
+}
+function closeSheet() { $("scrim")?.remove(); }
+
+const topbar = (title, left = "back", right = "help") => `
+  <div class="bar">
+    ${left ? `<button class="round" aria-label="${left}" onclick="act.${left}()">${ICON[left === "back" ? "back" : "close"]}</button>` : `<span style="width:44px"></span>`}
+    <span class="title">${esc(title)}</span>
+    ${right === "help" ? `<button class="round" aria-label="Help: terms in plain English" onclick="go('terms')">${ICON.help}</button>`
+      : right === "sos" ? `<button class="round sos" onclick="act.sos()">SOS</button>` : `<span style="width:44px"></span>`}
+  </div>`;
+
+/* ── screens (numbers match Vault/Handoff/Turn on) ───────────────────────── */
+const screens = {
+  // 05.1 Turn on
+  turnon() {
+    const c = S.cfg, rates = c.rates, m = S.moment, r = rates[m];
+    const end = now() + hours() * 3600e3;
+    return `${topbar("Turn on")}
+    <div class="scroll">
+      <h1>${esc(cap(m))}<br><button onclick="act.pickPlace()" aria-label="Change place">at ${esc(place().name)} ▾</button></h1>
+      <div class="tiles" role="group" aria-label="Activity">
+        ${Object.keys(rates).map((k) => `<button class="tile" aria-pressed="${k === m}" onclick="act.moment('${esc(k)}')"><span class="dot"></span>${esc(cap(k))}</button>`).join("")}
+        <button class="tile" onclick="go('other')"><span class="dot"></span>+ Other</button>
+      </div>
+      <div class="badge"><i>!</i>${risk(r)} risk · ${eur(r)} per hour</div>
+      <div class="card">
+        <div class="dur">
+          <div><b>${dur(hours())}</b><div class="muted small" style="margin-top:6px">until ${hhmm(end)} · max. ${c.max_hours} h</div></div>
+          <div class="steps">
+            <button class="step" aria-label="${c.slot} minutes less" onclick="act.slots(-1)" ${S.slots <= 1 ? "disabled" : ""}>−</button>
+            <button class="step plus" aria-label="${c.slot} minutes more" onclick="act.slots(1)" ${S.slots >= maxSlots() ? "disabled" : ""}>+</button>
+          </div>
+        </div>
+        <div class="segs" aria-hidden="true">${Array.from({ length: maxSlots() }, (_, i) => `<span class="${i < S.slots ? "on" : ""}"></span>`).join("")}</div>
+      </div>
+      <div class="card">
+        <div class="row">
+          <div><b>Cover ${esc(itemName(m))}</b><div class="muted small" id="itemExtra">${S.itemOn ? `worth €${S.value}` : "Not covered"}</div></div>
+          <button class="toggle" role="switch" aria-checked="${S.itemOn}" aria-label="Cover ${esc(itemName(m))}" onclick="act.item()"></button>
+        </div>
+        ${S.itemOn ? `<div class="mini"><span class="muted small">Worth</span>
+          <button aria-label="Less" onclick="act.value(-100)">−</button><b>€${S.value}</b><button aria-label="More" onclick="act.value(100)">+</button></div>` : ""}
+      </div>
+      ${S.credit > 0 ? `<div class="card"><div class="row">
+          <div><b>Use my ${S.credit} min of credit</b><div class="muted small">From covers you ended early</div></div>
+          <button class="toggle" role="switch" aria-checked="${S.useCredit}" aria-label="Use credit" onclick="act.useCredit()"></button>
+        </div></div>` : ""}
+      <p class="muted small">Wind at ${esc(place().name)} now: <b>${place().wind} km/h</b>${place().wind > c.windy_kmh ? " · strong wind" : ""}</p>
+      <div id="quoteErr"></div>
+    </div>
+    <div class="foot"><button class="cta" onclick="go('calc')"><span>See quote</span><span class="price" id="ctaPrice">…</span></button></div>`;
+  },
+
+  // 05.2 Other activity
+  other() {
+    const norm = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+    const q = norm(S.search);
+    const covered = Object.keys(S.cfg.rates).filter((k) => norm(k).includes(q));
+    const notCovered = NOT_COVERED.filter((k) => norm(k).includes(q));
+    const empty = !covered.length && !notCovered.length;
+    return `${topbar("Other activity")}
+    <div class="scroll">
+      <h1>Which one are you doing?</h1>
+      <input class="search" id="search" type="search" placeholder="e.g. surf, bike" value="${esc(S.search)}" aria-label="Search" oninput="S.search=this.value; render(); $('search').focus(); $('search').setSelectionRange(99,99)">
+      ${empty ? `<p class="muted center">Nothing matches “${esc(S.search)}”. Try another word.</p>` : `<div class="list">
+        ${covered.map((k) => `<button class="item" onclick="act.moment('${esc(k)}'); go('turnon')">
+          <span class="ico">${esc(k[0].toUpperCase())}</span><span class="t"><b>${esc(cap(k))}</b><span>${risk(S.cfg.rates[k])} · ${eur(S.cfg.rates[k])}/h</span></span><span>›</span></button>`).join("")}
+        ${notCovered.map((k) => `<div class="item off" aria-disabled="true"><span class="ico">${esc(k[0])}</span><span class="t"><b>${esc(k)}</b><span>Not covered yet</span></span><span>✕</span></div>`).join("")}
+      </div>`}
+    </div>`;
+  },
+
+  // 05.4 Calculating
+  calc() {
+    const steps = ["Activity and risk", "Duration", `Place and wind · ${place().wind} km/h`, S.itemOn ? `${cap(itemName(S.moment))} · €${S.value}` : "Item", "Price"];
+    return `${topbar("", null)}
+    <div class="scroll">
+      <h1>Preparing your quote</h1>
+      <p class="muted">${esc(cap(S.moment))} · ${dur(hours())}${S.itemOn ? " · with " + esc(itemName(S.moment)) : ""}</p>
+      <div class="progress" id="prog">${steps.map(() => "<span></span>").join("")}</div>
+      <p class="small muted" id="progText">0 of 5 done · about 4 s</p>
+      <div class="list timeline" id="steps">
+        ${steps.map((s, i) => `<div class="item"><span class="ico" id="ico${i}">${i + 1}</span><span class="t"><b>${esc(s)}</b></span><span class="tag" id="tag${i}">Next</span></div>`).join("")}
+      </div>
+      <p class="note">Only the time, the place, the wind and the item's value change the price.</p>
+      <div id="quoteErr"></div>
+    </div>`;
+  },
+
+  // 06.1 Quote
+  quote() {
+    const q = S.quote, start = now(), end = start + q.covered_hours * 3600e3;
+    const max = Math.max(...q.breakdown.map((b) => Math.abs(b.amount)), 0.01);
+    return `${topbar("Quote")}
+    <div class="scroll">
+      <div class="over">${esc(S.moment)} · today, ${hhmm(start)} to ${hhmm(end)}</div>
+      <div class="hero">${eur(q.pay)}</div>
+      <p class="muted" style="margin:0 0 16px">for ${dur(q.covered_hours)}. Sold in ${S.cfg.slot}-min slots.${q.credit_used ? ` ${q.credit_used} min paid with your credit.` : ""}</p>
+      <div class="card bars">
+        <b>Why this price</b>
+        ${q.breakdown.map((b) => `<div class="b"><span>${esc(b.label)}</span><span class="track"><span class="fill ${b.amount < 0 ? "neg" : ""}" style="width:${Math.abs(b.amount) / max * 100}%"></span></span><span class="amt">${b.amount < 0 ? "−" : ""}${eur(Math.abs(b.amount))}</span></div>`).join("")}
+        ${q.credit_used ? `<div class="b"><span>Old credit</span><span class="track"><span class="fill neg" style="width:${(q.full - q.pay) / max * 100}%"></span></span><span class="amt">−${eur(q.full - q.pay)}</span></div>` : ""}
+        ${q.credit_used && q.pay >= q.full ? `<div class="error-box" style="background:#fff4d6;color:#7a5200">Your ${q.credit_used} min of credit don't lower this price: the time left still rounds up to the same ${S.cfg.slot}-min slots, and the credit is used anyway.</div>` : ""}
+        <p class="why-line">${esc(q.why)}</p>
+      </div>
+      <div class="bento">
+        <div class="black"><div class="k">✓ Covered</div><div class="v">${S.itemOn ? "Theft<br>Accidental damage" : "Personal accident"}</div><div class="end">${S.itemOn ? `up to €${S.value}` : "up to [AMOUNT]"}</div></div>
+        <div class="grey"><div class="k">✕ Not covered</div><div class="v">Outside your slot<br>More than ${S.cfg.max_hours} h at once</div><button class="end" style="text-align:left" onclick="go('terms')">See all ›</button></div>
+      </div>
+    </div>
+    <div class="foot"><button class="cta" onclick="go('pay')"><span>Pay and turn on</span><span class="price">${eur(q.pay)}</span></button>
+      <p class="note">You're only charged when you confirm.</p></div>`;
+  },
+
+  // 06.4 Terms
+  terms() {
+    const c = S.cfg;
+    const faqs = [
+      ["How do the slots work?", `Cover is sold in ${c.slot}-minute slots, never less. 15 minutes is sold as ${c.slot}. One cover lasts at most ${c.max_hours} h.`],
+      ["What if I leave early?", `End it any time. The minutes you paid for but didn't use stay as credit${c.credit_never_expires ? " with no expiry date" : ""}, and pay for the start of your next cover.`],
+      ["Why does wind change the price?", `Above ${c.windy_kmh} km/h the risk goes up, so the price goes up by ${Math.round(c.windy_extra * 100)}%. Riskier, but never double.`],
+      ["Why does the item's value matter?", `Every €1,000 the item is worth adds ${Math.round(c.value_extra * 100)}%. Every cover costs at least ${eur(c.minimum)} and never more than ${eur(c.cap)}.`],
+      ["Who backs this insurance?", "[Partner insurer], supervised by ASF (Autoridade de Supervisão de Seguros e Fundos de Pensões)."],
+    ];
+    return `${topbar("Terms")}
+    <div class="scroll">
+      <h1>Terms, in plain English</h1>
+      <div class="seal"><i>✓</i>Insurance issued by [Partner insurer], supervised by ASF.</div>
+      <div class="list" style="margin-top:12px">
+        ${faqs.map(([q, a], i) => `<div class="faq"><button aria-expanded="${S.faqOpen === i}" onclick="S.faqOpen = S.faqOpen === ${i} ? -1 : ${i}; render()"><span>${esc(q)}</span><em>+</em></button>${S.faqOpen === i ? `<p>${esc(a)}</p>` : ""}</div>`).join("")}
+      </div>
+    </div>
+    <div class="foot"><button class="secondary" onclick="toast('The full policy PDF isn\\'t in this prototype yet.')">Open full document (PDF)</button></div>`;
+  },
+
+  // 07.1 Pay
+  pay() {
+    const opts = [["mbway", "MB WAY"], ["card", "Card"], ["wallet", "Apple Pay / Google Pay"]];
+    const ok = S.payMethod === "mbway" && /^9\d{8}$/.test(S.phone.replace(/\s/g, ""));
+    return `${topbar("Pay")}
+    <div class="scroll">
+      <h1>How do you want to pay?</h1>
+      <div role="radiogroup" aria-label="Payment method">
+        ${opts.map(([k, label]) => `<button class="pay-opt" role="radio" aria-checked="${S.payMethod === k}" onclick="S.payMethod='${k}'; render()">${label}<span class="radio"></span></button>`).join("")}
+      </div>
+      ${S.payMethod === "mbway" ? `<div class="field"><label for="phoneIn">MB WAY mobile</label>
+        <input id="phoneIn" inputmode="numeric" autocomplete="tel-national" placeholder="+351 9XX XXX XXX" value="${esc(S.phone)}"
+          aria-invalid="${!!S.phone && !ok}" oninput="S.phone=this.value; act.checkPhone()">
+        <div class="err" id="phoneErr">${S.phone && !ok ? "Type a 9-digit Portuguese mobile, starting with 9." : ""}</div></div>`
+      : `<p class="muted">This payment method isn't designed yet. Choose MB WAY to try the flow.</p>`}
+      <div class="card row" style="margin-top:8px"><span>Session total</span><b>${eur(S.quote.pay)}</b></div>
+      <div class="seal"><i>✓</i>Insurance issued by [Partner insurer], supervised by ASF.</div>
+    </div>
+    <div class="foot"><button class="cta" id="payBtn" onclick="go('waiting')" ${ok ? "" : "disabled"}><span>Pay and turn on</span><span class="price">${eur(S.quote.pay)}</span></button></div>`;
+  },
+
+  // 07.2 Waiting for MB WAY
+  waiting() {
+    return `${topbar("Payment", null)}
+    <div class="scroll">
+      <h1>Confirm in the MB WAY app</h1>
+      <div class="phone-illo" aria-hidden="true"><div>MB WAY</div></div>
+      <div class="countdown"><p class="over">Request expires in</p><b id="mbCount">3:45</b><span>We sent a ${eur(S.quote.pay)} request to ${esc(S.phone)}.</span></div>
+      <p class="muted small">Cover only starts once the payment is approved.</p>
+      <p class="demo">Prototype: it approves by itself in a few seconds.</p>
+    </div>
+    <div class="foot"><button class="secondary" onclick="act.approve()">Approve now (demo)</button><button class="ghost" onclick="act.cancelMb()">Cancel request</button></div>`;
+  },
+
+  // 07.3 Cover on
+  coveron() {
+    const s = S.session;
+    return `${topbar("", "close", "help")}
+    <div class="scroll">
+      <div class="check">${ICON.check}</div>
+      <h1>You're covered<br><span class="soft">until ${hhmm(s.end)}</span></h1>
+      <div class="card rows">
+        <div class="r"><span>Activity</span><b>${esc(cap(s.moment))}</b></div>
+        <div class="r"><span>Place</span><b>${esc(s.place)}</b></div>
+        <div class="r"><span>${esc(cap(itemName(s.moment)))}</span><b>${s.value ? `Covered · €${s.value}` : "Not covered"}</b></div>
+        <div class="r"><span>Started</span><b>${hhmm(s.start)}</b></div>
+        <div class="r"><span>Paid</span><b>${eur(s.paid)}</b></div>
+      </div>
+      <p class="small" style="color:var(--on-dark-2)">We'll remind you 15 min before the end. It switches off by itself.</p>
+    </div>`;
+  },
+
+  // 08.1 Active session
+  active() {
+    const s = S.session, chips = extendOptions();
+    return `<div class="bar"><span class="pill"><i></i>Covered</span><button class="round sos" onclick="act.sos()">SOS</button></div>
+    <div class="scroll">
+      <div class="ring"><svg width="270" height="270" viewBox="0 0 270 270" aria-hidden="true">
+          <circle cx="135" cy="135" r="120" fill="none" stroke="var(--fill)" stroke-width="20"/>
+          <circle id="arc" cx="135" cy="135" r="120" fill="none" stroke="var(--ink)" stroke-width="20" stroke-dasharray="${2 * Math.PI * 120}" stroke-dashoffset="0"/></svg>
+        <div class="mid"><b id="left">--:--</b><span class="muted small" id="endsAt">left · ends at ${hhmm(s.end)}</span></div></div>
+      <p class="so-far">${eur(s.paid)} paid<br><span class="muted" id="creditNow">…</span></p>
+      <div class="over">Extend</div>
+      <div class="chips">${chips.map((h, i) => `<button class="chip" aria-pressed="${S.extraSlots === i}" ${s.hours + h > S.cfg.max_hours + 1e-9 ? "disabled" : ""} onclick="S.extraSlots=${i}; render()">+${dur(h)}</button>`).join("")}</div>
+      <div class="two">
+        <button class="btn-black" onclick="act.openExtend()" ${chips.every((h) => s.hours + h > S.cfg.max_hours + 1e-9) ? "disabled" : ""}>Extend</button>
+        <button class="hold" id="holdEnd" aria-label="End cover. Press and hold"><span>End</span></button>
+      </div>
+      <p class="note">Press and hold to end</p>
+      <div class="center"><button class="demo" onclick="act.speed()">Demo clock: <b>${S.speed}×</b> · tap to change</button></div>
+    </div>`;
+  },
+
+  // 09.1 Ended early
+  endedEarly() {
+    const r = S.result, pct = Math.min(100, r.usedMin / r.bookedMin * 100);
+    return `${topbar("Receipt", null)}
+    <div class="scroll light">
+      <div class="check">${ICON.check}</div>
+      <h1>${esc(cap(r.moment))} covered!</h1>
+      <div class="receipt">
+        <div class="black"><p class="over">You paid</p><b>${eur(r.paid)}</b></div>
+        <div><p class="over">Credit saved</p><b>${r.credit} min</b></div>
+      </div>
+      <div class="card"><div class="row"><span>Time used</span><b>${r.usedMin} of ${r.bookedMin} min</b></div><div class="used"><span style="width:${pct}%"></span></div>
+        <p class="why-line">${esc(r.why)}</p></div>
+      <p class="muted small">You now have <b>${S.credit} min</b> of credit${S.cfg.credit_never_expires ? ", with no expiry date" : ""}. It pays for the start of your next cover. Your invoice is in History.</p>
+    </div>
+    <div class="foot"><button class="cta center" onclick="act.done()">Done</button><button class="ghost" onclick="toast('The claims flow isn\\'t designed yet.')">I had a problem</button></div>`;
+  },
+
+  // 09.2 Ended automatically
+  endedAuto() {
+    const r = S.result;
+    return `${topbar("Receipt", null)}
+    <div class="scroll">
+      <h1>Your cover ended on its own</h1>
+      <p class="muted">It reached ${hhmm(r.end)}, the time you set. You didn't need to do anything.</p>
+      <div class="card rows">
+        <div class="r"><span>Activity</span><b>${esc(cap(r.moment))}</b></div>
+        <div class="r"><span>Time covered</span><b>${dur(r.bookedMin / 60)}</b></div>
+        <div class="r"><span>Total paid</span><b>${eur(r.paid)}</b></div>
+      </div>
+      <div class="card" style="background:var(--ink);color:#fff"><b>Next time</b><p style="margin:6px 0 0;color:#bdbdb8">Leaving earlier than planned? End your cover and the unused minutes stay as credit.</p></div>
+    </div>
+    <div class="foot"><button class="cta center" onclick="act.done()">Done</button><button class="secondary" onclick="toast('Reminders aren\\'t designed yet.')">Set up reminders</button></div>`;
+  },
+};
+
+function extendOptions() {
+  const sl = S.cfg.slot / 60;
+  return [...new Set([sl, 2 * sl, 3 * sl])];
+}
+
+/* ── navigation and render ───────────────────────────────────────────────── */
+const DARK = new Set(["coveron"]);
+function go(name) { closeSheet(); S.screen = name; render(); $("screen").querySelector(".scroll")?.scrollTo(0, 0); }
+function render() {
+  $("phone").classList.toggle("dark", DARK.has(S.screen));
+  document.querySelector('meta[name="theme-color"]').content = DARK.has(S.screen) ? "#111111" : "#f0f0ee";
+  $("screen").innerHTML = screens[S.screen]();
+  after[S.screen]?.();
+}
+const after = {
+  turnon: refreshPrice,
+  calc: runCalc,
+  waiting: runMbWay,
+  active: setupActive,
+};
+
+async function refreshPrice() {
+  try {
+    const [q, bare] = await Promise.all([
+      api("/api/quote", quoteBody()),
+      S.itemOn ? api("/api/quote", quoteBody({ value: 0 })) : null,
+    ]);
+    if (S.screen !== "turnon") return;
+    $("ctaPrice").textContent = eur(q.pay);
+    if (bare) $("itemExtra").textContent = `+ ${eur(q.full - bare.full)} · worth €${S.value}`;
+  } catch (e) { showErr(e); }
+}
+function showErr(e) {
+  const box = $("quoteErr");
+  if (box) box.innerHTML = `<div class="error-box">We couldn't price this right now. ${esc(e.message)}</div>`;
+}
+
+let calcTimer;
+async function runCalc() {
+  clearTimeout(calcTimer);
+  const quoteP = api("/api/quote", quoteBody()).catch((e) => e);
+  let i = 0;
+  const stepMs = 800;
+  const next = async () => {
+    if (S.screen !== "calc") return;
+    if (i > 0) { $("tag" + (i - 1)).className = "tag done"; $("tag" + (i - 1)).textContent = "Done ✓"; $("prog").children[i - 1].className = "on"; }
+    $("progText").textContent = `${i} of 5 done · about ${Math.max(0, Math.ceil((5 - i) * stepMs / 1000))} s`;
+    if (i === 5) {
+      const q = await quoteP;
+      if (q instanceof Error) return showErr(q);
+      S.quote = q; calcTimer = setTimeout(() => go("quote"), 350); return;
+    }
+    $("tag" + i).className = "tag now"; $("tag" + i).textContent = "Now";
+    i++; calcTimer = setTimeout(next, stepMs);
+  };
+  next();
+}
+
+let mbTimer, mbApprove;
+function runMbWay() {
+  clearInterval(mbTimer); clearTimeout(mbApprove);
+  let left = 225;
+  mbTimer = setInterval(() => {
+    left--;
+    if ($("mbCount")) $("mbCount").textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`;
+    if (left <= 0) { clearInterval(mbTimer); toast("The MB WAY request expired. Nothing was charged."); go("pay"); }
+  }, 1000);
+  mbApprove = setTimeout(() => act.approve(), 4500);
+}
+function stopMb() { clearInterval(mbTimer); clearTimeout(mbApprove); }
+
+/* ── the running session ─────────────────────────────────────────────────── */
+let lastUsedMin = -1;
+function setupActive() {
+  lastUsedMin = -1;
+  const btn = $("holdEnd");
+  let holdTimer;
+  const start = (e) => { e.preventDefault(); btn.classList.add("holding"); holdTimer = setTimeout(() => { btn.classList.remove("holding"); act.openEnd(); }, 1000); };
+  const stop = () => { btn.classList.remove("holding"); clearTimeout(holdTimer); };
+  btn.addEventListener("pointerdown", start);
+  ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => btn.addEventListener(ev, stop));
+  btn.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); act.openEnd(); } });
+  tick();
+}
+function tick() {
+  const s = S.session;
+  if ($("clock")) $("clock").textContent = hhmm(s ? now() : Date.now());
+  if (!s) return;
+  const total = s.end - s.start, leftMs = s.end - now();
+  if (leftMs <= 0) return endAuto();
+  if (leftMs <= 15 * 60e3 && !s.reminded) { s.reminded = true; toast(`15 min left. Your cover switches off by itself at ${hhmm(s.end)}.`); }
+  if (S.screen !== "active" || !$("left")) return;
+  const sec = Math.ceil(leftMs / 1000), h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), ss = sec % 60;
+  $("left").classList.toggle("long", h > 0);
+  $("left").textContent = (h ?`${h}:${String(m).padStart(2, "0")}` : `${m}`) + `:${String(ss).padStart(2, "0")}`;
+  $("arc").style.strokeDashoffset = String(2 * Math.PI * 120 * (1 - leftMs / total));
+  const usedMin = Math.floor((now() - s.start) / 60e3);
+  if (usedMin !== lastUsedMin) {
+    lastUsedMin = usedMin;
+    api("/api/end", { moment: s.moment, hours: s.hours, used_hours: usedMin / 60, value: s.value, wind: s.wind })
+      .then((r) => { if ($("creditNow")) $("creditNow").textContent = r.credit ? `end now, keep ${r.credit} min credit` : "no unused time to keep yet"; })
+      .catch(() => {});
+  }
+}
+setInterval(tick, 250);
+
+function endAuto() {
+  const s = S.session; S.session = null; closeSheet();
+  S.result = { moment: s.moment, paid: s.paid, end: s.end, bookedMin: Math.round(s.hours * 60) };
+  go("endedAuto");
+}
+
+/* ── actions ─────────────────────────────────────────────────────────────── */
+const act = {
+  back() {
+    const prev = { other: "turnon", quote: "turnon", terms: S.quote ? "quote" : "turnon", pay: "quote" }[S.screen];
+    if (prev) go(prev); else toast("This is where the flow starts.");
+  },
+  close() { go("active"); },
+  moment(k) { S.moment = k; if (S.screen === "turnon") render(); },
+  slots(d) { S.slots = Math.min(Math.max(S.slots + d, 1), maxSlots()); render(); },
+  item() { S.itemOn = !S.itemOn; render(); },
+  value(d) { S.value = Math.min(Math.max(S.value + d, 100), 5000); render(); },
+  useCredit() { S.useCredit = !S.useCredit; render(); },
+  pickPlace() {
+    sheet(`<h2>Where are you?</h2><p class="muted">The wind there changes the price.</p><div class="list">
+      ${PLACES.map((p, i) => `<button class="item" onclick="S.place=${i}; closeSheet(); render()"><span class="t"><b>${esc(p.name)}</b><span>Wind ${p.wind} km/h${p.wind > S.cfg.windy_kmh ? " · strong" : ""}</span></span><span>${i === S.place ? "✓" : ""}</span></button>`).join("")}
+    </div>`);
+  },
+  checkPhone() {
+    const ok = /^9\d{8}$/.test(S.phone.replace(/\s/g, ""));
+    $("payBtn").disabled = !ok;
+    $("phoneIn").setAttribute("aria-invalid", String(!!S.phone && !ok));
+    $("phoneErr").textContent = S.phone.replace(/\s/g, "").length >= 9 && !ok ? "Type a 9-digit Portuguese mobile, starting with 9." : "";
+  },
+  cancelMb() { stopMb(); toast("Request cancelled. Nothing was charged."); go("pay"); },
+  approve() {
+    if (S.screen !== "waiting") return;
+    stopMb();
+    const q = S.quote, start = now();
+    S.credit = Math.max(S.credit - q.credit_used, 0); saveCredit();
+    S.session = { moment: S.moment, place: place().name, wind: place().wind, value: S.itemOn ? S.value : 0,
+                  hours: q.covered_hours, paid: q.pay, start, end: start + q.covered_hours * 3600e3, reminded: false };
+    S.extraSlots = 0;
+    go("coveron");
+  },
+  sos() { toast("SOS isn't designed yet. In an emergency, call 112."); },
+  speed() { const next = { 1: 60, 60: 600, 600: 1 }[S.speed]; setSpeed(next); render(); toast(`Demo clock: 1 real second = ${next === 1 ? "1 second" : next / 60 + " min"}.`); },
+  async openExtend() {
+    const s = S.session, opts = extendOptions();
+    if (s.hours + opts[S.extraSlots] > S.cfg.max_hours + 1e-9) S.extraSlots = 0;
+    const draw = async () => {
+      const h = opts[S.extraSlots];
+      sheet(`<h2>Extend your session</h2><p class="muted">No gap in cover.</p>
+        <div class="chips">${opts.map((o, i) => `<button class="chip" aria-pressed="${i === S.extraSlots}" ${s.hours + o > S.cfg.max_hours + 1e-9 ? "disabled" : ""} data-i="${i}">+${dur(o)}</button>`).join("")}</div>
+        <div class="card rows"><div class="r"><span>New end time</span><b id="xEnd">…</b></div><div class="r"><span>Extra cost</span><b id="xCost">…</b></div></div>
+        <button class="cta center" id="xOk">Confirm</button><button class="ghost" onclick="closeSheet()">Cancel</button>`);
+      document.querySelectorAll("#scrim .chip").forEach((b) => b.addEventListener("click", () => { S.extraSlots = Number(b.dataset.i); draw(); }));
+      try {
+        const r = await api("/api/extend", { moment: s.moment, hours: s.hours, extra: h, value: s.value, wind: s.wind });
+        $("xEnd").textContent = hhmm(s.start + r.new_hours * 3600e3);
+        $("xCost").textContent = "+ " + eur(r.extra_cost) + (r.extra_cost === 0 ? " (already at the top price)" : "");
+        $("xOk").textContent = `Confirm · + ${eur(r.extra_cost)}`;
+        $("xOk").onclick = () => {
+          s.hours = r.new_hours; s.end = s.start + r.new_hours * 3600e3; s.paid = Math.round((s.paid + r.extra_cost) * 100) / 100; s.reminded = false;
+          closeSheet(); render(); toast(`Extended. You're covered until ${hhmm(s.end)}.`);
+        };
+      } catch (e) { $("xCost").textContent = "Couldn't price it"; }
+    };
+    draw();
+  },
+  async openEnd() {
+    const s = S.session, usedH = Math.floor((now() - s.start) / 60e3) / 60;
+    let r; try { r = await api("/api/end", { moment: s.moment, hours: s.hours, used_hours: usedH, value: s.value, wind: s.wind }); } catch { r = { credit: 0, why: "" }; }
+    sheet(`<h2>End now?</h2>
+      <p class="muted">Cover ends now. You've used ${Math.round(s.hours * 60) - r.credit} of ${Math.round(s.hours * 60)} min.
+      ${r.credit ? `The <b>${r.credit} min</b> you didn't use stay as credit for next time${S.cfg.credit_never_expires ? ", with no expiry date" : ""}.` : "There's no unused time to save as credit."}</p>
+      <button class="cta center" id="endOk">Yes, end now</button><button class="ghost" onclick="closeSheet()">Stay covered</button>`);
+    $("endOk").onclick = async () => {
+      const used = Math.floor((now() - s.start) / 60e3) / 60;   // whole minutes
+      let fin; try { fin = await api("/api/end", { moment: s.moment, hours: s.hours, used_hours: used, value: s.value, wind: s.wind }); } catch { fin = r; }
+      S.credit += fin.credit; saveCredit();
+      S.result = { moment: s.moment, paid: s.paid, credit: fin.credit, why: fin.why, usedMin: Math.round(s.hours * 60) - fin.credit, bookedMin: Math.round(s.hours * 60) };
+      S.session = null; closeSheet(); go("endedEarly");
+    };
+  },
+  done() { S.result = null; S.quote = null; S.useCredit = true; setSpeed(1); go("turnon"); },
+};
+
+/* ── start ───────────────────────────────────────────────────────────────── */
+(async function start() {
+  try {
+    S.cfg = await api("/api/config");
+    S.moment = Object.keys(S.cfg.rates)[0];
+    S.slots = Math.min(Math.round(60 / S.cfg.slot) * 2, Math.round(S.cfg.max_hours * 60 / S.cfg.slot));
+    render();
+  } catch (e) {
+    $("screen").innerHTML = `<div class="scroll"><h1>Can't load the rule</h1><div class="error-box">${esc(e.message)}</div><p class="muted">Is <code>ui.py</code> running?</p></div>`;
+  }
+})();
+// When the rule file changes, coming back to the tab picks up the new knobs.
+window.addEventListener("focus", async () => {
+  if (S.screen !== "turnon") return;
+  try { S.cfg = await api("/api/config"); if (!(S.moment in S.cfg.rates)) S.moment = Object.keys(S.cfg.rates)[0]; S.slots = Math.min(S.slots, maxSlots()); render(); } catch {}
+});
+</script>
+</body>
+</html>

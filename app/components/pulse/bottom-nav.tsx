@@ -41,7 +41,7 @@ function BottomNav({
         aria-label={covered ? "Stop cover" : "Turn on cover"}
         className={cn(
           "absolute top-1/2 left-1/2 flex size-[92px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full ring-[6px] ring-surface-page transition-colors",
-          covered ? "bg-surface-info text-surface-brand" : "bg-surface-accent text-text-on-accent hover:bg-indigo-600"
+          covered ? "bg-surface-warning text-navy-950 hover:bg-[color-mix(in_oklch,var(--surface-warning),black_6%)]" : "bg-surface-accent text-text-on-accent hover:bg-indigo-600"
         )}
       >
         <Icon name={covered ? "shield-x" : "shield"} box={40} />

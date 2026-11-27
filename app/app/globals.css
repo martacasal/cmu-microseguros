@@ -128,7 +128,7 @@
   --red-600: #d62f38;
   --red-200: #f5c9cb;
   --violet-500: #7b5ce6;
-  --coral-500: #ff6b4a;
+  --coral-500: #002ec6;
   --coral-600: #d1583d;
   --coral-700: #c25138;
 
@@ -152,7 +152,7 @@
   --text-inverse: var(--white);
   --text-inverse-muted: var(--slate-200);
   --text-danger: var(--red-700);
-  --text-on-accent: var(--navy-950);
+  --text-on-accent: var(--white);
   --border-subtle: var(--sand-200);
   --border-strong: var(--gray-500);
   --control-on: var(--navy-700);

@@ -4,7 +4,7 @@ import { cn } from "cn"
 import { Icon } from "./icon"
 
 /**
- * v2/Nav · floating navy bar: Home · Turn on (+, or shield when covered) · History.
+ * v2/Nav · floating navy bar: Home · Turn on (shield ✓, or shield ✕ when covered) · History.
  * The main action is a 92px button raised above the bar; an empty slot keeps it clear of the side buttons.
  */
 function BottomNav({
@@ -38,13 +38,13 @@ function BottomNav({
       <span aria-hidden className="w-[116px] shrink-0" />
       <Link
         href={actionHref}
-        aria-label={covered ? "Active cover" : "Turn on cover"}
+        aria-label={covered ? "Stop cover" : "Turn on cover"}
         className={cn(
           "absolute top-1/2 left-1/2 flex size-[92px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full ring-[6px] ring-surface-page transition-colors",
           covered ? "bg-surface-info text-surface-brand" : "bg-surface-accent text-text-on-accent hover:bg-indigo-600"
         )}
       >
-        <Icon name={covered ? "shield" : "plus"} box={40} />
+        <Icon name={covered ? "shield-x" : "shield"} box={40} />
       </Link>
       <Link href={historyHref} aria-label="History" aria-current={tab === "history" ? "page" : undefined} className={side(tab === "history")}>
         <Icon name="history" />

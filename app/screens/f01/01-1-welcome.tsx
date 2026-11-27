@@ -41,10 +41,6 @@ export default function Welcome() {
       <ScreenTitle size={52} tone="inverse" muted="when you train.">
         Insurance only
       </ScreenTitle>
-      <p className="text-[15px] leading-[1.32] text-text-inverse-muted">
-        Turn it on before you train, off when you&apos;re done. Pay only for the
-        time you use.
-      </p>
       <BarChart
         tone="accent"
         scroll

@@ -39,13 +39,13 @@ export default function Welcome() {
       <span className="w-fit rounded-2xl bg-surface-card px-3 py-[7px] text-[12px] font-semibold text-text-primary">
         COVER ON DEMAND
       </span>
-      <PulseLogo className="mt-2 h-9 self-start text-text-inverse" />
+      <PulseLogo className="mt-2 h-12 self-start text-text-inverse" />
       <div className="mt-4">
         <ScreenTitle size={52} tone="inverse" muted="when you train.">
           Insurance only
         </ScreenTitle>
       </div>
-      <div className="-mb-7" style={{ transform: "translateY(50px)" }}>
+      <div className="-mb-10" style={{ transform: "translateY(0px)" }}>
         <PulseWaves height={220} />
       </div>
     </PhoneScreen>

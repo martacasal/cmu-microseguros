@@ -2,7 +2,7 @@ import {
   BarChart,
   CtaButton,
   ScreenTitle,
-  Seal,
+  LinkOrButton,
   TextButton,
 } from "@/components/pulse"
 import { PhoneScreen } from "@/components/screen/phone-screen"
@@ -26,7 +26,12 @@ export default function Welcome() {
           >
             I already have an account
           </TextButton>
-          <Seal variant="inverse" />
+          <LinkOrButton
+            href={href("06-4")}
+            className="w-full text-center text-[13px] leading-[1.32] text-text-inverse-muted underline underline-offset-2"
+          >
+            This insurance is guaranteed by Allianz. Read all
+          </LinkOrButton>
         </>
       }
     >

@@ -35,7 +35,7 @@ export default function Welcome() {
         </>
       }
     >
-      <span className="w-fit rounded-2xl bg-surface-card px-3 py-[7px] text-[12px] font-semibold text-text-primary">
+      <span className="mt-[50px] w-fit rounded-2xl bg-surface-card px-3 py-[7px] text-[12px] font-semibold text-text-primary">
         COVER ON DEMAND
       </span>
       <ScreenTitle size={52} tone="inverse" muted="when you train.">

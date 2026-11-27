@@ -26,13 +26,13 @@ export default function ActiveSession() {
         <div className="flex gap-2">
           <LinkOrButton
             href={href("08-2")}
-            className="flex h-14 flex-1 items-center justify-center rounded-full bg-surface-brand text-[16px] font-semibold text-text-inverse transition-colors hover:bg-surface-brand/90"
+            className="flex h-14 flex-1 items-center justify-center rounded-full bg-indigo-500 text-[16px] font-semibold text-text-on-accent transition-colors hover:bg-indigo-600"
           >
             Extend
           </LinkOrButton>
           <LinkOrButton
             href={href("08-3")}
-            className="flex h-14 flex-1 items-center justify-center rounded-full bg-indigo-500 text-[16px] font-semibold text-text-on-accent transition-colors hover:bg-indigo-600"
+            className="flex h-14 flex-1 items-center justify-center rounded-full bg-surface-warning text-[16px] font-semibold text-navy-950 transition-colors hover:bg-surface-warning/85"
           >
             End
           </LinkOrButton>

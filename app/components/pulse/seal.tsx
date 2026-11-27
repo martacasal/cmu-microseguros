@@ -1,19 +1,32 @@
 import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
-/** B2/Seal · regulatory line with insurer mark ("Insurance issued by ..., supervised by ASF"). */
+/** v2/Selo · regulatory line with the ASF mark. */
+const sealVariants = cva("flex w-full items-center gap-3 rounded-[26px] py-2 pr-4 pl-2", {
+  variants: {
+    variant: {
+      default: "bg-surface-card text-text-secondary",
+      plain: "bg-transparent px-0 text-text-secondary",
+      inverse: "bg-surface-inverse-raised text-text-inverse-muted",
+    },
+  },
+  defaultVariants: { variant: "default" },
+})
+
 function Seal({
   mark = "ASF",
+  variant,
   className,
-  children,
+  children = "Insurance issued by [Partner insurer], supervised by ASF.",
   ...props
-}: React.ComponentProps<"div"> & { mark?: React.ReactNode }) {
+}: React.ComponentProps<"div"> & VariantProps<typeof sealVariants> & { mark?: React.ReactNode }) {
   return (
-    <div data-slot="seal" className={cn("flex items-center gap-3", className)} {...props}>
-      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-surface-brand text-[9px] font-bold text-text-inverse">
+    <div data-slot="seal" className={cn(sealVariants({ variant }), className)} {...props}>
+      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-surface-inverse text-[10px] font-bold text-text-inverse">
         {mark}
       </span>
-      <p className="type-caption text-text-secondary">{children}</p>
+      <p className="flex-1 text-[12px] font-medium">{children}</p>
     </div>
   )
 }

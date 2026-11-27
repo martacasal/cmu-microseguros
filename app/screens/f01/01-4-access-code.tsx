@@ -17,7 +17,7 @@ export default function AccessCode() {
     >
       <ScreenTitle muted="your email">Confirm</ScreenTitle>
       <p className="text-[15px] leading-[1.32] text-text-secondary">We sent a 6-digit code to name@email.com.</p>
-      <CodeInput defaultValue="472" />
+      <CodeInput defaultValue="472" nextHref={href("04-1")} />
       <p className="text-[12px] leading-[1.32] font-medium text-text-secondary">You can paste the code · resend in 0:30</p>
     </PhoneScreen>
   )

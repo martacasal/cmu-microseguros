@@ -1,13 +1,24 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 import { cn } from "cn"
 
 /**
  * 6-digit code boxes (01.4 Access code, 02.2 Confirm email): white 60px cells, radius 18,
  * the next empty cell outlined. One transparent input on top takes typing and paste.
  */
-export function CodeInput({ defaultValue = "", length = 6 }: { defaultValue?: string; length?: number }) {
+export function CodeInput({
+  defaultValue = "",
+  length = 6,
+  nextHref,
+}: {
+  defaultValue?: string
+  length?: number
+  /** Route to open automatically once all digits are entered. */
+  nextHref?: string
+}) {
+  const router = useRouter()
   const [value, setValue] = React.useState(defaultValue)
   const [focused, setFocused] = React.useState(true)
   const active = Math.min(value.length, length - 1)
@@ -32,7 +43,11 @@ export function CodeInput({ defaultValue = "", length = 6 }: { defaultValue?: st
         value={value}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        onChange={(e) => setValue(e.target.value.replace(/\D/g, "").slice(0, length))}
+        onChange={(e) => {
+          const next = e.target.value.replace(/\D/g, "").slice(0, length)
+          setValue(next)
+          if (nextHref && next.length === length) router.push(nextHref)
+        }}
         className="absolute inset-0 cursor-text opacity-0"
       />
     </div>

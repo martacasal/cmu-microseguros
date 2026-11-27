@@ -6,11 +6,12 @@ const MID = 36
 const FRAMES = 60
 const SAMPLES = 72
 
-// Two ribbons share a flowing centre line (arms swelling and sweeping) and twist around it:
+// Three ribbons share a flowing centre line (arms swelling and sweeping) and twist around it:
 // the half-gap between them passes through zero, so they cross and pirouette like a dancer's ribbons.
 const STRANDS = [
   { sign: 1, opacity: 1, color: "#fff" },
   { sign: -1, opacity: 1, color: "#ffd84d" },
+  { sign: 0, opacity: 0.8, color: "#8fa8ff" },
 ]
 
 function strand(sign: number, phase: number) {

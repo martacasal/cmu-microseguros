@@ -3,16 +3,41 @@ import { cn } from "cn"
 
 const W = 120
 const MID = 36
-const FRAMES = 16
-const SAMPLES = 48
+const FRAMES = 24
+const SAMPLES = 64
 
-// Sine strand with a bell envelope; phase shifts make it travel along its own length without moving the shape.
-function strand(phase: number) {
+// Each strand blends several waves with irregular spatial frequencies and different time harmonics,
+// so the two strands drift in and out of each other instead of mirroring a single sine.
+const STRANDS = [
+  {
+    opacity: 1,
+    color: "#fff",
+    c: [
+      [1.7, 1, 0.9, 0],
+      [3.3, -2, 0.45, 1.3],
+      [5.1, 3, 0.2, 2.1],
+    ],
+  },
+  {
+    opacity: 1,
+    color: "#ffd84d",
+    c: [
+      [2.1, 1, 0.85, 2.6],
+      [3.9, 2, 0.5, 0.4],
+      [6.3, -3, 0.22, 4.2],
+    ],
+  },
+]
+
+function strand(c: number[][], phase: number) {
   const pts: string[] = []
   for (let i = 0; i <= SAMPLES; i++) {
     const t = i / SAMPLES
-    const env = Math.sin(Math.PI * t) ** 0.8
-    const y = MID + 22 * env * Math.sin(t * Math.PI * 4 + phase)
+    const env = Math.sin(Math.PI * Math.min(1, t ** 0.85)) ** 0.9
+    let v = 0
+    for (const [k, h, amp, off] of c)
+      v += amp * Math.sin(t * Math.PI * k + h * phase + off)
+    const y = MID + 23 * env * v
     pts.push(
       `${i === 0 ? "M" : "L"}${(4 + t * (W - 8)).toFixed(2)},${y.toFixed(2)}`
     )
@@ -20,9 +45,9 @@ function strand(phase: number) {
   return pts.join(" ")
 }
 
-const frames = (offset: number) =>
+const frames = (c: number[][]) =>
   Array.from({ length: FRAMES + 1 }, (_, f) =>
-    strand(offset + (f / FRAMES) * Math.PI * 2)
+    strand(c, (f / FRAMES) * Math.PI * 2)
   ).join(";")
 
 /** Pulse wave motif (01.1 Welcome): two waves that stay in place and intertwirl. */
@@ -34,17 +59,18 @@ function PulseWaves({
   className?: string
 }) {
   const id = React.useId()
-  const strands = [
-    { offset: 0, opacity: 1, color: "#fff" },
-    { offset: Math.PI, opacity: 1, color: "#ffd84d" },
-  ]
+  const strands = STRANDS
   return (
     <div
       className={cn("flex w-full justify-center", className)}
       style={{ height }}
       aria-hidden
     >
-      <svg viewBox={`0 0 ${W} 72`} className="h-full w-full" fill="none">
+      <svg
+        viewBox={`4 0 ${W - 8} 72`}
+        className="h-full w-full overflow-visible"
+        fill="none"
+      >
         <defs>
           {strands.map((st, i) => (
             <linearGradient
@@ -64,7 +90,7 @@ function PulseWaves({
         {strands.map((st, i) => (
           <path
             key={i}
-            d={strand(st.offset)}
+            d={strand(st.c, 0)}
             stroke={`url(#${id}-${i})`}
             strokeOpacity={st.opacity}
             strokeWidth="3.2"
@@ -73,8 +99,8 @@ function PulseWaves({
           >
             <animate
               attributeName="d"
-              values={frames(st.offset)}
-              dur="4s"
+              values={frames(st.c)}
+              dur="7s"
               repeatCount="indefinite"
             />
           </path>

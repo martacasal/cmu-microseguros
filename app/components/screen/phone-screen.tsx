@@ -71,7 +71,7 @@ function PhoneScreen({
         {children}
       </main>
       {footer && <footer className="flex shrink-0 flex-col gap-2 px-6 pb-[30px]">{footer}</footer>}
-      {nav && <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center *:pointer-events-auto">{nav}</div>}
+      {nav && <div className="pointer-events-none absolute inset-x-0 bottom-[54px] flex justify-center *:pointer-events-auto">{nav}</div>}
     </div>
   )
 }

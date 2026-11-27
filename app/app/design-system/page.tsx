@@ -223,7 +223,7 @@ export default function Page() {
             <RoundButton variant="muted" icon="back" aria-label="Back" />
             <RoundButton variant="sos">SOS</RoundButton>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-12">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-10 pb-6">
             <BottomNav />
             <BottomNav tab="history" covered />
             <RoundButton variant="minus" aria-label="Less">−</RoundButton>

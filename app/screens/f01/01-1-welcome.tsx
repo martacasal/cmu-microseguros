@@ -45,7 +45,7 @@ export default function Welcome() {
           Insurance only
         </ScreenTitle>
       </div>
-      <div className="-mb-10" style={{ transform: "translateY(0px)" }}>
+      <div className="-mb-[77px]" style={{ transform: "translateY(0px)" }}>
         <PulseWaves height={220} />
       </div>
     </PhoneScreen>

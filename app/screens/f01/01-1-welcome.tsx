@@ -29,7 +29,7 @@ export default function Welcome() {
           </TextButton>
           <LinkOrButton
             href={href("06-4")}
-            className="w-full text-center text-[13px] leading-[1.32] text-text-inverse-muted underline underline-offset-2"
+            className="mt-6 w-full text-center text-[13px] leading-[1.32] text-text-inverse-muted underline underline-offset-2"
           >
             This insurance is guaranteed by Allianz. Read all
           </LinkOrButton>

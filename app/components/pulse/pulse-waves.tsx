@@ -1,25 +1,31 @@
 import * as React from "react"
 import { cn } from "cn"
 
-// Three separate wave strands; each morphs between two curled poses (same path structure).
-const WAVES = [
-  { x: 4, h: 44, dur: 3.2, delay: 0 },
-  { x: 42, h: 56, dur: 2.8, delay: 0.5 },
-  { x: 80, h: 36, dur: 3.6, delay: 1 },
-]
+const W = 120
+const MID = 36
+const FRAMES = 16
+const SAMPLES = 48
 
-function strand(x: number, h: number, sway: number, curl: number) {
-  const base = 64
-  const top = base - h
-  return [
-    `M${x},${base}`,
-    `C${x + 8},${base} ${x + 8 + sway},${top} ${x + 16 + sway},${top}`,
-    `C${x + 24 + sway},${top} ${x + 24},${base} ${x + 32 + curl},${base - 4}`,
-    `C${x + 38 + curl},${base - 8} ${x + 36 + curl},${base - 14 - curl} ${x + 31 + curl},${base - 12}`,
-  ].join(" ")
+// Sine strand with a bell envelope; phase shifts make it travel along its own length without moving the shape.
+function strand(phase: number) {
+  const pts: string[] = []
+  for (let i = 0; i <= SAMPLES; i++) {
+    const t = i / SAMPLES
+    const env = Math.sin(Math.PI * t) ** 0.8
+    const y = MID + 22 * env * Math.sin(t * Math.PI * 4 + phase)
+    pts.push(
+      `${i === 0 ? "M" : "L"}${(4 + t * (W - 8)).toFixed(2)},${y.toFixed(2)}`
+    )
+  }
+  return pts.join(" ")
 }
 
-/** Pulse wave motif (01.1 Welcome): three separate waves that stay in place, curling and waving. */
+const frames = (offset: number) =>
+  Array.from({ length: FRAMES + 1 }, (_, f) =>
+    strand(offset + (f / FRAMES) * Math.PI * 2)
+  ).join(";")
+
+/** Pulse wave motif (01.1 Welcome): two waves that stay in place and intertwirl. */
 function PulseWaves({
   height = 120,
   className,
@@ -28,53 +34,48 @@ function PulseWaves({
   className?: string
 }) {
   const id = React.useId()
+  const strands = [
+    { offset: 0, opacity: 1 },
+    { offset: Math.PI, opacity: 0.65 },
+  ]
   return (
     <div
       className={cn("flex w-full justify-center", className)}
       style={{ height }}
       aria-hidden
     >
-      <svg viewBox="0 0 120 70" className="h-full w-auto" fill="none">
+      <svg viewBox={`0 0 ${W} 72`} className="h-full w-full" fill="none">
         <defs>
-          {WAVES.map((w, i) => (
-            <linearGradient
-              key={i}
-              id={`${id}-${i}`}
-              gradientUnits="userSpaceOnUse"
-              x1={w.x}
-              x2={w.x + 36}
-              y1="0"
-              y2="0"
-            >
-              <stop offset="0" stopColor="#fff" stopOpacity="1" />
-              <stop offset="1" stopColor="#fff" stopOpacity="0" />
-            </linearGradient>
-          ))}
+          <linearGradient
+            id={id}
+            gradientUnits="userSpaceOnUse"
+            x1="4"
+            x2={W - 4}
+            y1="0"
+            y2="0"
+          >
+            <stop offset="0" stopColor="#fff" stopOpacity="1" />
+            <stop offset="1" stopColor="#fff" stopOpacity="0" />
+          </linearGradient>
         </defs>
-        {WAVES.map((w, i) => {
-          const a = strand(w.x, w.h, -3, 0)
-          const b = strand(w.x, w.h * 0.82, 4, 4)
-          return (
-            <path
-              key={i}
-              d={a}
-              stroke={`url(#${id}-${i})`}
-              strokeWidth="3.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <animate
-                attributeName="d"
-                values={`${a};${b};${a}`}
-                dur={`${w.dur}s`}
-                begin={`${w.delay}s`}
-                repeatCount="indefinite"
-                calcMode="spline"
-                keySplines="0.45 0 0.55 1;0.45 0 0.55 1"
-              />
-            </path>
-          )
-        })}
+        {strands.map((st, i) => (
+          <path
+            key={i}
+            d={strand(st.offset)}
+            stroke={`url(#${id})`}
+            strokeOpacity={st.opacity}
+            strokeWidth="3.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <animate
+              attributeName="d"
+              values={frames(st.offset)}
+              dur="4s"
+              repeatCount="indefinite"
+            />
+          </path>
+        ))}
       </svg>
     </div>
   )

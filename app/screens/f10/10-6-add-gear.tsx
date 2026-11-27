@@ -16,7 +16,7 @@ export default function AddGear() {
     <PhoneScreen
       left={<RoundButton icon="back" href={href("10-5")} aria-label="Back" />}
       title={<HeaderTitle>New gear</HeaderTitle>}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-3"
       footer={
         <CtaButton href={href("10-5")} className="justify-center text-center">

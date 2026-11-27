@@ -23,7 +23,7 @@ export default function OtherActivity() {
     <PhoneScreen
       left={<RoundButton icon="back" href={href("05-1")} aria-label="Back" />}
       title="Other activity"
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
     >
       <ScreenTitle muted="are you doing?">Which sport</ScreenTitle>
       <TextField label="Search" placeholder="e.g. basketball, climbing" value={q} onChange={(e) => setQ(e.target.value)} />

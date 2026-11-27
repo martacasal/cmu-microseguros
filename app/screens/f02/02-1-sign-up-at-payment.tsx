@@ -8,7 +8,7 @@ export default function SignUpAtPayment() {
     <PhoneScreen
       title="Quote"
       left={<RoundButton icon="back" href={href("01-2")} aria-label="Back" />}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
     >
       <p className="text-[11px] leading-[1.32] font-semibold tracking-[0.06em] text-text-secondary">
         FOOTBALL · 1 H 20 · WITH GEAR

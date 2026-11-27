@@ -1,14 +1,15 @@
 "use client"
 
-import { ChatBubble, RoundButton } from "@/components/pulse"
+import { ChatBubble } from "@/components/pulse"
 import { href } from "../types"
+import { HistoryBackButton } from "./back-button"
 import { ASSISTANT, ChatScreen, ChipChoice, ChipLink, Chips } from "../f11/_parts"
 
 /** 13.2 Assistant · my insurance · Figma 254:3854 */
 export default function AssistantMyInsurance() {
   return (
     <ChatScreen
-      left={<RoundButton icon="back" href={href("13-1")} aria-label="Back" />}
+      left={<HistoryBackButton fallback={href("13-1")} />}
       title="Assistant"
       gap="gap-3"
       placeholder="Type or dictate your question"

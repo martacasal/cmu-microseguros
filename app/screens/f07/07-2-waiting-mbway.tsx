@@ -28,7 +28,7 @@ export default function WaitingMbWay() {
     <PhoneScreen
       title="Payment"
       left={<span />}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       footer={<TextButton href={href("07-1")}>Cancel request</TextButton>}
     >
       <div className="flex h-[170px] items-center justify-center rounded-[28px] bg-surface-muted">

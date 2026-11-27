@@ -40,7 +40,7 @@ export default function ClaimTracking() {
     <PhoneScreen
       left={<RoundButton icon="back" href={href("11-6")} aria-label="Back" />}
       title="Claim no. [REF]"
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-3"
       footer={
         <>

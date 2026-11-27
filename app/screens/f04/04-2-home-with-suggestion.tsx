@@ -9,7 +9,7 @@ export default function HomeWithSuggestion() {
   return (
     <PhoneScreen
       left={<RoundButton icon="user" href={href("10-4")} aria-label="Profile" />}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       nav={<BottomNav tab="home" />}
       contentClassName="gap-3"
     >

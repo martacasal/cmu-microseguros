@@ -14,7 +14,7 @@ export default function Pay() {
     <PhoneScreen
       left={<RoundButton icon="back" href={href("06-1")} aria-label="Back" />}
       title="Payment"
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-2.5"
       footer={
         <>

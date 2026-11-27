@@ -14,7 +14,7 @@ export default function EmergencyContact() {
     <PhoneScreen
       title="Emergency"
       left={<RoundButton icon="back" href={href("03-2")} aria-label="Back" />}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-3"
       footer={
         <>

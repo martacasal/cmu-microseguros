@@ -9,7 +9,7 @@ export default function Quote() {
     <PhoneScreen
       left={<RoundButton icon="back" href={href("05-1")} aria-label="Back" />}
       title="Quote"
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-3"
       footer={
         <>

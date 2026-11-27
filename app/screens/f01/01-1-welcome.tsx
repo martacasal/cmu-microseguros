@@ -2,6 +2,7 @@ import {
   CtaButton,
   ScreenTitle,
   LinkOrButton,
+  PulseLogo,
   PulseWaves,
   TextButton,
 } from "@/components/pulse"
@@ -38,7 +39,8 @@ export default function Welcome() {
       <span className="w-fit rounded-2xl bg-surface-card px-3 py-[7px] text-[12px] font-semibold text-text-primary">
         COVER ON DEMAND
       </span>
-      <div className="mt-[50px]">
+      <PulseLogo className="mt-2 self-start text-text-inverse" />
+      <div>
         <ScreenTitle size={52} tone="inverse" muted="when you train.">
           Insurance only
         </ScreenTitle>

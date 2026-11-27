@@ -41,7 +41,7 @@ export default function Welcome() {
       <ScreenTitle size={52} tone="inverse" muted="when you train.">
         Insurance only
       </ScreenTitle>
-      <div style={{ transform: "translateY(100px)" }}>
+      <div style={{ transform: "translateY(50px)" }}>
         <PulseWaves height={220} />
       </div>
     </PhoneScreen>

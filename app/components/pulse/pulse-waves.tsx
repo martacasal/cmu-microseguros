@@ -35,8 +35,8 @@ function PulseWaves({
 }) {
   const id = React.useId()
   const strands = [
-    { offset: 0, opacity: 1 },
-    { offset: Math.PI, opacity: 0.65 },
+    { offset: 0, opacity: 1, color: "#fff" },
+    { offset: Math.PI, opacity: 1, color: "#ffd84d" },
   ]
   return (
     <div
@@ -46,23 +46,26 @@ function PulseWaves({
     >
       <svg viewBox={`0 0 ${W} 72`} className="h-full w-full" fill="none">
         <defs>
-          <linearGradient
-            id={id}
-            gradientUnits="userSpaceOnUse"
-            x1="4"
-            x2={W - 4}
-            y1="0"
-            y2="0"
-          >
-            <stop offset="0" stopColor="#fff" stopOpacity="1" />
-            <stop offset="1" stopColor="#fff" stopOpacity="0" />
-          </linearGradient>
+          {strands.map((st, i) => (
+            <linearGradient
+              key={i}
+              id={`${id}-${i}`}
+              gradientUnits="userSpaceOnUse"
+              x1="4"
+              x2={W - 4}
+              y1="0"
+              y2="0"
+            >
+              <stop offset="0" stopColor={st.color} stopOpacity="1" />
+              <stop offset="1" stopColor={st.color} stopOpacity="0" />
+            </linearGradient>
+          ))}
         </defs>
         {strands.map((st, i) => (
           <path
             key={i}
             d={strand(st.offset)}
-            stroke={`url(#${id})`}
+            stroke={`url(#${id}-${i})`}
             strokeOpacity={st.opacity}
             strokeWidth="3.2"
             strokeLinecap="round"

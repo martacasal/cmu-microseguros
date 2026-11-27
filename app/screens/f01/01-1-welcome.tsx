@@ -1,4 +1,10 @@
-import { BarChart, CtaButton, ScreenTitle, Seal, TextButton } from "@/components/pulse"
+import {
+  BarChart,
+  CtaButton,
+  ScreenTitle,
+  Seal,
+  TextButton,
+} from "@/components/pulse"
 import { PhoneScreen } from "@/components/screen/phone-screen"
 import { href } from "../types"
 
@@ -14,7 +20,10 @@ export default function Welcome() {
           <CtaButton variant="inverse" href={href("01-2")}>
             See how much it costs
           </CtaButton>
-          <TextButton href={href("01-3")} className="text-text-inverse hover:bg-surface-inverse-raised">
+          <TextButton
+            href={href("01-3")}
+            className="text-text-inverse hover:bg-surface-inverse-raised"
+          >
             I already have an account
           </TextButton>
           <Seal variant="inverse" />
@@ -28,12 +37,17 @@ export default function Welcome() {
         Insurance only
       </ScreenTitle>
       <p className="text-[15px] leading-[1.32] text-text-inverse-muted">
-        Turn it on before you train, off when you&apos;re done. Pay only for the time you use.
+        Turn it on before you train, off when you&apos;re done. Pay only for the
+        time you use.
       </p>
       <BarChart
         tone="accent"
-        bars={[23, 23, 70, 70, 70, 23, 23, 23, 86, 86, 23, 23, 55, 55]}
-        active={[11, 12, 13]}
+        scroll
+        bars={[
+          23, 23, 70, 70, 70, 23, 23, 23, 86, 86, 23, 23, 55, 55, 23, 86, 86,
+          55, 23, 70, 70, 23, 23, 55,
+        ]}
+        active={[3, 9, 13, 16, 21]}
       />
     </PhoneScreen>
   )

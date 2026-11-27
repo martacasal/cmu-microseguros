@@ -11,7 +11,7 @@ const SAMPLES = 72
 const STRANDS = [
   { sign: 1, opacity: 1, color: "#fff" },
   { sign: -1, opacity: 1, color: "#ffd84d" },
-  { sign: 0, opacity: 1, color: "#001a7a" },
+  { sign: 0, opacity: 1, color: "#002ec6" },
 ]
 
 function strand(sign: number, phase: number) {

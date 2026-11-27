@@ -10,8 +10,8 @@ const SAMPLES = 72
 // the half-gap between them passes through zero, so they cross and pirouette like a dancer's ribbons.
 const STRANDS = [
   { sign: 1, opacity: 1, color: "#fff" },
-  { sign: -1, opacity: 1, color: "#ffd84d" },
   { sign: 0, opacity: 1, color: "#002ec6" },
+  { sign: -1, opacity: 1, color: "#ffd84d" },
 ]
 
 function strand(sign: number, phase: number) {

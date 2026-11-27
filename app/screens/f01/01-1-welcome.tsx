@@ -15,7 +15,7 @@ export default function Welcome() {
     <PhoneScreen
       tone="accent"
       header={false}
-      contentClassName="pt-[52px]"
+      contentClassName="pt-11"
       footer={
         <>
           <CtaButton variant="inverse" href={href("01-2")}>
@@ -37,16 +37,16 @@ export default function Welcome() {
       }
     >
       <div className="flex flex-col items-start gap-4">
+        <PulseLogo className="h-16 text-text-inverse" />
         <span className="w-fit rounded-2xl bg-surface-card px-3 py-[7px] text-[12px] font-semibold text-text-primary">
           COVER ON DEMAND
         </span>
-        <PulseLogo className="h-12 text-text-inverse" />
         <ScreenTitle size={52} tone="inverse" muted="when you train.">
           Insurance only
         </ScreenTitle>
       </div>
       <div className="flex min-h-0 flex-1 items-center">
-        <PulseWaves height={220} />
+        <PulseWaves height={170} />
       </div>
     </PhoneScreen>
   )

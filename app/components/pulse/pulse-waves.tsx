@@ -55,7 +55,7 @@ function PulseWaves({
       aria-hidden
     >
       <svg
-        viewBox={`4 0 ${W - 8} 72`}
+        viewBox={`4 8 ${W - 8} 56`}
         className="h-full w-full overflow-visible"
         fill="none"
       >

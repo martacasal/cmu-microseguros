@@ -45,6 +45,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
 import { Progress } from "@/components/ui/progress"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
@@ -345,6 +355,27 @@ export default function Page() {
                 <Button>End cover</Button>
               </DialogContent>
             </Dialog>
+            <Drawer showSwipeHandle swipeDirection="down">
+              <DrawerTrigger render={<Button variant="outline" />}>
+                Open bottom drawer
+              </DrawerTrigger>
+              <DrawerContent className="[--drawer-inset:0px] rounded-b-none">
+                <DrawerHeader>
+                  <DrawerTitle>End cover now?</DrawerTitle>
+                  <DrawerDescription>
+                    You only pay for the time used.
+                  </DrawerDescription>
+                </DrawerHeader>
+                <DrawerFooter className="pt-8">
+                  <DrawerClose render={<Button variant="brand" />}>
+                    End cover
+                  </DrawerClose>
+                  <DrawerClose render={<Button variant="outline" />}>
+                    Keep cover
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
           </div>
         </div>
       </Section>

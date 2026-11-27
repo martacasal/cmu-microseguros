@@ -25,7 +25,8 @@ function BottomNav({
   const side = (active: boolean) =>
     cn(
       "flex size-11 items-center justify-center rounded-full transition-colors",
-      active ? "bg-surface-card text-text-primary" : "bg-surface-inverse-raised text-text-inverse-muted hover:text-text-inverse"
+      "bg-white",
+      active ? "text-navy-950" : "text-navy-700 hover:text-navy-950"
     )
   return (
     <nav

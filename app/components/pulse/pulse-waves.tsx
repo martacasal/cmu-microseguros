@@ -3,41 +3,29 @@ import { cn } from "cn"
 
 const W = 120
 const MID = 36
-const FRAMES = 24
-const SAMPLES = 64
+const FRAMES = 60
+const SAMPLES = 72
 
-// Each strand blends several waves with irregular spatial frequencies and different time harmonics,
-// so the two strands drift in and out of each other instead of mirroring a single sine.
+// Two ribbons share a flowing centre line (arms swelling and sweeping) and twist around it:
+// the half-gap between them passes through zero, so they cross and pirouette like a dancer's ribbons.
 const STRANDS = [
-  {
-    opacity: 1,
-    color: "#fff",
-    c: [
-      [1.7, 1, 0.9, 0],
-      [3.3, -2, 0.45, 1.3],
-      [5.1, 3, 0.2, 2.1],
-    ],
-  },
-  {
-    opacity: 1,
-    color: "#ffd84d",
-    c: [
-      [2.1, 1, 0.85, 2.6],
-      [3.9, 2, 0.5, 0.4],
-      [6.3, -3, 0.22, 4.2],
-    ],
-  },
+  { sign: 1, opacity: 1, color: "#fff" },
+  { sign: -1, opacity: 1, color: "#ffd84d" },
 ]
 
-function strand(c: number[][], phase: number) {
+function strand(sign: number, phase: number) {
   const pts: string[] = []
   for (let i = 0; i <= SAMPLES; i++) {
     const t = i / SAMPLES
-    const env = Math.sin(Math.PI * Math.min(1, t ** 0.85)) ** 0.9
-    let v = 0
-    for (const [k, h, amp, off] of c)
-      v += amp * Math.sin(t * Math.PI * k + h * phase + off)
-    const y = MID + 23 * env * v
+    const env = Math.sin(Math.PI * t) ** 0.9
+    const lift = 0.7 + 0.3 * Math.sin(phase + 0.6)
+    const centre =
+      9 * Math.sin(t * Math.PI * 1.5 - phase + 0.4) +
+      3 * Math.sin(t * Math.PI * 2.7 - 2 * phase + 1.7)
+    const twirl =
+      13 * Math.cos(t * Math.PI * 2.2 - phase) +
+      3 * Math.sin(t * Math.PI * 3.4 + 2 * phase + 0.8)
+    const y = MID + env * (lift * centre + sign * twirl)
     pts.push(
       `${i === 0 ? "M" : "L"}${(4 + t * (W - 8)).toFixed(2)},${y.toFixed(2)}`
     )
@@ -45,9 +33,9 @@ function strand(c: number[][], phase: number) {
   return pts.join(" ")
 }
 
-const frames = (c: number[][]) =>
+const frames = (sign: number) =>
   Array.from({ length: FRAMES + 1 }, (_, f) =>
-    strand(c, (f / FRAMES) * Math.PI * 2)
+    strand(sign, (f / FRAMES) * Math.PI * 2)
   ).join(";")
 
 /** Pulse wave motif (01.1 Welcome): two waves that stay in place and intertwirl. */
@@ -90,7 +78,7 @@ function PulseWaves({
         {strands.map((st, i) => (
           <path
             key={i}
-            d={strand(st.c, 0)}
+            d={strand(st.sign, 0)}
             stroke={`url(#${id}-${i})`}
             strokeOpacity={st.opacity}
             strokeWidth="3.2"
@@ -99,8 +87,8 @@ function PulseWaves({
           >
             <animate
               attributeName="d"
-              values={frames(st.c)}
-              dur="7s"
+              values={frames(st.sign)}
+              dur="14s"
               repeatCount="indefinite"
             />
           </path>

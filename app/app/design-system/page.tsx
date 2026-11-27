@@ -82,9 +82,9 @@ const swatches = [
   ["red-600", "bg-red-600"],
   ["red-200", "bg-red-200"],
   ["violet-500", "bg-violet-500"],
-  ["coral-500", "bg-coral-500"],
-  ["coral-600", "bg-coral-600"],
-  ["coral-700", "bg-coral-700"],
+  ["indigo-500", "bg-indigo-500"],
+  ["indigo-600", "bg-indigo-600"],
+  ["indigo-700", "bg-indigo-700"],
 ] as const
 
 const typeScale = [
@@ -158,6 +158,7 @@ export default function Page() {
           <CtaButton price="€X.XX">Continue</CtaButton>
           <CtaButton variant="brand" price="€X.XX">Continue</CtaButton>
           <CtaButton variant="danger" price="€X.XX">Continue</CtaButton>
+          <CtaButton variant="end" price="€X.XX">End now</CtaButton>
           <CtaButton disabled price="€X.XX">Continue</CtaButton>
         </div>
       </Section>
@@ -197,6 +198,7 @@ export default function Page() {
             <Button variant="brand">Brand</Button>
             <Button variant="accent">Accent</Button>
             <Button variant="destructive">Destructive</Button>
+            <Button variant="end">End</Button>
             <Button variant="secondary">Secondary</Button>
             <Button variant="link">Link</Button>
           </div>
@@ -223,7 +225,7 @@ export default function Page() {
             <RoundButton variant="muted" icon="back" aria-label="Back" />
             <RoundButton variant="sos">SOS</RoundButton>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-10 pb-14">
             <BottomNav />
             <BottomNav tab="history" covered />
             <RoundButton variant="minus" aria-label="Less">−</RoundButton>
@@ -352,7 +354,7 @@ export default function Page() {
                   <DialogTitle>End cover now?</DialogTitle>
                   <DialogDescription>You only pay for the time used.</DialogDescription>
                 </DialogHeader>
-                <Button>End cover</Button>
+                <Button variant="end">End cover</Button>
               </DialogContent>
             </Dialog>
             <Drawer showSwipeHandle swipeDirection="down">
@@ -367,7 +369,7 @@ export default function Page() {
                   </DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter className="pt-8">
-                  <DrawerClose render={<Button variant="brand" />}>
+                  <DrawerClose render={<Button variant="end" />}>
                     End cover
                   </DrawerClose>
                   <DrawerClose render={<Button variant="outline" />}>

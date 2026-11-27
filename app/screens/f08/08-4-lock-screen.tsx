@@ -35,7 +35,7 @@ export default function LockScreen() {
 
       <Link href={href("08-1")} className="flex flex-col gap-1.5 rounded-[28px] bg-surface-brand p-[18px] transition-opacity hover:opacity-90">
         <p className={overline}>PULSE · LIVE ACTIVITY</p>
-        <p className="text-[40px] leading-[1.04] font-bold tracking-[-0.03em] text-coral-500 tabular-nums">52:14</p>
+        <p className="text-[40px] leading-[1.04] font-bold tracking-[-0.03em] text-indigo-500 tabular-nums">52:14</p>
         <p className="flex items-center gap-1.5 text-[14px] leading-[1.32] font-medium text-text-inverse-muted">
           <span className="size-2 rounded-full bg-periwinkle-200" />
           Covered · €X.XX so far · SOS in 1 tap

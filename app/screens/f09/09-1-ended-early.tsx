@@ -2,7 +2,7 @@ import { CtaButton, Icon, InfoCard, RoundButton, ScreenTitle, TextButton } from 
 import { PhoneScreen } from "@/components/screen/phone-screen"
 import { href } from "../types"
 
-/** 09.1 Ended early · Figma 254:3148 — receipt with paid/refunded bento and coral time-used bar. */
+/** 09.1 Ended early · Figma 254:3148 — receipt with paid/refunded bento and indigo time-used bar. */
 export default function EndedEarly() {
   return (
     <PhoneScreen

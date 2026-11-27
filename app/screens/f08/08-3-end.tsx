@@ -14,7 +14,7 @@ export default function End() {
         <p className="w-full text-[15px] leading-[1.32] text-text-secondary">
           Cover ends now. You only pay for the time used: €X.XX instead of €X.XX.
         </p>
-        <CtaButton href={href("09-1")} className="justify-center text-center">
+        <CtaButton variant="end" href={href("09-1")} className="justify-center text-center">
           Yes, end now
         </CtaButton>
         <TextButton href={href("08-1")}>Stay covered</TextButton>

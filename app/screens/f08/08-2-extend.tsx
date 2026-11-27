@@ -29,7 +29,7 @@ export default function Extend() {
           <DataRow label="New end time" value={endLabel} />
           <DataRow label="Extra cost" value="+ €X.XX" />
         </div>
-        <CtaButton href={href("08-1")} price="+ €X.XX">
+        <CtaButton variant="accent" href={href("08-1")} price="+ €X.XX">
           Confirm
         </CtaButton>
         <TextButton href={href("08-1")}>Cancel</TextButton>

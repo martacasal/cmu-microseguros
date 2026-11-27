@@ -4,7 +4,7 @@ import * as React from "react"
 import { ArrowRightIcon, CheckIcon } from "lucide-react"
 import { cn } from "cn"
 
-/** B2/Slide to turn on · drag the coral knob to the end to confirm; becomes "Cover on". */
+/** B2/Slide to turn on · drag the indigo knob to the end to confirm; becomes "Cover on". */
 function SlideToTurnOn({
   label = "Slide to turn on",
   doneLabel = "Cover on",

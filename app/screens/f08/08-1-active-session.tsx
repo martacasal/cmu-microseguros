@@ -6,7 +6,7 @@ import { PhoneScreen } from "@/components/screen/phone-screen"
 import { href } from "../types"
 import { EXTEND_OPTIONS, SessionTopBar, SmallTitle, TimerRing } from "./_parts"
 
-/** 08.1 Active session · Figma 254:3027 — covered pill (periwinkle), coral timer ring, red SOS. */
+/** 08.1 Active session · Figma 254:3027 — covered pill (periwinkle), indigo timer ring, red SOS. */
 export default function ActiveSession() {
   const [extend, setExtend] = React.useState<string>("+30 min")
   return (
@@ -26,13 +26,13 @@ export default function ActiveSession() {
         <div className="flex gap-2">
           <LinkOrButton
             href={href("08-2")}
-            className="flex h-14 flex-1 items-center justify-center rounded-full bg-surface-brand text-[16px] font-semibold text-text-inverse transition-colors hover:bg-surface-brand/90"
+            className="flex h-14 flex-1 items-center justify-center rounded-full bg-indigo-500 text-[16px] font-semibold text-text-on-accent transition-colors hover:bg-indigo-600"
           >
             Extend
           </LinkOrButton>
           <LinkOrButton
             href={href("08-3")}
-            className="flex h-14 flex-1 items-center justify-center rounded-full bg-surface-muted text-[16px] font-semibold text-text-primary transition-colors hover:bg-surface-subtle"
+            className="flex h-14 flex-1 items-center justify-center rounded-full bg-surface-warning text-[16px] font-semibold text-navy-950 transition-colors hover:bg-surface-warning/85"
           >
             End
           </LinkOrButton>

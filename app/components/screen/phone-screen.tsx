@@ -7,12 +7,13 @@ import { cn } from "cn"
  * with a 24px gutter · footer pinned 30px from the bottom.
  * On a phone it fills the viewport; on wider screens it is centred as a device.
  */
-type Tone = "default" | "inverse" | "brand" | "info"
+type Tone = "default" | "inverse" | "brand" | "accent" | "info"
 
 const toneBg: Record<Tone, string> = {
   default: "bg-surface-page text-text-primary",
   inverse: "bg-surface-inverse text-text-inverse",
   brand: "bg-surface-brand text-text-inverse",
+  accent: "bg-surface-accent text-text-inverse",
   info: "bg-surface-info text-text-primary",
 }
 
@@ -42,7 +43,7 @@ function PhoneScreen({
   className?: string
   contentClassName?: string
 }) {
-  const dark = tone === "inverse" || tone === "brand"
+  const dark = tone === "inverse" || tone === "brand" || tone === "accent"
   return (
     <div
       data-tone={tone}
@@ -71,7 +72,7 @@ function PhoneScreen({
         {children}
       </main>
       {footer && <footer className="flex shrink-0 flex-col gap-2 px-6 pb-[30px]">{footer}</footer>}
-      {nav && <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center *:pointer-events-auto">{nav}</div>}
+      {nav && <div className="pointer-events-none absolute inset-x-0 bottom-[54px] flex justify-center *:pointer-events-auto">{nav}</div>}
     </div>
   )
 }

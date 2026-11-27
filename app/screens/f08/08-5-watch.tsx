@@ -9,7 +9,7 @@ export default function Watch() {
       <div aria-hidden className="h-[30px] shrink-0" />
       <div className="flex flex-col gap-1.5 rounded-[28px] bg-surface-brand p-[18px] text-text-inverse">
         <p className="text-[11px] leading-[1.32] font-semibold tracking-[0.06em] text-text-inverse-muted">PULSE · WATCH</p>
-        <p className="text-[72px] leading-[1.04] font-bold tracking-[-0.03em] text-coral-500 tabular-nums">52:14</p>
+        <p className="text-[72px] leading-[1.04] font-bold tracking-[-0.03em] text-indigo-500 tabular-nums">52:14</p>
         <p className="text-[14px] leading-[1.32] font-medium text-text-inverse-muted">Covered until 19:20 · hold for SOS</p>
       </div>
       <div className="flex flex-col gap-1.5 rounded-[28px] bg-surface-warning p-[18px] leading-[1.32]">

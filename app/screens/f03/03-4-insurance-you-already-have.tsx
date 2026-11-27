@@ -8,7 +8,7 @@ export default function InsuranceYouAlreadyHave() {
     <PhoneScreen
       title="Your insurance"
       left={<RoundButton icon="back" href={href("03-3")} aria-label="Back" />}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-2.5"
       footer={
         <CtaButton href={href("04-1")} className="text-center">

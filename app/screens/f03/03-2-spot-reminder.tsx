@@ -9,7 +9,7 @@ export default function SpotReminder() {
     <PhoneScreen
       title="Reminders"
       left={<RoundButton icon="back" href={href("03-1")} aria-label="Back" />}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       footer={
         <>
           <CtaButton href={href("03-3")} className="text-center">

@@ -34,7 +34,7 @@ export default function Calculating() {
   const secondsLeft = Math.max(1, Math.ceil(((STEPS.length - done) * TICK) / 1000))
 
   return (
-    <PhoneScreen title="Calculating" left={<span />} right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}>
+    <PhoneScreen title="Calculating" left={<span />} right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}>
       <ScreenTitle muted="your quote">Preparing</ScreenTitle>
       <p className="text-[15px] leading-[1.32] text-text-secondary">Football · 1h 20 · with gear</p>
       <div className="flex flex-col rounded-[28px] bg-surface-card px-5 pt-[18px] pb-3.5">

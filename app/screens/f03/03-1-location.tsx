@@ -9,7 +9,7 @@ export default function Location() {
     <PhoneScreen
       title="Location"
       left={<RoundButton icon="back" href={href("02-4")} aria-label="Back" />}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       footer={
         <>
           <CtaButton href={href("03-2")} className="text-center">

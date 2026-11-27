@@ -40,7 +40,7 @@ export default function SignUpAtPayment() {
     <PhoneScreen
       title="Quote"
       left={<RoundButton icon="back" href={href("01-2")} aria-label="Back" />}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       footer={
         !open && (
           <CtaButton type="button" onClick={() => setOpen(true)} className="text-center">

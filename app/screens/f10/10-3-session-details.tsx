@@ -9,7 +9,7 @@ export default function SessionDetails() {
     <PhoneScreen
       left={<RoundButton icon="back" href={href("10-1")} aria-label="Back" />}
       title={<HeaderTitle>Session</HeaderTitle>}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-3"
       footer={
         <>

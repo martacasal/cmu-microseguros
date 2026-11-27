@@ -9,7 +9,7 @@ export default function WhyThisPrice() {
     <PhoneScreen
       left={<RoundButton icon="back" href={href("06-1")} aria-label="Back" />}
       title="Why this price"
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
     >
       <ScreenTitle muted="this price?">Why</ScreenTitle>
       <PriceBars

@@ -9,7 +9,7 @@ export default function ConfirmEmail() {
     <PhoneScreen
       title="1 of 3"
       left={<RoundButton icon="back" href={href("02-1")} aria-label="Back" />}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       footer={
         <CtaButton href={href("02-3")} className="text-center">
           Confirm

@@ -9,7 +9,7 @@ export default function WhatsCovered() {
     <PhoneScreen
       left={<RoundButton icon="back" href={href("06-1")} aria-label="Back" />}
       title="What's covered"
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-2.5"
       footer={<TextButton href={href("06-4")}>Read full terms (PDF)</TextButton>}
     >

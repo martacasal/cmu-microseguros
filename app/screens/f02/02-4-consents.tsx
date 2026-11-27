@@ -21,7 +21,7 @@ export default function Consents() {
     <PhoneScreen
       title="3 of 3"
       left={<RoundButton icon="back" href={href("02-3")} aria-label="Back" />}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-2.5"
       footer={
         <CtaButton href={href("03-1")} disabled={!ready} className="text-center">

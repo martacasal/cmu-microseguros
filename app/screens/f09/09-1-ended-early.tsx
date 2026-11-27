@@ -7,7 +7,7 @@ export default function EndedEarly() {
   return (
     <PhoneScreen
       title={<span className="font-medium">Receipt</span>}
-      right={<RoundButton icon="help" href={href("11-1")} aria-label="Help" />}
+      right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       footer={
         <>
           <CtaButton href={href("04-1")} className="justify-center text-center">

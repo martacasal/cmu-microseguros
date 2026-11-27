@@ -148,6 +148,7 @@ export function ChatScreen({
   }, [sent.length])
   return (
     <PhoneScreen
+      pinFooter
       left={left}
       right={right}
       title={title}

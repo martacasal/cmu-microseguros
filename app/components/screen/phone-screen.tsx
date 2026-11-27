@@ -2,12 +2,17 @@ import * as React from "react"
 import { cn } from "cn"
 
 /**
- * One 390×844 phone frame from the PULSE Figma (Section 1, 254:4964).
- * Layout: status bar · header (44px buttons at top 52, centred title) · content from top 116
- * with a 24px gutter · footer pinned 30px from the bottom.
- * On a phone it fills the viewport; on wider screens it is centred as a device.
+ * A PULSE screen, laid out from the 390×844 Figma frames (Section 1, 254:4964) and made responsive:
+ * - mobile (< 768): as in Figma — status bar, header, content (24px gutter), footer pinned to the
+ *   bottom, floating bottom nav.
+ * - tablet (768–1023): full width, no fake status bar; header, content and footer share a centred
+ *   640px column; the footer follows the content; floating bottom nav.
+ * - desktop (≥ 1024): same column at 720px (880px from 1280); the nav becomes a vertical rail on the left.
  */
 type Tone = "default" | "inverse" | "brand" | "accent" | "info"
+
+/** Shared centred column: full width with a 24px gutter on mobile, 640px on tablet, 720px on desktop. */
+const COLUMN = "mx-auto w-full px-6 md:max-w-[640px] lg:max-w-[720px] xl:max-w-[880px]"
 
 const toneBg: Record<Tone, string> = {
   default: "bg-surface-page text-text-primary",
@@ -27,6 +32,7 @@ function PhoneScreen({
   nav,
   statusBar = true,
   header = true,
+  pinFooter = false,
   className,
   contentClassName,
 }: {
@@ -40,6 +46,8 @@ function PhoneScreen({
   nav?: React.ReactNode
   statusBar?: boolean
   header?: boolean
+  /** keep the footer at the bottom of the window on every size (chat composers) */
+  pinFooter?: boolean
   className?: string
   contentClassName?: string
 }) {
@@ -48,19 +56,19 @@ function PhoneScreen({
     <div
       data-tone={tone}
       className={cn(
-        "relative mx-auto flex min-h-svh w-full max-w-[390px] flex-col overflow-hidden sm:my-8 sm:min-h-[844px] sm:rounded-[44px] sm:shadow-[0_24px_60px_-20px_rgb(19_24_38/0.35)]",
+        "relative flex min-h-svh w-full flex-col overflow-x-clip",
         toneBg[tone],
         className
       )}
     >
       {statusBar && (
-        <div className="flex h-[52px] shrink-0 items-start justify-between px-[30px] pt-4 text-[15px] leading-[1.32] font-semibold">
+        <div className="flex h-[52px] shrink-0 items-start justify-between px-[30px] pt-4 text-[15px] leading-[1.32] font-semibold md:hidden">
           <span>9:41</span>
           <span className="pt-[3px] text-[11px] font-medium">●●● ▮</span>
         </div>
       )}
       {header && (
-        <header className="grid h-11 shrink-0 grid-cols-[44px_1fr_44px] items-center gap-3 px-6">
+        <header className={cn(COLUMN, "grid h-11 shrink-0 grid-cols-[44px_1fr_44px] items-center gap-3 md:mt-8")}>
           <div>{left}</div>
           <div className={cn("truncate text-center text-[15px] font-medium", dark ? "text-text-inverse" : "text-text-primary")}>
             {title}
@@ -68,11 +76,23 @@ function PhoneScreen({
           <div className="flex justify-end">{right}</div>
         </header>
       )}
-      <main className={cn("flex flex-1 flex-col gap-3.5 overflow-y-auto px-6 pt-5", nav ? "pb-28" : "pb-6", contentClassName)}>
+      <main
+        className={cn(
+          COLUMN,
+          "flex flex-1 flex-col gap-3.5 pt-5 md:pt-8",
+          !pinFooter && "md:flex-none",
+          nav ? "pb-36 lg:pb-10" : "pb-6 md:pb-8",
+          contentClassName
+        )}
+      >
         {children}
       </main>
-      {footer && <footer className="flex shrink-0 flex-col gap-2 px-6 pb-[30px]">{footer}</footer>}
-      {nav && <div className="pointer-events-none absolute inset-x-0 bottom-[54px] flex justify-center *:pointer-events-auto">{nav}</div>}
+      {footer && <footer className={cn(COLUMN, "flex shrink-0 flex-col gap-2 pb-[30px] md:pb-12")}>{footer}</footer>}
+      {nav && (
+        <div className="pointer-events-none fixed inset-x-0 bottom-[54px] z-30 flex justify-center *:pointer-events-auto lg:inset-x-auto lg:top-1/2 lg:bottom-auto lg:left-8 lg:-translate-y-1/2">
+          {nav}
+        </div>
+      )}
     </div>
   )
 }

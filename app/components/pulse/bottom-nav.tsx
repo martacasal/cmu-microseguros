@@ -6,6 +6,7 @@ import { Icon } from "./icon"
 /**
  * v2/Nav · floating navy bar: Home · Turn on (shield ✓, or shield ✕ when covered) · History.
  * The main action is a 92px button raised above the bar; an empty slot keeps it clear of the side buttons.
+ * On desktop (lg) the bar turns vertical and sits as a rail on the left (see PhoneScreen).
  */
 function BottomNav({
   tab = "home",
@@ -31,12 +32,12 @@ function BottomNav({
   return (
     <nav
       aria-label="Main"
-      className={cn("relative flex items-center rounded-[36px] bg-surface-inverse px-2 py-[7px]", className)}
+      className={cn("relative flex items-center rounded-[36px] bg-surface-inverse px-2 py-[7px] lg:flex-col lg:px-[7px] lg:py-2", className)}
     >
       <Link href={homeHref} aria-label="Home" aria-current={tab === "home" ? "page" : undefined} className={side(tab === "home")}>
         <Icon name="home" />
       </Link>
-      <span aria-hidden className="w-[116px] shrink-0" />
+      <span aria-hidden className="w-[116px] shrink-0 lg:h-[116px] lg:w-auto" />
       <Link
         href={actionHref}
         aria-label={covered ? "Stop cover" : "Turn on cover"}

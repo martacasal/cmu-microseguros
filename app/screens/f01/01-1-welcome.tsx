@@ -1,8 +1,8 @@
 import {
-  BarChart,
   CtaButton,
   ScreenTitle,
   LinkOrButton,
+  PulseWaves,
   TextButton,
 } from "@/components/pulse"
 import { PhoneScreen } from "@/components/screen/phone-screen"
@@ -41,15 +41,7 @@ export default function Welcome() {
       <ScreenTitle size={52} tone="inverse" muted="when you train.">
         Insurance only
       </ScreenTitle>
-      <BarChart
-        tone="accent"
-        scroll
-        bars={[
-          23, 23, 70, 70, 70, 23, 23, 23, 86, 86, 23, 23, 55, 55, 23, 86, 86,
-          55, 23, 70, 70, 23, 23, 55,
-        ]}
-        active={[2, 3, 4, 8, 9, 14, 15, 20, 21, 22]}
-      />
+      <PulseWaves height={140} />
     </PhoneScreen>
   )
 }

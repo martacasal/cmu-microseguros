@@ -31,7 +31,7 @@ export default function GetHelp() {
       <div
         role="dialog"
         aria-label="Get help"
-        className="absolute inset-x-0 bottom-0 z-20 flex flex-col items-center gap-3 rounded-t-[32px] bg-surface-page px-6 pt-3 pb-[34px]"
+        className="absolute inset-x-0 bottom-0 z-20 flex flex-col items-center gap-3 rounded-t-[32px] bg-surface-page px-6 pt-3 pb-[34px] md:inset-x-auto md:bottom-8 md:left-1/2 md:w-[calc(100%-4rem)] md:max-w-[560px] md:-translate-x-1/2 md:rounded-[32px] md:px-8 md:pb-8 md:shadow-xl"
       >
         <span className="h-[5px] w-10 rounded-[3px] bg-border-subtle" />
         <div className="w-full">

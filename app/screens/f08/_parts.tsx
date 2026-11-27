@@ -74,7 +74,7 @@ export function BottomSheet({ children }: { children: React.ReactNode }) {
       <div aria-hidden className="absolute inset-0 bg-navy-950/50" />
       <div
         role="dialog"
-        className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 rounded-t-[32px] bg-surface-page px-6 pt-3 pb-[34px]"
+        className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 rounded-t-[32px] bg-surface-page px-6 pt-3 pb-[34px] md:inset-x-auto md:bottom-8 md:left-1/2 md:w-[calc(100%-4rem)] md:max-w-[560px] md:-translate-x-1/2 md:rounded-[32px] md:px-8 md:pb-8 md:shadow-xl"
       >
         <span aria-hidden className="h-[5px] w-10 rounded-[3px] bg-border-subtle" />
         {children}

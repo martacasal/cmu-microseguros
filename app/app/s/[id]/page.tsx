@@ -18,8 +18,6 @@ export default async function ScreenPage(props: PageProps<"/s/[id]">) {
   if (!screen) notFound()
   const { Component } = screen
   return (
-    <div className="min-h-svh sm:bg-surface-muted sm:py-2">
-      <Component />
-    </div>
+    <Component />
   )
 }

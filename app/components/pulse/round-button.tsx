@@ -1,37 +1,42 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
+import { Icon, type IconName } from "./icon"
+import { LinkOrButton, type LinkOrButtonProps } from "./link-or-button"
 
-/** B2/Round button · 44px circular icon button (back, close, help, profile, SOS). */
+/** v2/Botão redondo · 44px circle (back, close, help, profile) and 56px SOS. */
 const roundButtonVariants = cva(
-  "inline-flex size-11 shrink-0 items-center justify-center rounded-full outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/40 disabled:opacity-50 [&_svg]:size-5",
+  "inline-flex shrink-0 items-center justify-center rounded-full outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/40 disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-surface-card text-text-primary hover:bg-surface-subtle",
-        muted: "bg-surface-muted text-text-primary hover:bg-[color-mix(in_oklch,var(--surface-muted),black_5%)]",
-        sos: "bg-surface-danger type-label text-text-inverse hover:bg-red-700",
-        minus: "bg-surface-muted text-text-primary hover:bg-[color-mix(in_oklch,var(--surface-muted),black_5%)]",
-        plus: "bg-surface-accent text-text-on-accent hover:bg-coral-600",
+        default: "size-11 bg-surface-card text-text-primary hover:bg-surface-subtle",
+        muted: "size-11 bg-surface-muted text-text-primary hover:bg-[color-mix(in_oklch,var(--surface-muted),black_5%)]",
+        inverse: "size-11 bg-surface-inverse-raised text-text-inverse hover:bg-navy-700",
+        sos: "size-14 bg-surface-danger text-[14px] font-bold text-text-inverse hover:bg-red-700",
+        minus: "size-12 bg-surface-muted text-[22px] text-text-primary hover:bg-[color-mix(in_oklch,var(--surface-muted),black_5%)]",
+        plus: "size-12 bg-surface-accent text-[22px] text-text-on-accent hover:bg-coral-600",
       },
-      size: { default: "size-11", lg: "size-12" },
     },
-    defaultVariants: { variant: "default", size: "default" },
+    defaultVariants: { variant: "default" },
   }
 )
 
 function RoundButton({
   className,
   variant,
-  size,
+  icon,
+  children,
   ...props
-}: React.ComponentProps<"button"> & VariantProps<typeof roundButtonVariants>) {
+}: LinkOrButtonProps & VariantProps<typeof roundButtonVariants> & { icon?: IconName }) {
   return (
-    <button
+    <LinkOrButton
       data-slot="round-button"
-      className={cn(roundButtonVariants({ variant, size }), className)}
+      className={cn(roundButtonVariants({ variant }), className)}
       {...props}
-    />
+    >
+      {icon ? <Icon name={icon} /> : children}
+    </LinkOrButton>
   )
 }
 

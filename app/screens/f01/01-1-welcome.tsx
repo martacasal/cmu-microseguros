@@ -6,7 +6,7 @@ import { href } from "../types"
 export default function Welcome() {
   return (
     <PhoneScreen
-      tone="inverse"
+      tone="accent"
       header={false}
       contentClassName="pt-[52px]"
       footer={
@@ -31,7 +31,7 @@ export default function Welcome() {
         Turn it on before you train, off when you&apos;re done. Pay only for the time you use.
       </p>
       <BarChart
-        tone="inverse"
+        tone="accent"
         bars={[23, 23, 70, 70, 70, 23, 23, 23, 86, 86, 23, 23, 55, 55]}
         active={[11, 12, 13]}
       />

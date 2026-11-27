@@ -12,21 +12,29 @@ function BarChart({
   bars: number[]
   active?: number[]
   height?: number
-  tone?: "default" | "inverse"
+  tone?: "default" | "inverse" | "accent"
   className?: string
 }) {
   return (
-    <div className={cn("flex w-full items-end gap-2", className)} style={{ height }} aria-hidden>
+    <div
+      className={cn("flex w-full items-end gap-2", className)}
+      style={{ height }}
+      aria-hidden
+    >
       {bars.map((h, i) => (
         <span
           key={i}
           className={cn(
             "flex-1 rounded-full",
             active.includes(i)
-              ? "bg-surface-accent"
-              : tone === "inverse"
-                ? "bg-surface-inverse-raised"
-                : "bg-surface-muted"
+              ? tone === "accent"
+                ? "bg-surface-warning"
+                : "bg-surface-accent"
+              : tone === "accent"
+                ? "bg-white/20"
+                : tone === "inverse"
+                  ? "bg-surface-inverse-raised"
+                  : "bg-surface-muted"
           )}
           style={{ height: h }}
         />

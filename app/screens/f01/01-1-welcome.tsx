@@ -41,7 +41,7 @@ export default function Welcome() {
       <ScreenTitle size={52} tone="inverse" muted="when you train.">
         Insurance only
       </ScreenTitle>
-      <PulseWaves height={220} />
+      <PulseWaves height={220} className="translate-y-[100px]" />
     </PhoneScreen>
   )
 }

@@ -158,6 +158,7 @@ export default function Page() {
           <CtaButton price="€X.XX">Continue</CtaButton>
           <CtaButton variant="brand" price="€X.XX">Continue</CtaButton>
           <CtaButton variant="danger" price="€X.XX">Continue</CtaButton>
+          <CtaButton variant="end" price="€X.XX">End now</CtaButton>
           <CtaButton disabled price="€X.XX">Continue</CtaButton>
         </div>
       </Section>
@@ -197,6 +198,7 @@ export default function Page() {
             <Button variant="brand">Brand</Button>
             <Button variant="accent">Accent</Button>
             <Button variant="destructive">Destructive</Button>
+            <Button variant="end">End</Button>
             <Button variant="secondary">Secondary</Button>
             <Button variant="link">Link</Button>
           </div>
@@ -352,7 +354,7 @@ export default function Page() {
                   <DialogTitle>End cover now?</DialogTitle>
                   <DialogDescription>You only pay for the time used.</DialogDescription>
                 </DialogHeader>
-                <Button>End cover</Button>
+                <Button variant="end">End cover</Button>
               </DialogContent>
             </Dialog>
             <Drawer showSwipeHandle swipeDirection="down">
@@ -367,7 +369,7 @@ export default function Page() {
                   </DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter className="pt-8">
-                  <DrawerClose render={<Button variant="brand" />}>
+                  <DrawerClose render={<Button variant="end" />}>
                     End cover
                   </DrawerClose>
                   <DrawerClose render={<Button variant="outline" />}>

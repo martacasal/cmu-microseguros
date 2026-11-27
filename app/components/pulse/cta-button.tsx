@@ -11,6 +11,8 @@ const ctaVariants = cva(
       variant: {
         default: "bg-surface-inverse text-text-inverse hover:bg-surface-inverse-raised",
         brand: "bg-surface-brand text-text-inverse hover:bg-surface-brand/90",
+        /** Ends something (end cover) · indigo-500 */
+        end: "bg-indigo-500 text-text-on-accent hover:bg-indigo-600",
         danger: "bg-surface-danger text-text-inverse hover:bg-red-700",
         /** On dark screens (Welcome): white pill, navy text */
         inverse: "justify-center bg-surface-card text-text-primary hover:bg-surface-subtle",

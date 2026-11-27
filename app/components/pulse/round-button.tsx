@@ -15,7 +15,7 @@ const roundButtonVariants = cva(
         inverse: "size-11 bg-surface-inverse-raised text-text-inverse hover:bg-navy-700",
         sos: "size-14 bg-surface-danger text-[14px] font-bold text-text-inverse hover:bg-red-700",
         minus: "size-12 bg-surface-muted text-[22px] text-text-primary hover:bg-[color-mix(in_oklch,var(--surface-muted),black_5%)]",
-        plus: "size-12 bg-surface-accent text-[22px] text-text-on-accent hover:bg-coral-600",
+        plus: "size-12 bg-surface-accent text-[22px] text-text-on-accent hover:bg-indigo-600",
       },
     },
     defaultVariants: { variant: "default" },

@@ -25,7 +25,7 @@ export function SessionTopBar() {
   )
 }
 
-/** "anel de tempo": track ring + coral progress arc from 12 o'clock clockwise, time centred. */
+/** "anel de tempo": track ring + indigo progress arc from 12 o'clock clockwise, time centred. */
 export function TimerRing({
   size,
   stroke,

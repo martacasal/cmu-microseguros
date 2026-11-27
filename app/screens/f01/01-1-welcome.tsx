@@ -2,7 +2,7 @@ import { BarChart, CtaButton, ScreenTitle, Seal, TextButton } from "@/components
 import { PhoneScreen } from "@/components/screen/phone-screen"
 import { href } from "../types"
 
-/** 01.1 Welcome · Figma 254:2145 — wireframe black → navy inverse surface, white bars → coral. */
+/** 01.1 Welcome · Figma 254:2145 — wireframe black → navy inverse surface, white bars → indigo. */
 export default function Welcome() {
   return (
     <PhoneScreen

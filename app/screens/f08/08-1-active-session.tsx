@@ -6,7 +6,7 @@ import { PhoneScreen } from "@/components/screen/phone-screen"
 import { href } from "../types"
 import { EXTEND_OPTIONS, SessionTopBar, SmallTitle, TimerRing } from "./_parts"
 
-/** 08.1 Active session · Figma 254:3027 — covered pill (periwinkle), coral timer ring, red SOS. */
+/** 08.1 Active session · Figma 254:3027 — covered pill (periwinkle), indigo timer ring, red SOS. */
 export default function ActiveSession() {
   const [extend, setExtend] = React.useState<string>("+30 min")
   return (

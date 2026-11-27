@@ -31,9 +31,9 @@
   --color-red-600: var(--red-600);
   --color-red-200: var(--red-200);
   --color-violet-500: var(--violet-500);
-  --color-coral-500: var(--coral-500);
-  --color-coral-600: var(--coral-600);
-  --color-coral-700: var(--coral-700);
+  --color-indigo-500: var(--indigo-500);
+  --color-indigo-600: var(--indigo-600);
+  --color-indigo-700: var(--indigo-700);
 
   /* ---- 2. PULSE semantic roles (bg-surface-*, text-text-*, etc.) ---- */
   --color-surface-page: var(--surface-page);
@@ -128,9 +128,9 @@
   --red-600: #d62f38;
   --red-200: #f5c9cb;
   --violet-500: #7b5ce6;
-  --coral-500: #002ec6;
-  --coral-600: #d1583d;
-  --coral-700: #c25138;
+  --indigo-500: #002ec6;
+  --indigo-600: #0026a2;
+  --indigo-700: #002396;
 
   /* PULSE semantic roles */
   --surface-page: var(--sand-100);
@@ -144,8 +144,8 @@
   --surface-warning: var(--yellow-400);
   --surface-danger: var(--red-600);
   --surface-danger-subtle: var(--red-200);
-  --surface-accent: var(--coral-500);
-  --surface-accent-strong: var(--coral-700);
+  --surface-accent: var(--indigo-500);
+  --surface-accent-strong: var(--indigo-700);
   --text-primary: var(--navy-950);
   --text-secondary: var(--gray-600);
   --text-secondary-on-info: var(--gray-700);
@@ -157,7 +157,7 @@
   --border-strong: var(--gray-500);
   --control-on: var(--navy-700);
   --control-off: var(--gray-500);
-  --progress-fill: var(--coral-600);
+  --progress-fill: var(--indigo-600);
   --progress-track: var(--sand-200);
   --status-covered: var(--violet-500);
 
@@ -180,7 +180,7 @@
   --border: var(--border-subtle);
   --input: var(--border-subtle);
   --ring: var(--navy-700);
-  --chart-1: var(--coral-600);
+  --chart-1: var(--indigo-600);
   --chart-2: var(--navy-700);
   --chart-3: var(--violet-500);
   --chart-4: var(--yellow-400);

@@ -38,7 +38,7 @@ export default function WaitingMbWay() {
       </div>
       <ScreenTitle muted="in the MB WAY app">Confirm</ScreenTitle>
       <InfoCard variant="brand" overline="Request expires in">
-        <span className="text-[56px] leading-[1.04] font-bold tracking-[-0.03em] text-coral-500 tabular-nums" aria-live="off">
+        <span className="text-[56px] leading-[1.04] font-bold tracking-[-0.03em] text-indigo-500 tabular-nums" aria-live="off">
           {fmt(left)}
         </span>
         <span className="text-[14px] leading-[1.32] font-medium text-text-inverse-muted">We sent a €X.XX request.</span>

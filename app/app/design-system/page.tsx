@@ -82,9 +82,9 @@ const swatches = [
   ["red-600", "bg-red-600"],
   ["red-200", "bg-red-200"],
   ["violet-500", "bg-violet-500"],
-  ["coral-500", "bg-coral-500"],
-  ["coral-600", "bg-coral-600"],
-  ["coral-700", "bg-coral-700"],
+  ["indigo-500", "bg-indigo-500"],
+  ["indigo-600", "bg-indigo-600"],
+  ["indigo-700", "bg-indigo-700"],
 ] as const
 
 const typeScale = [

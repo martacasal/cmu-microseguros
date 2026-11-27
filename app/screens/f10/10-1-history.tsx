@@ -9,7 +9,7 @@ import { List, ListItem } from "./_parts"
 const BARS = [20, 28, 21, 37.333, 20, 32.667, 44.333, 20, 25.667, 20, 39.667, 56]
 const FILTERS = ["All", "Sessions", "Claims"] as const
 
-/** 10.1 History · Figma 254:3198 — monthly bars (current month in coral), filters, sessions and claims. */
+/** 10.1 History · Figma 254:3198 — monthly bars (current month in indigo), filters, sessions and claims. */
 export default function History() {
   const [filter, setFilter] = React.useState<(typeof FILTERS)[number]>("All")
   const showClaims = filter !== "Sessions"

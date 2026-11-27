@@ -38,7 +38,7 @@ export default function HomeCovered() {
       <div className="flex gap-2">
         <Link
           href={href("08-2")}
-          className="flex h-14 flex-1 items-center justify-center rounded-full bg-surface-accent text-[16px] font-semibold text-text-on-accent transition-colors hover:bg-coral-600"
+          className="flex h-14 flex-1 items-center justify-center rounded-full bg-surface-accent text-[16px] font-semibold text-text-on-accent transition-colors hover:bg-indigo-600"
         >
           Extend
         </Link>

@@ -40,7 +40,7 @@ function BottomNav({
         href={actionHref}
         aria-label={covered ? "Active cover" : "Turn on cover"}
         className={cn(
-          "absolute -top-[26px] left-1/2 flex size-[76px] -translate-x-1/2 items-center justify-center rounded-full ring-[6px] ring-surface-page transition-colors",
+          "absolute -top-[38px] left-1/2 flex size-[76px] -translate-x-1/2 items-center justify-center rounded-full ring-[6px] ring-surface-page transition-colors",
           covered ? "bg-surface-info text-surface-brand" : "bg-surface-accent text-text-on-accent hover:bg-coral-600"
         )}
       >

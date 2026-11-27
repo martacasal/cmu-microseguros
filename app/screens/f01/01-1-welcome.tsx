@@ -38,12 +38,12 @@ export default function Welcome() {
     >
       <div className="flex flex-col items-start gap-4">
         <PulseLogo className="h-16 text-text-inverse" />
-        <span className="w-fit rounded-2xl bg-surface-card px-3 py-[7px] text-[12px] font-semibold text-text-primary">
-          COVER ON DEMAND
-        </span>
         <ScreenTitle size={52} tone="inverse" muted="when you train.">
           Insurance only
         </ScreenTitle>
+        <span className="w-fit rounded-2xl bg-surface-card px-3 py-[7px] text-[12px] font-semibold text-text-primary">
+          COVER ON DEMAND
+        </span>
       </div>
       <div className="flex min-h-0 flex-1 items-center">
         <PulseWaves height={170} />

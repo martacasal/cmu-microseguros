@@ -23,7 +23,11 @@ function BarChart({
         key={`${copy}-${i}`}
         className={cn(
           "rounded-full",
-          scroll ? "w-4 shrink-0" : "flex-1",
+          scroll
+            ? "w-4 shrink-0 origin-bottom will-change-transform"
+            : "flex-1",
+          scroll &&
+            (active.includes(i) ? "animate-bar-live" : "animate-bar-breathe"),
           active.includes(i)
             ? tone === "accent"
               ? "bg-surface-warning"
@@ -34,7 +38,12 @@ function BarChart({
                 ? "bg-surface-inverse-raised"
                 : "bg-surface-muted"
         )}
-        style={{ height: h }}
+        style={{
+          height: h,
+          ...(scroll
+            ? { animationDelay: `${-((i * 0.37) % 3).toFixed(2)}s` }
+            : null),
+        }}
       />
     ))
 

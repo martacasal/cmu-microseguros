@@ -1,9 +1,16 @@
 "use client"
 
 import * as React from "react"
-import { CtaButton, RoundButton, ScreenTitle, SecondaryButton, TextField } from "@/components/pulse"
+import {
+  CtaButton,
+  RoundButton,
+  ScreenTitle,
+  SecondaryButton,
+  TextField,
+} from "@/components/pulse"
 import { cn } from "cn"
 import { PhoneScreen } from "@/components/screen/phone-screen"
+import { AppleIcon, GoogleIcon } from "@/components/pulse/brand-icons"
 import { href } from "../types"
 
 /** 02.1 Sign-up at payment · Figma 254:2281 — quote behind a scrim, sign-up bottom sheet on top. */
@@ -43,7 +50,11 @@ export default function SignUpAtPayment() {
       right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       footer={
         !open && (
-          <CtaButton type="button" onClick={() => setOpen(true)} className="text-center">
+          <CtaButton
+            type="button"
+            onClick={() => setOpen(true)}
+            className="text-center"
+          >
             Continue
           </CtaButton>
         )
@@ -52,7 +63,9 @@ export default function SignUpAtPayment() {
       <p className="text-[11px] leading-[1.32] font-semibold tracking-[0.06em] text-text-secondary">
         FOOTBALL · 1 H 20 · WITH GEAR
       </p>
-      <p className="text-[72px] leading-[1.04] font-bold tracking-[-0.03em]">€X.XX</p>
+      <p className="text-[72px] leading-[1.04] font-bold tracking-[-0.03em]">
+        €X.XX
+      </p>
 
       <div
         aria-hidden
@@ -71,7 +84,11 @@ export default function SignUpAtPayment() {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerEnd}
         onPointerCancel={onPointerEnd}
-        style={{ transform: open ? `translateY(${dragY}px)` : "translateY(calc(100% + 3rem))" }}
+        style={{
+          transform: open
+            ? `translateY(${dragY}px)`
+            : "translateY(calc(100% + 3rem))",
+        }}
         className={cn(
           "absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 rounded-t-[32px] bg-surface-page px-6 pt-3 pb-[34px] md:inset-x-auto md:bottom-8 md:left-1/2 md:w-[calc(100%-4rem)] md:max-w-[560px] md:-translate-x-1/2 md:rounded-[32px] md:px-8 md:pb-8 md:shadow-xl",
           !dragging && "transition-transform duration-300 ease-out"
@@ -84,8 +101,14 @@ export default function SignUpAtPayment() {
         <p className="w-full text-[15px] leading-[1.32] text-text-secondary">
           We ask this once, to issue the policy. It stays saved.
         </p>
-        <SecondaryButton href={href("02-2")}>Continue with Apple</SecondaryButton>
-        <SecondaryButton href={href("02-2")}>Continue with Google</SecondaryButton>
+        <SecondaryButton href={href("02-2")} className="gap-2.5">
+          <AppleIcon />
+          Continue with Apple
+        </SecondaryButton>
+        <SecondaryButton href={href("02-2")} className="gap-2.5">
+          <GoogleIcon />
+          Continue with Google
+        </SecondaryButton>
         <TextField label="Email" type="email" placeholder="name@email.com" />
         <CtaButton href={href("02-2")} className="text-center">
           Continue with email

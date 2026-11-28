@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { cn } from "cn"
-import { ActivityTile, CtaButton, DurationBars, RiskBanner, RoundButton, ScreenTitle } from "@/components/pulse"
+import { SportIcon, type SportName, ActivityTile, CtaButton, DurationBars, RiskBanner, RoundButton, ScreenTitle } from "@/components/pulse"
 import { PhoneScreen } from "@/components/screen/phone-screen"
 import { href } from "../types"
 
@@ -40,6 +40,7 @@ export default function TurnOn() {
         {ACTIVITIES.map((a) => (
           <ActivityTile
             key={a}
+            sport={a.toLowerCase() as SportName}
             selected={activity === a}
             onClick={() => setActivity(a)}
             className="h-[84px] rounded-[24px] px-3.5 py-3 [&>span:first-child]:size-[22px]"
@@ -51,7 +52,7 @@ export default function TurnOn() {
           href={href("05-2")}
           className="flex h-[84px] flex-col justify-between rounded-[24px] bg-surface-card px-3.5 py-3 text-[14px] font-semibold text-text-primary transition-colors hover:bg-surface-subtle"
         >
-          <span className="size-[22px] rounded-full bg-surface-muted" />+ Other
+          <SportIcon name="other" className="size-[22px]" />+ Other
         </Link>
       </div>
       <RiskBanner className="w-fit py-2 pr-3.5 pl-2 text-[13px] font-semibold [&>span:first-child]:size-[22px]">

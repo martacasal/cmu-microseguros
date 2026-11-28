@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cn } from "cn"
+import { SportIcon, type SportName } from "./sport-icons"
 
 /** v2/Chip · 14 medium pill; selected = indigo. */
 function Chip({
@@ -26,9 +27,10 @@ function Chip({
 function ActivityTile({
   className,
   selected,
+  sport,
   children,
   ...props
-}: React.ComponentProps<"button"> & { selected?: boolean }) {
+}: React.ComponentProps<"button"> & { selected?: boolean; sport?: SportName }) {
   return (
     <button
       type="button"
@@ -40,7 +42,11 @@ function ActivityTile({
       )}
       {...props}
     >
-      <span className={cn("size-6 rounded-full bg-surface-muted", selected && "bg-surface-card")} />
+      {sport ? (
+        <SportIcon name={sport} className="size-6" />
+      ) : (
+        <span className={cn("size-6 rounded-full bg-surface-muted", selected && "bg-surface-card")} />
+      )}
       {children}
     </button>
   )

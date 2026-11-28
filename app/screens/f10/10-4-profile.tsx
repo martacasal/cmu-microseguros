@@ -12,7 +12,7 @@ export default function Profile() {
       right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-3"
     >
-      <ScreenTitle muted="Costa">Rafa</ScreenTitle>
+      <ScreenTitle inline muted="Costa">Rafa</ScreenTitle>
       <p className="text-[12px] leading-[1.32] font-medium text-text-secondary">Member since 2026 · Porto</p>
       <div className="flex gap-2">
         <StatCard variant="brand" value="28 h" caption="covered this year" />

@@ -11,6 +11,7 @@ function ScreenTitle({
   size = 36,
   eyebrow,
   tone = "default",
+  inline = false,
   className,
 }: {
   children: React.ReactNode
@@ -18,6 +19,8 @@ function ScreenTitle({
   size?: number
   eyebrow?: React.ReactNode
   tone?: "default" | "inverse"
+  /** Keep both parts on one line when they fit; wrap only when they don't. */
+  inline?: boolean
   className?: string
 }) {
   return (
@@ -29,7 +32,7 @@ function ScreenTitle({
         <span className={tone === "inverse" ? "text-text-inverse" : "text-text-primary"}>{children}</span>
         {muted && (
           <>
-            <br />
+            {inline ? " " : <br />}
             <span className={tone === "inverse" ? "text-slate-200/70" : "text-text-secondary"}>{muted}</span>
           </>
         )}

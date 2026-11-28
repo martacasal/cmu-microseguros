@@ -1,6 +1,6 @@
 "use client"
 
-import { CtaButton, RoundButton } from "@/components/pulse"
+import { RoundButton, SlideToTurnOn } from "@/components/pulse"
 import { PhoneScreen } from "@/components/screen/phone-screen"
 import { eur, gearCoveredValue, quote, ZONE } from "@/lib/pricing"
 import { useZone } from "@/lib/use-zone"
@@ -21,9 +21,7 @@ export default function Quote() {
       contentClassName="gap-3"
       footer={
         <>
-          <CtaButton href={href("07-1")} price={eur(q.total)}>
-            Pay and turn on
-          </CtaButton>
+          <SlideToTurnOn label="Slide to pay and turn on" price={eur(q.total)} href={href("07-1")} className="h-16" />
           <p className="text-center text-[12px] leading-[1.32] font-medium text-text-secondary">
             You&apos;re only charged when you confirm.
           </p>

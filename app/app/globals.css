@@ -11,6 +11,7 @@
  */
 
 @theme inline {
+  --breakpoint-3xl: 120rem;
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);
   --font-title: var(--font-title);
@@ -234,6 +235,12 @@
   }
   html {
     @apply font-sans;
+  }
+  /* Free space beside the 1920px frame */
+  @media (min-width: 1921px) {
+    body {
+      background: var(--sand-200);
+    }
   }
 }
 

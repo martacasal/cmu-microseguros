@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 import { ArrowRightIcon, CheckIcon } from "lucide-react"
 import { cn } from "cn"
 
@@ -10,14 +11,21 @@ function SlideToTurnOn({
   doneLabel = "Cover on",
   on: onProp,
   onTurnOn,
+  href,
+  price,
   className,
 }: {
   label?: string
   doneLabel?: string
   on?: boolean
   onTurnOn?: () => void
+  /** navigate here once the slide completes */
+  href?: string
+  /** shown at the right of the track */
+  price?: React.ReactNode
   className?: string
 }) {
+  const router = useRouter()
   const trackRef = React.useRef<HTMLDivElement>(null)
   const [x, setX] = React.useState(0)
   const [dragging, setDragging] = React.useState(false)
@@ -30,6 +38,7 @@ function SlideToTurnOn({
   const finish = () => {
     setOnState(true)
     onTurnOn?.()
+    if (href) router.push(href)
   }
 
   return (
@@ -51,6 +60,9 @@ function SlideToTurnOn({
       >
         {on ? doneLabel : label}
       </span>
+      {price != null && !on && (
+        <span className="pointer-events-none absolute right-6 text-[15px] font-medium text-text-inverse-muted">{price}</span>
+      )}
       <button
         type="button"
         role="switch"

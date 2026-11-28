@@ -82,7 +82,7 @@ function PulseWaves({
             d={strand(st.sign, 0)}
             stroke={`url(#${id}-${i})`}
             strokeOpacity={st.opacity}
-            strokeWidth="3.2"
+            strokeWidth="0.8"
             strokeLinecap="round"
             strokeLinejoin="round"
           >

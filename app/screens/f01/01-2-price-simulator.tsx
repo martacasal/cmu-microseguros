@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { cn } from "cn"
-import { ActivityTile, CtaButton, InfoCard, RoundButton, ScreenTitle } from "@/components/pulse"
+import { type SportName, ActivityTile, CtaButton, InfoCard, RoundButton, ScreenTitle } from "@/components/pulse"
 import { PhoneScreen } from "@/components/screen/phone-screen"
 import { href } from "../types"
 
@@ -43,6 +43,7 @@ export default function PriceSimulator() {
         {ACTIVITIES.map((a) => (
           <ActivityTile
             key={a}
+            sport={(a.startsWith("+") ? "other" : a.toLowerCase()) as SportName}
             selected={activity === a}
             onClick={() => setActivity(a)}
             className="h-[84px] rounded-[24px] px-3.5 py-3"

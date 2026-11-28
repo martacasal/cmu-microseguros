@@ -1,6 +1,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { cn } from "cn"
+import { LocationMap } from "@/components/pulse/location-map"
 
 /** "Why this price" card: label · bar · amount rows (06.1 and 06.3). Fill = share of the track. */
 export function PriceBars({
@@ -33,6 +34,30 @@ export function PriceBars({
     </Link>
   ) : (
     <div className={cls}>{body}</div>
+  )
+}
+
+/** Map card showing the position used for pricing (vector map). */
+export function LocationCard({
+  lat,
+  lng,
+  note,
+}: {
+  lat: number
+  lng: number
+  note: string
+}) {
+  return (
+    <div className="flex w-full shrink-0 flex-col gap-3 rounded-[28px] bg-surface-card p-3 text-text-primary">
+      <div className="relative h-[132px] shrink-0 overflow-hidden rounded-[20px] bg-progress-track">
+        <LocationMap lat={lat} lng={lng} className="absolute inset-0" />
+        <span className="absolute top-1/2 left-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white bg-surface-brand shadow-md" />
+        <span className="absolute right-2 bottom-1 rounded bg-white/80 px-1 text-[9px] text-text-secondary">© OpenStreetMap</span>
+      </div>
+      <div className="px-2 pb-1">
+        <p className="text-[13px] leading-[1.32] text-text-secondary">{note}</p>
+      </div>
+    </div>
   )
 }
 

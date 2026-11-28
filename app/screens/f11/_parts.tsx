@@ -59,11 +59,23 @@ export function Chips({ children }: { children: React.ReactNode }) {
 }
 
 /** Big two-tone title used inside flows 11/13 (32–36px bold). */
-export function TwoTone({ size = 36, children, muted }: { size?: number; children: React.ReactNode; muted: React.ReactNode }) {
+export function TwoTone({
+  size = 36,
+  children,
+  muted,
+  inline = false,
+}: {
+  size?: number
+  children: React.ReactNode
+  muted: React.ReactNode
+  /** Keep both parts on one line when they fit; wrap only when they don't. */
+  inline?: boolean
+}) {
   return (
     <h1 className="leading-[1.04] font-bold tracking-[-0.03em]" style={{ fontSize: size }}>
-      <span className="block text-text-primary">{children}</span>
-      <span className="block text-text-secondary">{muted}</span>
+      <span className={cn(!inline && "block", "text-text-primary")}>{children}</span>
+      {inline && " "}
+      <span className={cn(!inline && "block", "text-text-secondary")}>{muted}</span>
     </h1>
   )
 }

@@ -19,7 +19,7 @@ export default function ChatEnded() {
         </>
       }
     >
-      <TwoTone muted="ended">Chat</TwoTone>
+      <TwoTone inline muted="ended">Chat</TwoTone>
       <div className="flex flex-col gap-1.5 rounded-[28px] bg-surface-card p-[18px] leading-[1.32]">
         <span className="text-[18px] font-semibold">Summary</span>
         <span className="text-[14px] font-medium text-text-secondary">

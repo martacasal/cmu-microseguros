@@ -10,7 +10,7 @@ export default function HomeFirstTime() {
       right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       nav={<BottomNav tab="home" />}
     >
-      <ScreenTitle eyebrow="Hi, Rafa" muted="yet">
+      <ScreenTitle inline eyebrow="Hi, Rafa" muted="yet">
         Not covered
       </ScreenTitle>
       <div className="flex gap-2">

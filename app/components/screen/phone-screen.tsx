@@ -8,7 +8,7 @@ import { PulseLogo } from "@/components/pulse/pulse-logo"
  *   bottom, floating bottom nav.
  * - tablet (768–1023): full width, no fake status bar; header, content and footer share a centred
  *   640px column; the footer follows the content; floating bottom nav.
- * - desktop (≥ 1024): same column at 720px (880px from 1280); the nav becomes a vertical rail on the left.
+ * - desktop (≥ 1024): same column at 720px (880px from 1280); the nav stays horizontal.
  */
 type Tone = "default" | "inverse" | "brand" | "accent" | "info"
 
@@ -90,7 +90,7 @@ function PhoneScreen({
           COLUMN,
           "flex flex-1 flex-col gap-3.5 pt-5 md:pt-8",
           !pinFooter && "md:flex-none",
-          nav ? "pb-36 lg:pb-10" : "pb-6 md:pb-8",
+          nav ? "pb-36" : "pb-6 md:pb-8",
           contentClassName
         )}
       >
@@ -98,7 +98,7 @@ function PhoneScreen({
       </main>
       {footer && <footer className={cn(COLUMN, "flex shrink-0 flex-col gap-2 pb-[30px] md:pb-12")}>{footer}</footer>}
       {nav && (
-        <div className="pointer-events-none fixed inset-x-0 bottom-[54px] z-30 flex justify-center *:pointer-events-auto lg:inset-x-auto lg:top-1/2 lg:bottom-auto lg:left-8 lg:-translate-y-1/2">
+        <div className="pointer-events-none fixed inset-x-0 bottom-[54px] z-30 flex justify-center *:pointer-events-auto">
           {nav}
         </div>
       )}

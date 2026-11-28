@@ -42,7 +42,7 @@ export default function Welcome() {
         <ScreenTitle size={52} tone="inverse" muted="when you train.">
           Insurance only
         </ScreenTitle>
-        <span className="w-fit rounded-2xl bg-surface-card px-3 py-[7px] text-[12px] font-semibold text-text-primary">
+        <span className="w-fit rounded-2xl bg-yellow-400 px-3 py-[7px] text-[12px] font-semibold text-text-primary">
           COVER ON DEMAND
         </span>
       </div>

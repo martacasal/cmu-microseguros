@@ -26,6 +26,15 @@ const toneBg: Record<Tone, string> = {
   info: "bg-surface-info text-text-primary",
 }
 
+/** Gradient above a pinned footer, in the screen's background, so content fades out under it. */
+const toneFade: Record<Tone, string> = {
+  default: "before:from-surface-page",
+  inverse: "before:from-surface-inverse",
+  brand: "before:from-surface-brand",
+  accent: "before:from-surface-accent",
+  info: "before:from-surface-info",
+}
+
 function PhoneScreen({
   tone = "default",
   left,
@@ -53,7 +62,7 @@ function PhoneScreen({
   header?: boolean
   /** small PULSE wordmark at the top of the screen */
   logo?: boolean
-  /** keep the footer at the bottom of the window on every size (chat composers) */
+  /** keep the footer at the bottom of the window on every size and pinned there while the content scrolls (chat input) */
   pinFooter?: boolean
   className?: string
   contentClassName?: string
@@ -96,12 +105,30 @@ function PhoneScreen({
           "flex flex-1 flex-col gap-3.5 pt-5 md:pt-8",
           !pinFooter && "md:flex-none",
           nav ? "pb-36" : "pb-6 md:pb-8",
+          // room for the fade above a pinned footer, so the last message isn't faded
+          pinFooter && "pb-10 md:pb-10",
           contentClassName
         )}
       >
         {children}
       </main>
-      {footer && <footer className={cn(COLUMN, "flex shrink-0 flex-col gap-2 pb-[30px] md:pb-12")}>{footer}</footer>}
+      {footer && (
+        <footer
+          className={cn(
+            COLUMN,
+            "flex shrink-0 flex-col gap-2 pb-[30px] md:pb-12",
+            // Chats: the input stays at the bottom of the screen while the thread scrolls under it,
+            // with a soft fade above it instead of a hard edge.
+            pinFooter && [
+              "sticky bottom-0 z-20 bg-inherit pt-3",
+              "before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-10 before:bg-linear-to-t before:to-transparent",
+              toneFade[tone],
+            ]
+          )}
+        >
+          {footer}
+        </footer>
+      )}
       {nav && (
         <div className="pointer-events-none fixed inset-x-0 bottom-[54px] z-30 flex justify-center *:pointer-events-auto">
           {nav}

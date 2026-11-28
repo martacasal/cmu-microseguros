@@ -1,3 +1,4 @@
+import { ChatInputDemo } from "./chat-input-demo"
 import {
   ActivityTile,
   BottomNav,
@@ -323,6 +324,10 @@ export default function Page() {
           <div className="flex flex-col gap-1.5 sm:col-span-2">
             <span className="type-caption text-text-secondary">Notes</span>
             <Textarea placeholder="Anything we should know?" />
+          </div>
+          <div className="flex flex-col gap-1.5 sm:col-span-2 lg:col-span-1">
+            <span className="type-caption text-text-secondary">ChatInput · pinned to the bottom of chat screens</span>
+            <ChatInputDemo />
           </div>
         </div>
       </Section>

@@ -4,7 +4,7 @@ import * as React from "react"
 import { Chip, ChatBubble } from "@/components/pulse"
 import { href } from "../types"
 import { HistoryBackButton } from "./back-button"
-import { ASSISTANT, ChatScreen, ChipLink, Chips } from "../f11/_parts"
+import { ASSISTANT, ChatScreen, ChipLink, Chips, useStickToBottom } from "../f11/_parts"
 
 /**
  * 13.2 Assistant · my insurance · Figma 254:3854
@@ -37,11 +37,6 @@ export default function AssistantMyInsurance() {
   const [messages, setMessages] = React.useState<Message[]>([])
   const [pending, setPending] = React.useState(false)
   const offline = React.useRef(false)
-  const endRef = React.useRef<HTMLDivElement>(null)
-
-  React.useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
-  }, [messages])
 
   const setLast = (content: string) =>
     setMessages((m) => [...m.slice(0, -1), { role: "assistant", content }])
@@ -85,6 +80,8 @@ export default function AssistantMyInsurance() {
 
   const last = messages[messages.length - 1]
   const answered = !pending && last?.role === "assistant" && last.content !== ""
+  // The onward chips count as one more item, so they scroll into view when they appear.
+  useStickToBottom(messages.length + (answered ? 1 : 0), last?.content)
 
   return (
     <ChatScreen
@@ -140,7 +137,6 @@ export default function AssistantMyInsurance() {
           <ChipLink href={href("04-1")}>Got it</ChipLink>
         </Chips>
       )}
-      <div ref={endRef} />
     </ChatScreen>
   )
 }

@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation"
 import { cn } from "cn"
 import { ChatBubble, Chip, Icon, RoundButton, TextField } from "@/components/pulse"
 import { PhoneScreen } from "@/components/screen/phone-screen"
+import { useLocalChat, type ChatStatus, type LiveMessage } from "@/components/ai/use-local-chat"
+import { href } from "../types"
 
 /** Shared by flows 11 and 13 (chat screens, chips, tags). */
 
@@ -128,6 +130,7 @@ export function ChatScreen({
   composerLabel,
   placeholder,
   nextHref,
+  live,
 }: {
   left?: React.ReactNode
   right?: React.ReactNode
@@ -139,13 +142,40 @@ export function ChatScreen({
   composerLabel?: string
   placeholder: string
   nextHref?: string
+  /** answer with the local Ollama assistant instead of only echoing what was typed */
+  live?: boolean
 }) {
   const router = useRouter()
   const [sent, setSent] = React.useState<string[]>([])
+  const chat = useLocalChat()
   const endRef = React.useRef<HTMLDivElement>(null)
+  const last = chat.messages[chat.messages.length - 1]
   React.useEffect(() => {
-    if (sent.length) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
-  }, [sent.length])
+    if (sent.length || chat.messages.length) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
+  }, [sent.length, chat.messages.length, last?.content])
+  if (live) {
+    return (
+      <PhoneScreen
+        pinFooter
+        left={left}
+        right={right}
+        title={title}
+        contentClassName={gap}
+        footer={
+          <>
+            {above}
+            <ChatComposer label={composerLabel} placeholder={placeholder} onSend={(t) => chat.send(t)} />
+          </>
+        }
+      >
+        {children}
+        {chat.messages.map((m, i) => (
+          <LiveTurn key={i} message={m} isLast={i === chat.messages.length - 1} status={chat.status} onStop={chat.stop} />
+        ))}
+        <div ref={endRef} />
+      </PhoneScreen>
+    )
+  }
   return (
     <PhoneScreen
       pinFooter
@@ -179,3 +209,88 @@ export function ChatScreen({
 }
 
 export const ASSISTANT = "Automated assistant · not a person"
+
+const SOURCE_RE = /\n?\s*(Source:[^\n]*)\s*$/i
+
+/** One turn of the live (local Ollama) conversation: bubble + its state chips (spec §5 AI behaviour). */
+function LiveTurn({
+  message,
+  isLast,
+  status,
+  onStop,
+}: {
+  message: LiveMessage
+  isLast: boolean
+  status: ChatStatus
+  onStop: () => void
+}) {
+  if (message.role === "user") {
+    return (
+      <ChatBubble from="you" who="You">
+        {message.content}
+      </ChatBubble>
+    )
+  }
+  const busy = isLast && status !== "idle"
+  if (busy && status === "thinking") {
+    return (
+      <ChatBubble from="assistant" who={ASSISTANT}>
+        <span className="text-text-secondary">Thinking…</span>
+      </ChatBubble>
+    )
+  }
+  if (message.handover) {
+    return (
+      <>
+        <Tag>Handing over to a person · about 5 min</Tag>
+        <ChatBubble from="assistant" who={ASSISTANT}>
+          This question needs a person. I&apos;ll pass the conversation to the PULSE team. They&apos;ll see what
+          you&apos;ve written.
+        </ChatBubble>
+        {!busy && (
+          <Chips>
+            <ChipLink href={href("11-4")}>Talk to a person</ChipLink>
+          </Chips>
+        )}
+      </>
+    )
+  }
+  if (message.error) {
+    return (
+      <>
+        <ChatBubble from="assistant" who={ASSISTANT}>
+          {message.content}
+        </ChatBubble>
+        <Chips>
+          <ChipLink href={href("11-4")}>Talk to a person</ChipLink>
+        </Chips>
+      </>
+    )
+  }
+  const match = message.content.match(SOURCE_RE)
+  const answer = match ? message.content.slice(0, match.index).trim() : message.content
+  return (
+    <>
+      <ChatBubble from="assistant" who={`${ASSISTANT} · automated answer`}>
+        <span className="whitespace-pre-wrap">{answer}</span>
+        {match && <span className="mt-1.5 block text-[12px] font-medium text-text-secondary">{match[1]}</span>}
+        {message.stopped && <span className="mt-1.5 block text-[12px] font-medium text-text-secondary">Stopped</span>}
+      </ChatBubble>
+      {busy ? (
+        <Chips>
+          <Chip onClick={onStop}>Stop</Chip>
+        </Chips>
+      ) : (
+        isLast && (
+          <>
+            <p className="text-[12px] leading-[1.32] font-medium text-text-secondary">Did this answer your question?</p>
+            <Chips>
+              <ChipLink href={href("04-3")}>Solved</ChipLink>
+              <ChipLink href={href("11-4")}>Talk to a person</ChipLink>
+            </Chips>
+          </>
+        )
+      )}
+    </>
+  )
+}

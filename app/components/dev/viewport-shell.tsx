@@ -4,6 +4,8 @@ import * as React from "react"
 import { usePathname } from "next/navigation"
 import { cn } from "cn"
 
+import { ModelPicker } from "@/components/ai/model-picker"
+
 const BREAKPOINTS = [
   { id: "mobile", label: "Mobile", width: 390 },
   { id: "tablet", label: "Tablet", width: 768 },
@@ -73,7 +75,10 @@ function ViewportShell() {
             {b.label} <span className="opacity-60">{b.width}</span>
           </button>
         ))}
-        <span className="ml-auto opacity-60">
+        <span className="ml-auto">
+          <ModelPicker />
+        </span>
+        <span className="ml-4 opacity-60">
           {bp.width}px{scale < 1 ? ` · ${Math.round(scale * 100)}%` : ""}
         </span>
       </div>

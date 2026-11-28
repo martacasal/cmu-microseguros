@@ -13,6 +13,7 @@ export default function AssistantMyInsurance() {
       title="Assistant"
       gap="gap-3"
       placeholder="Type or dictate your question"
+      live
     >
       <ChatBubble from="assistant" who={ASSISTANT}>
         Hi, Rafa. I&apos;m PULSE&apos;s automated assistant, not a person. What&apos;s your question about?

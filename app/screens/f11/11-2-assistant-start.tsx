@@ -12,6 +12,7 @@ export default function AssistantStart() {
       title="Assistant"
       right={<RoundButton variant="sos" href={href("11-1")} aria-label="SOS">SOS</RoundButton>}
       placeholder="Type or dictate your message"
+      live
     >
       <ChatBubble from="assistant" who={ASSISTANT}>
         Hi, I&apos;m PULSE&apos;s automated assistant. I&apos;m a program, not a person. I can answer questions or help if

@@ -19,6 +19,8 @@ import {
   SlideToTurnOn,
   Step,
   TextField,
+  SportIcon,
+  SPORT_NAMES,
 } from "@/components/pulse"
 import {
   Accordion,
@@ -239,6 +241,17 @@ export default function Page() {
             <Badge variant="outline">Outline</Badge>
           </div>
           <RiskBanner>Medium risk · contact, knee and ankle</RiskBanner>
+        </div>
+      </Section>
+
+      <Section title="Sport icons · 24px, 2px stroke, currentColor">
+        <div className="flex flex-wrap gap-3">
+          {SPORT_NAMES.map((n) => (
+            <div key={n} className="flex w-[88px] flex-col items-center gap-2 rounded-[22px] bg-surface-card py-4 text-text-primary">
+              <SportIcon name={n} size={32} />
+              <span className="text-[12px] font-medium capitalize">{n}</span>
+            </div>
+          ))}
         </div>
       </Section>
 

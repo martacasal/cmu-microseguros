@@ -13,11 +13,9 @@
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);
+  --font-title: var(--font-title);
 
   /* ---- 1. Primitives ---- */
-  --color-navy-950: var(--navy-950);
-  --color-navy-800: var(--navy-800);
-  --color-navy-700: var(--navy-700);
   --color-gray-700: var(--gray-700);
   --color-gray-600: var(--gray-600);
   --color-gray-500: var(--gray-500);
@@ -34,6 +32,8 @@
   --color-indigo-500: var(--indigo-500);
   --color-indigo-600: var(--indigo-600);
   --color-indigo-700: var(--indigo-700);
+  --color-indigo-800: var(--indigo-800);
+  --color-indigo-950: var(--indigo-950);
 
   /* ---- 2. PULSE semantic roles (bg-surface-*, text-text-*, etc.) ---- */
   --color-surface-page: var(--surface-page);
@@ -111,9 +111,6 @@
 
 :root {
   /* Primitives */
-  --navy-950: #131826;
-  --navy-800: #2b3245;
-  --navy-700: #24365e;
   --gray-700: #4a5266;
   --gray-600: #5f6270;
   --gray-500: #82848a;
@@ -131,22 +128,24 @@
   --indigo-500: #002ec6;
   --indigo-600: #0026a2;
   --indigo-700: #002396;
+  --indigo-800: #001a75;
+  --indigo-950: #000f3d;
 
   /* PULSE semantic roles */
   --surface-page: var(--sand-100);
   --surface-card: var(--white);
   --surface-subtle: var(--sand-50);
   --surface-muted: var(--sand-200);
-  --surface-inverse: var(--navy-950);
-  --surface-inverse-raised: var(--navy-800);
-  --surface-brand: var(--navy-700);
+  --surface-inverse: var(--indigo-950);
+  --surface-inverse-raised: var(--indigo-800);
+  --surface-brand: var(--indigo-500);
   --surface-info: var(--periwinkle-200);
   --surface-warning: var(--yellow-400);
   --surface-danger: var(--red-600);
   --surface-danger-subtle: var(--red-200);
   --surface-accent: var(--indigo-500);
   --surface-accent-strong: var(--indigo-700);
-  --text-primary: var(--navy-950);
+  --text-primary: var(--indigo-950);
   --text-secondary: var(--gray-600);
   --text-secondary-on-info: var(--gray-700);
   --text-inverse: var(--white);
@@ -155,7 +154,7 @@
   --text-on-accent: var(--white);
   --border-subtle: var(--sand-200);
   --border-strong: var(--gray-500);
-  --control-on: var(--navy-700);
+  --control-on: var(--indigo-500);
   --control-off: var(--gray-500);
   --progress-fill: var(--indigo-600);
   --progress-track: var(--sand-200);
@@ -179,9 +178,9 @@
   --destructive: var(--surface-danger);
   --border: var(--border-subtle);
   --input: var(--border-subtle);
-  --ring: var(--navy-700);
+  --ring: var(--indigo-500);
   --chart-1: var(--indigo-600);
-  --chart-2: var(--navy-700);
+  --chart-2: var(--indigo-500);
   --chart-3: var(--violet-500);
   --chart-4: var(--yellow-400);
   --chart-5: var(--gray-500);
@@ -193,34 +192,34 @@
   --sidebar-accent: var(--surface-page);
   --sidebar-accent-foreground: var(--text-primary);
   --sidebar-border: var(--border-subtle);
-  --sidebar-ring: var(--navy-700);
+  --sidebar-ring: var(--indigo-500);
 }
 
 /* PULSE is light-only; dark is a fallback built from the inverse (navy) surfaces. */
 .dark {
-  --background: var(--navy-950);
+  --background: var(--indigo-950);
   --foreground: var(--white);
-  --card: var(--navy-800);
+  --card: var(--indigo-800);
   --card-foreground: var(--white);
-  --popover: var(--navy-800);
+  --popover: var(--indigo-800);
   --popover-foreground: var(--white);
   --primary: var(--white);
-  --primary-foreground: var(--navy-950);
-  --secondary: var(--navy-800);
+  --primary-foreground: var(--indigo-950);
+  --secondary: var(--indigo-800);
   --secondary-foreground: var(--white);
-  --muted: var(--navy-800);
+  --muted: var(--indigo-800);
   --muted-foreground: var(--slate-200);
-  --accent: var(--navy-700);
+  --accent: var(--indigo-500);
   --accent-foreground: var(--white);
   --destructive: var(--red-600);
   --border: rgb(255 255 255 / 0.1);
   --input: rgb(255 255 255 / 0.15);
   --ring: var(--periwinkle-200);
-  --sidebar: var(--navy-950);
+  --sidebar: var(--indigo-950);
   --sidebar-foreground: var(--white);
   --sidebar-primary: var(--periwinkle-200);
-  --sidebar-primary-foreground: var(--navy-950);
-  --sidebar-accent: var(--navy-800);
+  --sidebar-primary-foreground: var(--indigo-950);
+  --sidebar-accent: var(--indigo-800);
   --sidebar-accent-foreground: var(--white);
   --sidebar-border: rgb(255 255 255 / 0.1);
   --sidebar-ring: var(--periwinkle-200);
@@ -238,17 +237,21 @@
   }
 }
 
-/* Type scale · Figma text styles (Geist) */
+/* Type scale · Figma text styles (Geist; display/heading in GCMOX) */
 @utility type-display-xl {
+  font-family: var(--font-title), var(--font-sans);
   font-size: 60px; line-height: 1.05; font-weight: 700;
 }
 @utility type-display-l {
+  font-family: var(--font-title), var(--font-sans);
   font-size: 40px; line-height: 1.05; font-weight: 700;
 }
 @utility type-heading-l {
+  font-family: var(--font-title), var(--font-sans);
   font-size: 28px; line-height: 1.05; font-weight: 700;
 }
 @utility type-heading-m {
+  font-family: var(--font-title), var(--font-sans);
   font-size: 22px; line-height: 1.1; font-weight: 700;
 }
 @utility type-title {

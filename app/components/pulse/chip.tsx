@@ -1,7 +1,7 @@
 import * as React from "react"
 import { cn } from "cn"
 
-/** v2/Chip · 14 medium pill; selected = navy brand. */
+/** v2/Chip · 14 medium pill; selected = indigo. */
 function Chip({
   className,
   selected,
@@ -14,7 +14,7 @@ function Chip({
       aria-pressed={selected}
       className={cn(
         "inline-flex shrink-0 items-center rounded-full bg-surface-card px-[18px] py-[11px] text-[14px] leading-none font-medium text-text-primary outline-none transition-colors hover:bg-surface-subtle focus-visible:ring-3 focus-visible:ring-ring/40 disabled:bg-surface-subtle disabled:text-gray-500",
-        "aria-pressed:bg-surface-brand aria-pressed:text-text-inverse aria-pressed:hover:bg-surface-brand/90",
+        "aria-pressed:bg-surface-accent aria-pressed:text-text-on-accent aria-pressed:hover:bg-indigo-600",
         className
       )}
       {...props}
@@ -35,7 +35,7 @@ function ActivityTile({
       aria-pressed={selected}
       className={cn(
         "flex h-20 flex-col justify-between rounded-[22px] bg-surface-card p-3.5 text-left text-[14px] font-semibold text-text-primary outline-none transition-colors hover:bg-surface-subtle focus-visible:ring-3 focus-visible:ring-ring/40",
-        "aria-pressed:bg-surface-brand aria-pressed:text-text-inverse aria-pressed:hover:bg-surface-brand/90",
+        "aria-pressed:bg-surface-accent aria-pressed:text-text-on-accent aria-pressed:hover:bg-indigo-600",
         className
       )}
       {...props}

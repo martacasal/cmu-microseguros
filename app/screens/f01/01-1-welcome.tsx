@@ -15,6 +15,7 @@ export default function Welcome() {
     <PhoneScreen
       tone="accent"
       header={false}
+      logo={false}
       contentClassName="pt-11"
       footer={
         <>

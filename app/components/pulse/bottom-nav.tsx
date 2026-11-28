@@ -6,7 +6,6 @@ import { Icon } from "./icon"
 /**
  * v2/Nav · floating navy bar: Home · Turn on (shield ✓, or shield ✕ when covered) · History.
  * The main action is a 92px button raised above the bar; an empty slot keeps it clear of the side buttons.
- * On desktop (lg) the bar turns vertical and sits as a rail on the left (see PhoneScreen).
  */
 function BottomNav({
   tab = "home",
@@ -27,23 +26,23 @@ function BottomNav({
     cn(
       "flex size-11 items-center justify-center rounded-full transition-colors",
       "bg-white",
-      active ? "text-navy-950" : "text-navy-700 hover:text-navy-950"
+      active ? "text-indigo-950" : "text-indigo-500 hover:text-indigo-950"
     )
   return (
     <nav
       aria-label="Main"
-      className={cn("relative flex items-center rounded-[36px] bg-surface-inverse px-2 py-[7px] lg:flex-col lg:px-[7px] lg:py-2", className)}
+      className={cn("relative flex items-center rounded-[36px] bg-surface-inverse px-2 py-[7px]", className)}
     >
       <Link href={homeHref} aria-label="Home" aria-current={tab === "home" ? "page" : undefined} className={side(tab === "home")}>
         <Icon name="home" />
       </Link>
-      <span aria-hidden className="w-[116px] shrink-0 lg:h-[116px] lg:w-auto" />
+      <span aria-hidden className="w-[116px] shrink-0" />
       <Link
         href={actionHref}
         aria-label={covered ? "Stop cover" : "Turn on cover"}
         className={cn(
           "absolute top-1/2 left-1/2 flex size-[92px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full ring-[6px] ring-surface-page transition-colors",
-          covered ? "bg-surface-warning text-navy-950 hover:bg-[color-mix(in_oklch,var(--surface-warning),black_6%)]" : "bg-surface-accent text-text-on-accent hover:bg-indigo-600"
+          covered ? "bg-surface-warning text-indigo-950 hover:bg-[color-mix(in_oklch,var(--surface-warning),black_6%)]" : "bg-surface-accent text-text-on-accent hover:bg-indigo-600"
         )}
       >
         <Icon name={covered ? "shield-x" : "shield"} box={40} />

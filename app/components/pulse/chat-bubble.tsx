@@ -18,7 +18,7 @@ function ChatBubble({
       className={cn(
         "flex w-[300px] max-w-[88%] flex-col gap-1 rounded-[22px] px-4 py-3",
         from === "assistant" && "self-start bg-surface-muted",
-        from === "person" && "self-start border-[1.5px] border-navy-950 bg-surface-card",
+        from === "person" && "self-start border-[1.5px] border-indigo-950 bg-surface-card",
         from === "you" && "self-end bg-surface-inverse",
         className
       )}

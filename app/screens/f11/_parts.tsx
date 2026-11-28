@@ -85,15 +85,18 @@ export function ChatComposer({
   label = "Message",
   placeholder,
   onSend,
+  disabled = false,
 }: {
   label?: string
   placeholder: string
   onSend: (text: string) => void
+  /** e.g. while the assistant is still answering */
+  disabled?: boolean
 }) {
   const [text, setText] = React.useState("")
   const send = () => {
     const t = text.trim()
-    if (!t) return
+    if (!t || disabled) return
     onSend(t)
     setText("")
   }
@@ -112,7 +115,7 @@ export function ChatComposer({
         onChange={(e) => setText(e.target.value)}
         inputClassName={text ? "pr-16" : undefined}
       />
-      {text && (
+      {text && !disabled && (
         <RoundButton
           type="submit"
           variant="inverse"
@@ -140,6 +143,8 @@ export function ChatScreen({
   composerLabel,
   placeholder,
   nextHref,
+  onSend,
+  composerDisabled,
 }: {
   left?: React.ReactNode
   right?: React.ReactNode
@@ -151,6 +156,9 @@ export function ChatScreen({
   composerLabel?: string
   placeholder: string
   nextHref?: string
+  /** When set, the page owns the thread: sent text goes here instead of a local "You" bubble. */
+  onSend?: (text: string) => void
+  composerDisabled?: boolean
 }) {
   const router = useRouter()
   const [sent, setSent] = React.useState<string[]>([])
@@ -171,7 +179,9 @@ export function ChatScreen({
           <ChatComposer
             label={composerLabel}
             placeholder={placeholder}
+            disabled={composerDisabled}
             onSend={(t) => {
+              if (onSend) return onSend(t)
               setSent((s) => [...s, t])
               if (nextHref) setTimeout(() => router.push(nextHref), 900)
             }}

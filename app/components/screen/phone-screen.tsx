@@ -81,7 +81,6 @@ function PhoneScreen({
       {statusBar && (
         <div className="flex h-[52px] shrink-0 items-start justify-between px-[30px] pt-4 text-[15px] leading-[1.32] font-semibold md:hidden">
           <span>9:41</span>
-          <span className="pt-[3px] text-[11px] font-medium">●●● ▮</span>
         </div>
       )}
       {logo && !header && (

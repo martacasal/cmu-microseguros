@@ -91,7 +91,7 @@ export default function PriceSimulator() {
       </div>
 
       <InfoCard
-        variant="brand"
+        variant="info"
         overline="Estimate"
         title={<span className="text-[40px] leading-[1.04] font-bold tracking-[-0.03em]">€X.XX</span>}
         description="Never more than €X.XX this session."

@@ -8,12 +8,14 @@ import { PulseLogo } from "@/components/pulse/pulse-logo"
  *   bottom, floating bottom nav.
  * - tablet (768–1023): full width, no fake status bar; header, content and footer share a centred
  *   640px column; the footer follows the content; floating bottom nav.
- * - desktop (≥ 1024): same column at 720px (880px from 1280); the nav stays horizontal.
+ * - desktop (≥ 1024): column of 720px, growing to 880 (xl 1280), 1040 (2xl 1536) and 1200 (3xl 1920); the nav stays horizontal.
+ * - above 1920: the screen is a 1920px frame centred in the window, with free space on both sides.
  */
 type Tone = "default" | "inverse" | "brand" | "accent" | "info"
 
-/** Shared centred column: full width with a 24px gutter on mobile, 640px on tablet, 720px on desktop. */
-const COLUMN = "mx-auto w-full px-6 md:max-w-[640px] lg:max-w-[720px] xl:max-w-[880px]"
+/** Shared centred column: full width with a 24px gutter on mobile, then 640 / 720 / 880 / 1040 / 1200px from md / lg / xl / 2xl / 3xl (1920). */
+const COLUMN =
+  "mx-auto w-full px-6 md:px-8 md:max-w-[640px] lg:max-w-[720px] xl:max-w-[880px] 2xl:max-w-[1040px] 3xl:max-w-[1200px]"
 
 const toneBg: Record<Tone, string> = {
   default: "bg-surface-page text-text-primary",
@@ -60,7 +62,7 @@ function PhoneScreen({
     <div
       data-tone={tone}
       className={cn(
-        "relative flex min-h-svh w-full flex-col overflow-x-clip",
+        "relative mx-auto flex min-h-svh w-full max-w-[1920px] flex-col overflow-x-clip",
         toneBg[tone],
         className
       )}

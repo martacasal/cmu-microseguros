@@ -65,9 +65,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
 
 const swatches = [
-  ["navy-950", "bg-navy-950"],
-  ["navy-800", "bg-navy-800"],
-  ["navy-700", "bg-navy-700"],
+  ["indigo-950", "bg-indigo-950"],
+  ["indigo-800", "bg-indigo-800"],
   ["gray-700", "bg-gray-700"],
   ["gray-600", "bg-gray-600"],
   ["gray-500", "bg-gray-500"],

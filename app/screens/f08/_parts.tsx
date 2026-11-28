@@ -71,7 +71,7 @@ export function TimerRing({
 export function BottomSheet({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div aria-hidden className="absolute inset-0 bg-navy-950/50" />
+      <div aria-hidden className="absolute inset-0 bg-indigo-950/50" />
       <div
         role="dialog"
         className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 rounded-t-[32px] bg-surface-page px-6 pt-3 pb-[34px] md:inset-x-auto md:bottom-8 md:left-1/2 md:w-[calc(100%-4rem)] md:max-w-[560px] md:-translate-x-1/2 md:rounded-[32px] md:px-8 md:pb-8 md:shadow-xl"

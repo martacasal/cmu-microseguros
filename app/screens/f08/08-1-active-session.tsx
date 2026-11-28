@@ -32,7 +32,7 @@ export default function ActiveSession() {
           </LinkOrButton>
           <LinkOrButton
             href={href("08-3")}
-            className="flex h-14 flex-1 items-center justify-center rounded-full bg-surface-warning text-[16px] font-semibold text-navy-950 transition-colors hover:bg-surface-warning/85"
+            className="flex h-14 flex-1 items-center justify-center rounded-full bg-surface-warning text-[16px] font-semibold text-indigo-950 transition-colors hover:bg-surface-warning/85"
           >
             End
           </LinkOrButton>

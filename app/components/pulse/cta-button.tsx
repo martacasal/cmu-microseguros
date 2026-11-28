@@ -13,7 +13,7 @@ const ctaVariants = cva(
         brand: "bg-surface-brand text-text-inverse hover:bg-surface-brand/90",
         accent: "bg-surface-accent text-text-on-accent hover:bg-indigo-600",
         /** Ends / cancels something · yellow */
-        end: "bg-surface-warning text-navy-950 hover:bg-surface-warning/85",
+        end: "bg-surface-warning text-indigo-950 hover:bg-surface-warning/85",
         danger: "bg-surface-danger text-text-inverse hover:bg-red-700",
         /** On dark screens (Welcome): white pill, navy text */
         inverse: "justify-center bg-surface-card text-text-primary hover:bg-surface-subtle",
@@ -47,7 +47,7 @@ function SecondaryButton({ className, ...props }: LinkOrButtonProps) {
   return (
     <LinkOrButton
       className={cn(
-        "inline-flex h-14 w-full shrink-0 items-center justify-center rounded-full border-[1.5px] border-navy-950 text-[16px] font-semibold text-text-primary outline-none transition-colors hover:bg-surface-muted focus-visible:ring-3 focus-visible:ring-ring/40 disabled:border-border disabled:text-gray-500",
+        "inline-flex h-14 w-full shrink-0 items-center justify-center rounded-full border-[1.5px] border-indigo-950 text-[16px] font-semibold text-text-primary outline-none transition-colors hover:bg-surface-muted focus-visible:ring-3 focus-visible:ring-ring/40 disabled:border-border disabled:text-gray-500",
         className
       )}
       {...props}

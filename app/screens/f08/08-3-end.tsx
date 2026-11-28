@@ -10,7 +10,7 @@ export default function End() {
       <SessionTopBar />
       <TimerRing size={200} stroke={16} progress={0.58} time="48:02" caption="left" timeSize={44} />
       <BottomSheet>
-        <SmallTitle muted="now?">End</SmallTitle>
+        <SmallTitle inline muted="now?">End</SmallTitle>
         <p className="w-full text-[15px] leading-[1.32] text-text-secondary">
           Cover ends now. You only pay for the time used: €X.XX instead of €X.XX.
         </p>

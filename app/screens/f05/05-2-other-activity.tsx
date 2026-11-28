@@ -7,10 +7,10 @@ import { PhoneScreen } from "@/components/screen/phone-screen"
 import { href } from "../types"
 
 const SPORTS = [
-  { name: "Basketball", risk: "Medium risk", icon: "basket", to: "05-3" },
-  { name: "Beach volleyball", risk: "Low risk", icon: "volley", to: "05-3" },
-  { name: "Surfing", risk: "High risk", icon: "wave", to: "05-3" },
-  { name: "Climbing", risk: "High risk", icon: "mountain", to: "05-3" },
+  { name: "Basketball", risk: "Medium risk", icon: "basket", to: "05-4" },
+  { name: "Beach volleyball", risk: "Low risk", icon: "volley", to: "05-4" },
+  { name: "Surfing", risk: "High risk", icon: "wave", to: "05-4" },
+  { name: "Climbing", risk: "High risk", icon: "mountain", to: "05-4" },
   { name: "Kitesurfing", risk: "Not covered yet", icon: "wind", to: "12-3", notCovered: true },
 ]
 

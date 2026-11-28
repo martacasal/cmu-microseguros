@@ -5,13 +5,13 @@ import { ExceptionScreen } from "./_parts"
 export default function FederationMember() {
   return (
     <ExceptionScreen
-      back={href("05-3")}
+      back={href("05-1")}
       icon="shieldx"
       tone="warning"
       title="We can't cover"
       muted="you for football"
       body="Federation athletes already have mandatory sports insurance by law (DL 10/2009). You haven't been charged."
-      primary={{ label: "Choose another activity", href: href("05-3") }}
+      primary={{ label: "Choose another activity", href: href("05-1") }}
       secondary={{ label: "My mistake, I don't compete", href: href("06-1") }}
     >
       <div className="flex flex-col gap-1.5 rounded-[28px] bg-surface-muted p-[18px] leading-[1.32]">

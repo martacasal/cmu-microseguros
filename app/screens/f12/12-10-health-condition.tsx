@@ -5,14 +5,14 @@ import { ExceptionScreen, Tag } from "./_parts"
 export default function HealthCondition() {
   return (
     <ExceptionScreen
-      back={href("05-3")}
+      back={href("05-1")}
       icon="pulse"
       tone="warning"
       title="Let's look"
       muted="at this together"
       body="Some health conditions may need a review before cover. Talk to our team, it's quick and confidential."
       primary={{ label: "Talk to the team", href: href("11-1") }}
-      secondary={{ label: "Back", href: href("05-3") }}
+      secondary={{ label: "Back", href: href("05-1") }}
     >
       <Tag>[V] To be confirmed (X11)</Tag>
     </ExceptionScreen>

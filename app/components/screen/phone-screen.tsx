@@ -56,6 +56,7 @@ function PhoneScreen({
   contentClassName?: string
 }) {
   const dark = tone === "inverse" || tone === "brand" || tone === "accent"
+  const logoEl = <PulseLogo className={cn("h-3.5", dark ? "text-text-inverse" : "text-indigo-500")} />
   return (
     <div
       data-tone={tone}
@@ -71,15 +72,16 @@ function PhoneScreen({
           <span className="pt-[3px] text-[11px] font-medium">●●● ▮</span>
         </div>
       )}
-      {logo && (
-        <div className={cn(COLUMN, "flex h-5 shrink-0 items-center md:mt-6")}>
-          <PulseLogo className={cn("h-3.5", dark ? "text-text-inverse" : "text-text-primary")} />
+      {logo && !header && (
+        <div className={cn(COLUMN, "flex h-5 shrink-0 items-center justify-center md:mt-6")}>
+          {logoEl}
         </div>
       )}
       {header && (
-        <header className={cn(COLUMN, "grid h-11 shrink-0 grid-cols-[44px_1fr_44px] items-center gap-3 md:mt-8")}>
+        <header className={cn(COLUMN, "relative grid h-11 shrink-0 grid-cols-[44px_1fr_44px] items-center gap-3 md:mt-8")}>
+          {logo && <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center">{logoEl}</div>}
           <div>{left}</div>
-          <div className={cn("truncate text-center text-[15px] font-medium", dark ? "text-text-inverse" : "text-text-primary")}>
+          <div className={cn("self-end truncate pb-1 text-center text-[15px] font-medium", dark ? "text-text-inverse" : "text-text-primary")}>
             {title}
           </div>
           <div className="flex justify-end">{right}</div>

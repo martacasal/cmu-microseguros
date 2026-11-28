@@ -74,7 +74,6 @@ export function ExceptionScreen({
   return (
     <PhoneScreen
       left={<RoundButton icon="back" href={back} aria-label="Back" />}
-      title={<span className="font-medium">PULSE</span>}
       right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       footer={
         <>

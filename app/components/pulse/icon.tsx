@@ -17,6 +17,7 @@ const ICONS = {
   shield: [18.1567, 21.4067],
   "shield-x": [18.1567, 21.4067],
   check: [11.9333, 8.93333],
+  mic: [14, 19],
 } as const
 
 export type IconName = keyof typeof ICONS

@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "cn"
 import { PulseLogo } from "@/components/pulse/pulse-logo"
+import { ScreenHeader } from "@/components/pulse/screen-header"
 
 /**
  * A PULSE screen, laid out from the 390×844 Figma frames (Section 1, 254:4964) and made responsive:
@@ -23,6 +24,15 @@ const toneBg: Record<Tone, string> = {
   brand: "bg-surface-brand text-text-inverse",
   accent: "bg-surface-accent text-text-inverse",
   info: "bg-surface-info text-text-primary",
+}
+
+/** Gradient above a pinned footer, in the screen's background, so content fades out under it. */
+const toneFade: Record<Tone, string> = {
+  default: "before:from-surface-page",
+  inverse: "before:from-surface-inverse",
+  brand: "before:from-surface-brand",
+  accent: "before:from-surface-accent",
+  info: "before:from-surface-info",
 }
 
 function PhoneScreen({
@@ -52,7 +62,7 @@ function PhoneScreen({
   header?: boolean
   /** small PULSE wordmark at the top of the screen */
   logo?: boolean
-  /** keep the footer at the bottom of the window on every size (chat composers) */
+  /** keep the footer at the bottom of the window on every size and pinned there while the content scrolls (chat input) */
   pinFooter?: boolean
   className?: string
   contentClassName?: string
@@ -80,14 +90,14 @@ function PhoneScreen({
         </div>
       )}
       {header && (
-        <header className={cn(COLUMN, "relative grid h-11 shrink-0 grid-cols-[44px_1fr_44px] items-center gap-3 md:mt-8")}>
-          {logo && <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center">{logoEl}</div>}
-          <div>{left}</div>
-          <div className={cn("self-end truncate pb-1 text-center text-[15px] font-medium", dark ? "text-text-inverse" : "text-text-primary")}>
-            {title}
-          </div>
-          <div className="flex justify-end">{right}</div>
-        </header>
+        <ScreenHeader
+          className={cn(COLUMN, "md:mt-8")}
+          left={left}
+          title={title}
+          right={right}
+          logo={logo}
+          tone={dark ? "inverse" : "default"}
+        />
       )}
       <main
         className={cn(
@@ -95,12 +105,30 @@ function PhoneScreen({
           "flex flex-1 flex-col gap-3.5 pt-5 md:pt-8",
           !pinFooter && "md:flex-none",
           nav ? "pb-36" : "pb-6 md:pb-8",
+          // room for the fade above a pinned footer, so the last message isn't faded
+          pinFooter && "pb-10 md:pb-10",
           contentClassName
         )}
       >
         {children}
       </main>
-      {footer && <footer className={cn(COLUMN, "flex shrink-0 flex-col gap-2 pb-[30px] md:pb-12")}>{footer}</footer>}
+      {footer && (
+        <footer
+          className={cn(
+            COLUMN,
+            "flex shrink-0 flex-col gap-2 pb-[30px] md:pb-12",
+            // Chats: the input stays at the bottom of the screen while the thread scrolls under it,
+            // with a soft fade above it instead of a hard edge.
+            pinFooter && [
+              "sticky bottom-0 z-20 bg-inherit pt-3",
+              "before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-10 before:bg-linear-to-t before:to-transparent",
+              toneFade[tone],
+            ]
+          )}
+        >
+          {footer}
+        </footer>
+      )}
       {nav && (
         <div className="pointer-events-none fixed inset-x-0 bottom-[54px] z-30 flex justify-center *:pointer-events-auto">
           {nav}

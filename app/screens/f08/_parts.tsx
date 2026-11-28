@@ -84,17 +84,24 @@ export function BottomSheet({ children }: { children: React.ReactNode }) {
 }
 
 /** 28px two-tone title used in the sheets and the "so far" block. */
-export function SmallTitle({ children, muted }: { children: React.ReactNode; muted: React.ReactNode }) {
+export function SmallTitle({
+  children,
+  muted,
+  inline = false,
+}: {
+  children: React.ReactNode
+  muted: React.ReactNode
+  inline?: boolean
+}) {
   return (
     <h2 className="w-full text-[28px] leading-[1.04] font-bold tracking-[-0.03em]">
-      <span className="block text-text-primary">{children}</span>
-      <span className="block text-text-secondary">{muted}</span>
+      <span className={cn(!inline && "block", "text-text-primary")}>{children}</span>{" "}
+      <span className={cn(!inline && "block", "text-text-secondary")}>{muted}</span>
     </h2>
   )
 }
 
 export const EXTEND_OPTIONS = [
-  { label: "+15 min", minutes: 15 },
   { label: "+30 min", minutes: 30 },
   { label: "+1 h", minutes: 60 },
 ] as const

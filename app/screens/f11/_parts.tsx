@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { cn } from "cn"
-import { ChatBubble, Chip, Icon, RoundButton, TextField } from "@/components/pulse"
+import { ChatBubble, ChatInput, Chip } from "@/components/pulse"
 import { PhoneScreen } from "@/components/screen/phone-screen"
 
 /** Shared by flows 11 and 13 (chat screens, chips, tags). */
@@ -59,59 +59,58 @@ export function Chips({ children }: { children: React.ReactNode }) {
 }
 
 /** Big two-tone title used inside flows 11/13 (32–36px bold). */
-export function TwoTone({ size = 36, children, muted }: { size?: number; children: React.ReactNode; muted: React.ReactNode }) {
+export function TwoTone({
+  size = 36,
+  children,
+  muted,
+  inline = false,
+}: {
+  size?: number
+  children: React.ReactNode
+  muted: React.ReactNode
+  /** Keep both parts on one line when they fit; wrap only when they don't. */
+  inline?: boolean
+}) {
   return (
     <h1 className="leading-[1.04] font-bold tracking-[-0.03em]" style={{ fontSize: size }}>
-      <span className="block text-text-primary">{children}</span>
-      <span className="block text-text-secondary">{muted}</span>
+      <span className={cn(!inline && "block", "text-text-primary")}>{children}</span>
+      {inline && " "}
+      <span className={cn(!inline && "block", "text-text-secondary")}>{muted}</span>
     </h1>
   )
 }
 
-/** v2/Input "Message" with a send button; sending appends a "you" bubble via onSend. */
-export function ChatComposer({
-  label = "Message",
-  placeholder,
-  onSend,
-}: {
-  label?: string
-  placeholder: string
-  onSend: (text: string) => void
-}) {
-  const [text, setText] = React.useState("")
-  const send = () => {
-    const t = text.trim()
-    if (!t) return
-    onSend(t)
-    setText("")
-  }
-  return (
-    <form
-      className="relative"
-      onSubmit={(e) => {
-        e.preventDefault()
-        send()
-      }}
-    >
-      <TextField
-        label={label}
-        placeholder={placeholder}
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        inputClassName={text ? "pr-16" : undefined}
-      />
-      {text && (
-        <RoundButton
-          type="submit"
-          variant="inverse"
-          aria-label="Send"
-          className="absolute right-2 bottom-1.5 size-11 bg-surface-inverse"
-        >
-          <Icon name="back" className="rotate-90" />
-        </RoundButton>
-      )}
-    </form>
-  )
+/**
+ * Keeps a chat scrolled to its newest message, like a messaging app: a new message always scrolls
+ * the page to the bottom, so it sits just above the pinned input. A reply that grows as it streams
+ * keeps it there, unless the person has scrolled up to read something.
+ * `count` is the number of messages; `content` changes whenever a message's text changes.
+ */
+export function useStickToBottom(count: number, content?: unknown) {
+  const stuck = React.useRef(true)
+  const lastCount = React.useRef(count)
+
+  React.useEffect(() => {
+    let lastY = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      const fromBottom = document.documentElement.scrollHeight - (y + window.innerHeight)
+      if (fromBottom < 80) stuck.current = true
+      else if (y < lastY - 2) stuck.current = false // only the person scrolling up unsticks it
+      lastY = y
+    }
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
+
+  React.useEffect(() => {
+    const added = count > lastCount.current
+    lastCount.current = count
+    if (!added && !stuck.current) return
+    if (added) stuck.current = true
+    else if (content === undefined) return
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: added ? "smooth" : "auto" })
+  }, [count, content])
 }
 
 /**
@@ -128,6 +127,8 @@ export function ChatScreen({
   composerLabel,
   placeholder,
   nextHref,
+  onSend,
+  composerDisabled,
 }: {
   left?: React.ReactNode
   right?: React.ReactNode
@@ -139,13 +140,13 @@ export function ChatScreen({
   composerLabel?: string
   placeholder: string
   nextHref?: string
+  /** When set, the page owns the thread: sent text goes here instead of a local "You" bubble. */
+  onSend?: (text: string) => void
+  composerDisabled?: boolean
 }) {
   const router = useRouter()
   const [sent, setSent] = React.useState<string[]>([])
-  const endRef = React.useRef<HTMLDivElement>(null)
-  React.useEffect(() => {
-    if (sent.length) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
-  }, [sent.length])
+  useStickToBottom(sent.length)
   return (
     <PhoneScreen
       pinFooter
@@ -156,10 +157,12 @@ export function ChatScreen({
       footer={
         <>
           {above}
-          <ChatComposer
+          <ChatInput
             label={composerLabel}
             placeholder={placeholder}
+            disabled={composerDisabled}
             onSend={(t) => {
+              if (onSend) return onSend(t)
               setSent((s) => [...s, t])
               if (nextHref) setTimeout(() => router.push(nextHref), 900)
             }}
@@ -173,7 +176,6 @@ export function ChatScreen({
           {t}
         </ChatBubble>
       ))}
-      <div ref={endRef} />
     </PhoneScreen>
   )
 }

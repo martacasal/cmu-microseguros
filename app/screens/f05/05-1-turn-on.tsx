@@ -28,7 +28,7 @@ export default function TurnOn() {
       right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-3"
       footer={
-        <CtaButton href={href("05-3")} price="€X.XX">
+        <CtaButton href={href("05-4")} price="€X.XX">
           See quote
         </CtaButton>
       }

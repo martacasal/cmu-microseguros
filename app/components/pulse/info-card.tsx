@@ -24,7 +24,13 @@ const infoCardVariants = cva("flex flex-col gap-1.5 overflow-hidden rounded-[28p
 })
 
 const subText = (variant: InfoCardProps["variant"]) =>
-  variant === "brand" || variant === "inverse" ? "text-text-inverse-muted" : variant === "accent" ? "text-text-on-accent/70" : "text-text-secondary"
+  variant === "brand" || variant === "inverse"
+    ? "text-text-inverse-muted"
+    : variant === "accent"
+      ? "text-text-on-accent/70"
+      : variant === "info"
+        ? "text-text-secondary-on-info"
+        : "text-text-secondary"
 
 type InfoCardProps = VariantProps<typeof infoCardVariants> & {
   overline?: React.ReactNode

@@ -17,7 +17,7 @@ function ScreenHeader({
 }: {
   /** usually <RoundButton icon="back" /> or icon="close" */
   left?: React.ReactNode
-  /** short screen name, e.g. "Profile" */
+  /** short screen name, e.g. "Profile". Leave it out rather than repeating "PULSE" under the wordmark. */
   title?: React.ReactNode
   /** usually <RoundButton icon="help" /> */
   right?: React.ReactNode
@@ -28,6 +28,8 @@ function ScreenHeader({
   className?: string
 }) {
   const inverse = tone === "inverse"
+  // The wordmark already says PULSE: never repeat it as the screen name.
+  const name = logo && typeof title === "string" && title.trim().toUpperCase() === "PULSE" ? null : title
   return (
     <header className={cn("relative grid h-11 shrink-0 grid-cols-[44px_1fr_44px] items-center gap-3", className)}>
       {logo && (
@@ -42,7 +44,7 @@ function ScreenHeader({
           inverse ? "text-text-inverse" : "text-text-primary"
         )}
       >
-        {title}
+        {name}
       </div>
       <div className="flex justify-end">{right}</div>
     </header>

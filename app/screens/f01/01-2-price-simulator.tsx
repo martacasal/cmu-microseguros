@@ -28,7 +28,6 @@ export default function PriceSimulator() {
 
   return (
     <PhoneScreen
-      title="PULSE"
       left={<RoundButton icon="back" href={href("01-1")} aria-label="Back" />}
       right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       contentClassName="gap-3"

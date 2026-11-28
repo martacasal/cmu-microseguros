@@ -1,4 +1,4 @@
-import { CtaButton, RoundButton } from "@/components/pulse"
+import { RoundButton, SlideToTurnOn } from "@/components/pulse"
 import { PhoneScreen } from "@/components/screen/phone-screen"
 import { href } from "../types"
 import { CoverItem, PriceBars } from "./_parts"
@@ -13,9 +13,7 @@ export default function Quote() {
       contentClassName="gap-3"
       footer={
         <>
-          <CtaButton href={href("07-1")} price="€X.XX">
-            Pay and turn on
-          </CtaButton>
+          <SlideToTurnOn label="Slide to pay and turn on" price="€X.XX" href={href("07-1")} className="h-16" />
           <p className="text-center text-[12px] leading-[1.32] font-medium text-text-secondary">
             You&apos;re only charged when you confirm.
           </p>

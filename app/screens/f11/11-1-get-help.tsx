@@ -1,4 +1,4 @@
-import { CtaButton, MaskIcon, RoundButton, SecondaryButton, TextButton } from "@/components/pulse"
+import { CtaButton, MaskIcon, RoundButton, SecondaryButton } from "@/components/pulse"
 import { PhoneScreen } from "@/components/screen/phone-screen"
 import { href } from "../types"
 import { TwoTone } from "./_parts"
@@ -48,7 +48,7 @@ export default function GetHelp() {
         </p>
         <SecondaryButton href={href("11-8")}>Call the 24h line</SecondaryButton>
         <SecondaryButton href={href("11-2")}>Chat with the assistant</SecondaryButton>
-        <TextButton href={href("04-3")}>Close</TextButton>
+        <CtaButton variant="end" className="text-center" href={href("04-3")}>Close</CtaButton>
       </div>
     </PhoneScreen>
   )

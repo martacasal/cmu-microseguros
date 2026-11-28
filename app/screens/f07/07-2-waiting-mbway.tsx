@@ -29,7 +29,7 @@ export default function WaitingMbWay() {
       title="Payment"
       left={<span />}
       right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
-      footer={<TextButton href={href("07-1")}>Cancel request</TextButton>}
+      footer={<TextButton href={href("07-1")} className="text-text-danger hover:bg-surface-danger-subtle/60">Cancel request</TextButton>}
     >
       <div className="flex h-[170px] items-center justify-center rounded-[28px] bg-surface-muted">
         <span className="rounded-2xl bg-surface-card px-3.5 py-2 text-[12px] leading-[1.32] font-medium text-text-secondary">

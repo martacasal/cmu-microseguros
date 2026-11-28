@@ -10,7 +10,7 @@ export default function EndedEarly() {
       right={<RoundButton icon="help" href={href("13-2")} aria-label="Help" />}
       footer={
         <>
-          <CtaButton href={href("04-1")} className="justify-center text-center">
+          <CtaButton variant="end" href={href("04-1")} className="justify-center text-center">
             Done
           </CtaButton>
           <TextButton href={href("11-5")}>I had a problem</TextButton>

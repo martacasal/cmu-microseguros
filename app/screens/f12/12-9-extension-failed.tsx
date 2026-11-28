@@ -1,4 +1,4 @@
-import { CtaButton, MaskIcon, RoundButton, TextButton } from "@/components/pulse"
+import { CtaButton, MaskIcon, RoundButton } from "@/components/pulse"
 import { PhoneScreen } from "@/components/screen/phone-screen"
 import { href } from "../types"
 import { StateTitle } from "./_parts"
@@ -46,7 +46,7 @@ export default function ExtensionFailed() {
         <CtaButton href={href("08-1")} className="text-center">
           Try again
         </CtaButton>
-        <TextButton href={href("08-1")}>Close</TextButton>
+        <CtaButton variant="end" className="text-center" href={href("08-1")}>Close</CtaButton>
       </div>
     </PhoneScreen>
   )

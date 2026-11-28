@@ -19,7 +19,7 @@ const ctaVariants = cva(
         inverse: "justify-center bg-surface-card text-text-primary hover:bg-surface-subtle",
       },
     },
-    defaultVariants: { variant: "default" },
+    defaultVariants: { variant: "accent" },
   }
 )
 

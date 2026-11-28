@@ -5,7 +5,7 @@ import { href } from "../types"
 /** 08.5 Watch · Figma 254:3129 — watch Live Activity + fall detection prompt, on the muted sand page. */
 export default function Watch() {
   return (
-    <PhoneScreen header={false} className="bg-surface-muted" contentClassName="pt-3">
+    <PhoneScreen header={false} logo={false} className="bg-surface-muted" contentClassName="pt-3">
       <div aria-hidden className="h-[30px] shrink-0" />
       <div className="flex flex-col gap-1.5 rounded-[28px] bg-surface-brand p-[18px] text-text-inverse">
         <p className="text-[11px] leading-[1.32] font-semibold tracking-[0.06em] text-text-inverse-muted">PULSE · WATCH</p>

@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cn } from "cn"
+import { PulseLogo } from "@/components/pulse/pulse-logo"
 
 /**
  * A PULSE screen, laid out from the 390×844 Figma frames (Section 1, 254:4964) and made responsive:
@@ -32,6 +33,7 @@ function PhoneScreen({
   nav,
   statusBar = true,
   header = true,
+  logo = true,
   pinFooter = false,
   className,
   contentClassName,
@@ -46,6 +48,8 @@ function PhoneScreen({
   nav?: React.ReactNode
   statusBar?: boolean
   header?: boolean
+  /** small PULSE wordmark at the top of the screen */
+  logo?: boolean
   /** keep the footer at the bottom of the window on every size (chat composers) */
   pinFooter?: boolean
   className?: string
@@ -65,6 +69,11 @@ function PhoneScreen({
         <div className="flex h-[52px] shrink-0 items-start justify-between px-[30px] pt-4 text-[15px] leading-[1.32] font-semibold md:hidden">
           <span>9:41</span>
           <span className="pt-[3px] text-[11px] font-medium">●●● ▮</span>
+        </div>
+      )}
+      {logo && (
+        <div className={cn(COLUMN, "flex h-5 shrink-0 items-center md:mt-6")}>
+          <PulseLogo className={cn("h-3.5", dark ? "text-text-inverse" : "text-text-primary")} />
         </div>
       )}
       {header && (

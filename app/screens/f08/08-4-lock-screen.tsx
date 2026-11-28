@@ -6,7 +6,7 @@ import { href } from "../types"
 export default function LockScreen() {
   const overline = "text-[11px] leading-[1.32] font-semibold tracking-[0.06em] text-text-inverse-muted"
   return (
-    <PhoneScreen tone="inverse" header={false} contentClassName="pt-3 gap-2.5">
+    <PhoneScreen tone="inverse" header={false} logo={false} contentClassName="pt-3 gap-2.5">
       <p className="text-center text-[80px] leading-[1.04] font-bold tracking-[-0.03em] tabular-nums">18:42</p>
       <p className="text-center text-[12px] leading-[1.32] font-medium text-text-inverse-muted">Saturday, 8 November</p>
       <div aria-hidden className="h-1.5 shrink-0" />

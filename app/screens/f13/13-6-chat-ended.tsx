@@ -12,7 +12,7 @@ export default function ChatEnded() {
       contentClassName="gap-3"
       footer={
         <>
-          <CtaButton href={href("04-1")} className="text-center">
+          <CtaButton variant="end" href={href("04-1")} className="text-center">
             Back to home
           </CtaButton>
           <TextButton href={href("13-2")}>Start a new chat</TextButton>

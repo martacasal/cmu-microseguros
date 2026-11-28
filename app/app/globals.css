@@ -155,7 +155,7 @@
   --text-on-accent: var(--white);
   --border-subtle: var(--sand-200);
   --border-strong: var(--gray-500);
-  --control-on: var(--navy-700);
+  --control-on: var(--indigo-500);
   --control-off: var(--gray-500);
   --progress-fill: var(--indigo-600);
   --progress-track: var(--sand-200);

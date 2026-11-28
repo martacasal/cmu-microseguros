@@ -19,6 +19,17 @@ export default function Home() {
           </Link>
           .
         </p>
+        <p className="type-body-l text-text-secondary">
+          Prices: see the{" "}
+          <Link href="/quote" className="text-text-primary underline underline-offset-4">
+            PULSE price list
+          </Link>{" "}
+          for every sport and duration (plain pages that AI assistants can read too, plus a summary at{" "}
+          <Link href="/llms.txt" className="text-text-primary underline underline-offset-4">
+            llms.txt
+          </Link>
+          ).
+        </p>
       </header>
 
       {flows.map((flow) => (

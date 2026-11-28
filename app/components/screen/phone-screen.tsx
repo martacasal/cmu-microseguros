@@ -56,7 +56,7 @@ function PhoneScreen({
   contentClassName?: string
 }) {
   const dark = tone === "inverse" || tone === "brand" || tone === "accent"
-  const logoEl = <PulseLogo className={cn("h-3.5", dark ? "text-text-inverse" : "text-text-primary")} />
+  const logoEl = <PulseLogo className={cn("h-3.5", dark ? "text-text-inverse" : "text-indigo-500")} />
   return (
     <div
       data-tone={tone}

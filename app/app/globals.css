@@ -112,9 +112,9 @@
 
 :root {
   /* Primitives */
-  --navy-950: #131826;
-  --navy-800: #2b3245;
-  --navy-700: #24365e;
+  --navy-950: var(--indigo-700);
+  --navy-800: var(--indigo-600);
+  --navy-700: var(--indigo-500);
   --gray-700: #4a5266;
   --gray-600: #5f6270;
   --gray-500: #82848a;

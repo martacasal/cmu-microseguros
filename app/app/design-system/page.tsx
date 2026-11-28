@@ -15,6 +15,8 @@ import {
   OptionGroup,
   RiskBanner,
   RoundButton,
+  ScreenHeader,
+  ScreenTitle,
   Seal,
   SlideToTurnOn,
   Step,
@@ -149,6 +151,63 @@ export default function Page() {
               <span className={cls}>Cover on, in one tap</span>
             </div>
           ))}
+        </div>
+      </Section>
+
+      <Section title="Header and titles">
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-3">
+            <span className="type-caption text-text-secondary">ScreenHeader · back, name, help</span>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-lg bg-surface-page px-6 py-4">
+                <ScreenHeader
+                  left={<RoundButton icon="back" aria-label="Back" />}
+                  title="Profile"
+                  right={<RoundButton icon="help" aria-label="Help" />}
+                />
+              </div>
+              <div className="rounded-lg bg-surface-page px-6 py-4">
+                <ScreenHeader
+                  left={<RoundButton icon="close" aria-label="Close" />}
+                  title="Terms"
+                />
+              </div>
+              <div className="rounded-lg bg-surface-page px-6 py-4">
+                <ScreenHeader logo={false} left={<RoundButton icon="back" aria-label="Back" />} title="No wordmark" />
+              </div>
+              <div className="rounded-lg bg-surface-inverse px-6 py-4">
+                <ScreenHeader
+                  tone="inverse"
+                  left={<RoundButton variant="muted" icon="back" aria-label="Back" />}
+                  title="Active session"
+                  right={<RoundButton variant="muted" icon="help" aria-label="Help" />}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <span className="type-caption text-text-secondary">ScreenTitle · two tones, 36 by default</span>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-lg bg-surface-page p-6">
+                <ScreenTitle muted="your workout cost?">How much does</ScreenTitle>
+              </div>
+              <div className="rounded-lg bg-surface-page p-6">
+                <ScreenTitle inline muted="Costa" eyebrow="inline · one line when it fits">
+                  Rafa
+                </ScreenTitle>
+              </div>
+              <div className="rounded-lg bg-surface-page p-6">
+                <ScreenTitle size={28} muted="who are we covering?" eyebrow="size 28 · with eyebrow">
+                  First,
+                </ScreenTitle>
+              </div>
+              <div className="rounded-lg bg-surface-inverse p-6">
+                <ScreenTitle size={42} tone="inverse" muted="until 19:20">
+                  Covered
+                </ScreenTitle>
+              </div>
+            </div>
+          </div>
         </div>
       </Section>
 

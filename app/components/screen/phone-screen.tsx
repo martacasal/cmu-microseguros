@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "cn"
 import { PulseLogo } from "@/components/pulse/pulse-logo"
+import { ScreenHeader } from "@/components/pulse/screen-header"
 
 /**
  * A PULSE screen, laid out from the 390×844 Figma frames (Section 1, 254:4964) and made responsive:
@@ -80,14 +81,14 @@ function PhoneScreen({
         </div>
       )}
       {header && (
-        <header className={cn(COLUMN, "relative grid h-11 shrink-0 grid-cols-[44px_1fr_44px] items-center gap-3 md:mt-8")}>
-          {logo && <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center">{logoEl}</div>}
-          <div>{left}</div>
-          <div className={cn("self-end truncate pb-1 text-center text-[15px] font-medium", dark ? "text-text-inverse" : "text-text-primary")}>
-            {title}
-          </div>
-          <div className="flex justify-end">{right}</div>
-        </header>
+        <ScreenHeader
+          className={cn(COLUMN, "md:mt-8")}
+          left={left}
+          title={title}
+          right={right}
+          logo={logo}
+          tone={dark ? "inverse" : "default"}
+        />
       )}
       <main
         className={cn(

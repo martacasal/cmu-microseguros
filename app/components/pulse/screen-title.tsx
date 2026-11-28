@@ -25,7 +25,7 @@ function ScreenTitle({
       {eyebrow && (
         <p className={cn("text-[15px]", tone === "inverse" ? "text-text-inverse-muted" : "text-text-secondary")}>{eyebrow}</p>
       )}
-      <h1 className="leading-[1.04] font-bold tracking-[-0.03em]" style={{ fontSize: size }}>
+      <h1 className="font-title leading-[1.04] font-bold tracking-[-0.005em]" style={{ fontSize: size }}>
         <span className={tone === "inverse" ? "text-text-inverse" : "text-text-primary"}>{children}</span>
         {muted && (
           <>

@@ -142,7 +142,7 @@ export default function Page() {
         </div>
       </Section>
 
-      <Section title="Typography · Geist">
+      <Section title="Typography · Geist + GCMOX titles">
         <div className="flex flex-col gap-3">
           {typeScale.map(([label, cls]) => (
             <div key={cls} className="flex flex-wrap items-baseline gap-x-6 gap-y-1">

@@ -13,6 +13,7 @@
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);
+  --font-title: var(--font-title);
 
   /* ---- 1. Primitives ---- */
   --color-navy-950: var(--navy-950);
@@ -238,17 +239,21 @@
   }
 }
 
-/* Type scale · Figma text styles (Geist) */
+/* Type scale · Figma text styles (Geist; display/heading in GCMOX) */
 @utility type-display-xl {
+  font-family: var(--font-title), var(--font-sans);
   font-size: 60px; line-height: 1.05; font-weight: 700;
 }
 @utility type-display-l {
+  font-family: var(--font-title), var(--font-sans);
   font-size: 40px; line-height: 1.05; font-weight: 700;
 }
 @utility type-heading-l {
+  font-family: var(--font-title), var(--font-sans);
   font-size: 28px; line-height: 1.05; font-weight: 700;
 }
 @utility type-heading-m {
+  font-family: var(--font-title), var(--font-sans);
   font-size: 22px; line-height: 1.1; font-weight: 700;
 }
 @utility type-title {
